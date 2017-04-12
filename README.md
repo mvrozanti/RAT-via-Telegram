@@ -53,3 +53,13 @@ capture_pc - screenshot PC
 keylogs - get keylogs
 self_destruct - destroy all traces from target PC
 ```
+
+You can copy the above to update your command list via BotFather so you don't have to type them manually.
+
+## Disclaimer:
+
+<b>This tool is supposed to be used only on authorized systems. Any unauthorized use of this tool without explicit permission is illegal!</b>
+
+## License:
+
+`The MIT License`
