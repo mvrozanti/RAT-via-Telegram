@@ -39,7 +39,7 @@ This RAT overcomes both these issues by using the Telegram bot API.
 - To run the script: `python TeleRAT.py`.
 - Find your bot and send some command to the bot to test it.
 - To restrict the bot, so that it responds only to you, note down your chat_id from the console and replace it in [Line 131](RATAttack.py#L131) and uncomment [Line 42](RATAttack.py#L42).
-<img src="http://i.imgur.com/1lN5lN6.png">
+<img src="http://i.imgur.com/XKARtrp.png">
 
 ### Commands:
 
