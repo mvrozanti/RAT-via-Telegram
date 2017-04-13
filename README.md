@@ -18,6 +18,7 @@ This RAT overcomes both these issues by using the Telegram bot API.
 
 - Run keylogger on the target PC.
 - Get target PC's Windows version, processor and more.
+- Get target PC's IP address information and approximate location on map.
 - List any directories on the target.
 - Download any file locally from the target PC in the background.
 - [WIP] Upload local files on to the target PC. Just send any file to the Telegram bot that you wish to upload.
