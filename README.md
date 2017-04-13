@@ -39,6 +39,7 @@ This RAT overcomes both these issues by using the Telegram bot API.
 - Copy the token and add it in the bottom of the script in [Line 138](RATAttack.py#L138).
 - Install the dependencies: `pip install -r requirements.txt`.
 - Install pyHook `64-bit` or `32-bit` depending on your system.
+
   For `64-bit`- `pip install pyHook-1.5.1-cp27-cp27m-win_amd64.whl`. For `32-bit`- `pip install pyHook-1.5.1-cp27-cp27m-win32.whl`.
 - To run the script: `python RATAttack.py`.
 - Find your bot and send some command to the bot to test it.
