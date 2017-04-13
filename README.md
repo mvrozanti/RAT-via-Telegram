@@ -45,7 +45,7 @@ This RAT overcomes both these issues by using the Telegram bot API.
   For `32-bit`- `pip install pyHook-1.5.1-cp27-cp27m-win32.whl`.
 - To run the script: `python RATAttack.py`.
 - Find your bot and send some command to the bot to test it.
-- To restrict the bot, so that it responds only to you, note down your chat_id from the console and replace it in [Line 131](RATAttack.py#L131) and uncomment [Line 42](RATAttack.py#L42).
+- To restrict the bot, so that it responds only to you, note down your chat_id from the console and replace it in [Line 131](RATAttack.py#L131) and uncomment [Line 43](RATAttack.py#L43).
 <img src="http://i.imgur.com/XKARtrp.png">
 
 ### Commands:
