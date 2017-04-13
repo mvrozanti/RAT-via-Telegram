@@ -137,7 +137,7 @@ def checkchat_id(ID):
 		return str(chat_id) == known_ids
 
 # REPLACE 'abcd1234' BY THE TOKEN OF THE BOT YOU GENERATED!
-bot = telepot.Bot('294475425:AAHoXv8nh2zXlJDJ38jEJOTOJnmeHsUSpI0')
+bot = telepot.Bot('abcd1234')
 
 bot.message_loop(handle)
 print 'Listening to commands...'
