@@ -36,7 +36,7 @@ This RAT overcomes both these issues by using the Telegram bot API.
 - Set up a new Telegram bot talking to the BotFather.
 - Copy the token and add it in the bottom of the script in [Line 138](RATAttack.py#L138).
 - Install the dependencies: `pip install -r requirements.txt`.
-- To run the script: `python TeleRAT.py`.
+- To run the script: `python RATAttack.py`.
 - Find your bot and send some command to the bot to test it.
 - To restrict the bot, so that it responds only to you, note down your chat_id from the console and replace it in [Line 131](RATAttack.py#L131) and uncomment [Line 42](RATAttack.py#L42).
 <img src="http://i.imgur.com/XKARtrp.png">
