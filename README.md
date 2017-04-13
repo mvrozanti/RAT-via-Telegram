@@ -36,7 +36,7 @@ This RAT overcomes both these issues by using the Telegram bot API.
 
 - Clone this repository.
 - Set up a new Telegram bot talking to the `BotFather`.
-- Copy the token and add it in the bottom of the script in [Line #140](RATAttack.py#L140).
+- Copy the token and add it in the bottom of the script in [Line #160](RATAttack.py#L160).
 - Install the dependencies: `pip install -r requirements.txt`.
 - Install pyHook `64-bit` or `32-bit` depending on your system.
 
@@ -45,7 +45,7 @@ This RAT overcomes both these issues by using the Telegram bot API.
   For `32-bit`- `pip install pyHook-1.5.1-cp27-cp27m-win32.whl`.
 - To run the script: `python RATAttack.py`.
 - Find your bot on telegram and send some command to the bot to test it.
-- To restrict the bot so that it responds only to you, note down your `chat_id` from the console and replace it in [Line #130](RATAttack.py#L130) and comment [Line #132](RATAttack.py#L132).
+- To restrict the bot so that it responds only to you, note down your `chat_id` from the console and replace it in [Line #149](RATAttack.py#L149) and comment [Line #151](RATAttack.py#L151).
 <img src="http://i.imgur.com/XKARtrp.png">
 
 ### Commands:
