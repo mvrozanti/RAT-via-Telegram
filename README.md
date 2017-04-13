@@ -32,9 +32,9 @@ This RAT overcomes both these issues by using the Telegram bot API.
 
 ## Installation & Usage:
 
+- Clone this repository.
 - Set up a new Telegram bot talking to the BotFather.
 - Copy the token and add it in the bottom of the script in [Line 138](RATAttack.py#L138).
-- Clone this repository.
 - Install the dependencies: `pip install -r requirements.txt`.
 - To run the script: `python TeleRAT.py`.
 - Find your bot and send some command to the bot to test it.
