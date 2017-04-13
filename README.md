@@ -71,6 +71,11 @@ You can copy the above to update your command list via `BotFather` so you don't 
 - `/msg_box` is still in beta and may not work properly.
 - Keylogger may detect some keys improperly. Like pressing `shift+/` results in `/` instead of `?`.
 
+## Contributing:
+
+- This project is still in very early stages, so you can expect some bugs. Please feel free to report them! Even better, send a pull request :)
+- Any new features and ideas are most welcome!
+
 ## Disclaimer:
 
 <b>This tool is supposed to be used only on authorized systems. Any unauthorized use of this tool without explicit permission is illegal.</b>
