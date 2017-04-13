@@ -24,6 +24,7 @@ This RAT overcomes both these issues by using the Telegram bot API.
 - [WIP] Upload local files on to the target PC. Just send any file to the Telegram bot that you wish to upload.
 - Screenshots of the target PC.
 - [WIP] Take snapshots from the webcam (if attached).
+- Execute any file on the target PC.
 - [WIP] Self-Destruct RAT with a single command.
 - More coming soon!
 
