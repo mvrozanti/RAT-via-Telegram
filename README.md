@@ -70,8 +70,9 @@ You can copy the above to update your command list via `BotFather` so you don't 
 
 ## Notes:
 
+- Currently on Python2 is supported. Python3 support will be added soon!
 - `/msg_box` is still in beta and may not work properly.
-- Keylogger may detect some keys improperly. Like pressing `shift+/` results in `/` instead of `?`.
+- Keylogger may detect some keys improperly. Like pressing `shift+/` results in recording `/` instead of `?`.
 
 ## Contributing:
 
