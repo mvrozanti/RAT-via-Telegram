@@ -58,7 +58,7 @@ You can copy the above to update your command list via BotFather so you don't ha
 
 ## Compiling:
 
-- Goto `C:/Python27/Scripts/` or wherever you installed python.
+- Goto `C:\Python27\Scripts\` or wherever you installed python.
 - Run `pyinstaller --onefile --noconsole C:\path\to\RATAttack.py`.
 - Once it is compiled successfully, find the `.exe` file in `C:\Python27\Scripts\dist\`.
 
