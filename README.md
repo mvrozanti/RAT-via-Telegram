@@ -56,6 +56,12 @@ self_destruct - destroy all traces from target PC
 
 You can copy the above to update your command list via BotFather so you don't have to type them manually.
 
+## Compiling:
+
+- Goto `C:/Python27/Scripts/` or wherever you installed python.
+- Run `pyinstaller --onefile --noconsole C:\path\to\RATAttack.py`.
+- Once it is compiled successfully, find the `.exe` file in `C:\Python27\Scripts\dist\`.
+
 ## Disclaimer:
 
 <b>This tool is supposed to be used only on authorized systems. Any unauthorized use of this tool without explicit permission is illegal!</b>
