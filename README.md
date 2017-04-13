@@ -6,17 +6,17 @@ Windows Remote Administration Tool via Telegram
 
 The current Remote Administration Tools in the market face 2 major problems:
 
-- Lack of encryption
-- Require port forwarding in order to control from hundreds of miles
+- Lack of encryption.
+- Require port forwarding in order to control from hundreds of miles.
 
 This RAT overcomes both these issues by using the Telegram bot API.
 
-- Fully encrypted. The data being exchanged cannot be spied upon using MITM tools
-- Telegram messenger app provides a simple way to communicate to the target without configuring port forward before hand on the target
+- Fully encrypted. The data being exchanged cannot be spied upon using MITM tools.
+- Telegram messenger app provides a simple way to communicate to the target without configuring port forward before hand on the target.
 
 ## Features:
 
-- Run keylogger on the target PC
+- Run keylogger on the target PC.
 - Get target PC's Windows version, processor and more.
 - List any directories on the target.
 - Download any file locally from the target PC in the background.
@@ -24,7 +24,7 @@ This RAT overcomes both these issues by using the Telegram bot API.
 - Screenshots of the target PC.
 - Take snapshots from the webcam (if attached).
 - Self-Destruct RAT with a single command.
-- Many more coming soon!
+- More coming soon!
 
 ## Screenshots:
 
@@ -33,9 +33,9 @@ This RAT overcomes both these issues by using the Telegram bot API.
 - Set up a new Telegram bot talking to the BotFather.
 - Copy the token and add it in the bottom of the script.
 - Clone this repository.
-- Install dependencies: `pip install -r requirements.txt`
-- To run the script: `python TeleRAT.py`
-- Send messages to the bot!
+- Install dependencies: `pip install -r requirements.txt`. Dow
+- To run the script: `python TeleRAT.py`.
+- Send commands to the bot!
 
 ### Commands:
 
@@ -54,7 +54,7 @@ keylogs - get keylogs
 self_destruct - destroy all traces from target PC
 ```
 
-You can copy the above to update your command list via BotFather so you don't have to type them manually.
+You can copy the above to update your command list via `BotFather` so you don't have to type them manually.
 
 ## Compiling:
 
@@ -62,9 +62,14 @@ You can copy the above to update your command list via BotFather so you don't ha
 - Run `pyinstaller --onefile --noconsole C:\path\to\RATAttack.py`.
 - Once it is compiled successfully, find the `.exe` file in `C:\Python27\Scripts\dist\`.
 
+## Notes:
+
+- `/msg_box` is still in beta and may not work properly.
+- Keylogger may detect some keys improperly. Like pressing `shift+/` results in `/` instead of `?`.
+
 ## Disclaimer:
 
-<b>This tool is supposed to be used only on authorized systems. Any unauthorized use of this tool without explicit permission is illegal!</b>
+<b>This tool is supposed to be used only on authorized systems. Any unauthorized use of this tool without explicit permission is illegal.</b>
 
 ## License:
 
