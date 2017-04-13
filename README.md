@@ -25,7 +25,7 @@ This RAT overcomes both these issues by using the Telegram bot API.
 - Screenshots of the target PC.
 - [WIP] Take snapshots from the webcam (if attached).
 - Execute any file on the target PC.
-- [WIP] Self-Destruct RAT with a single command.
+- Self-Destruct RAT on the target PC.
 - More coming soon!
 
 ## Screenshots:
@@ -71,7 +71,8 @@ You can copy the above to update your command list via `BotFather` so you don't 
 
 - Goto `C:\Python27\Scripts\` or wherever you installed python.
 - Run `pyinstaller --onefile --noconsole C:\path\to\RATAttack.py`.
-- Once it is compiled successfully, find the `.exe` file in `C:\Python27\Scripts\dist\`.
+- Once it is compiled successfully, find the `.exe` file in `C:\Python27\Scripts\dist\`. You can change the name of the `.exe` to anything you wish.
+- **BEWARE!** If you run the compiled exe, the script will hide itself and infect your PC to run at startup. You can return to normal by using the `/self_destruct` option or manually removing `C:\Windows\portal.exe`, `C:\Users\Username\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\portal.lnk`.
 
 ## Notes:
 
@@ -86,7 +87,7 @@ You can copy the above to update your command list via `BotFather` so you don't 
 
 ## Disclaimer:
 
-<b>This tool is supposed to be used only on authorized systems. Any unauthorized use of this tool without explicit permission is illegal.</b>
+**This tool is supposed to be used only on authorized systems. Any unauthorized use of this tool without explicit permission is illegal.**
 
 ## License:
 
