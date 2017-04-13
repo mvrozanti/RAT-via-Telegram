@@ -3,3 +3,4 @@ requests
 pypiwin32
 pillow
 pyinstaller
+winshell
