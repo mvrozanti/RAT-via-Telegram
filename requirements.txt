@@ -2,3 +2,4 @@ telepot
 requests
 pycom
 pillow
+pyHook-1.5.1-cp27-cp27m-win32.whl
