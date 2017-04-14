@@ -45,7 +45,7 @@ Windows Remote Administration Tool via Telegram
 - Find your bot on telegram and send some command to the bot to test it.
 - To restrict the bot so that it responds only to you, note down your `chat_id` from the console and replace it in [Line #150](RATAttack.py#L150) and comment [Line #152](RATAttack.py#L152).
 <img src="http://i.imgur.com/XKARtrp.png">
-- You may want to delete `keylogs.txt` which generates in `C:\Windows\keylogs.txt`.
+   - You may want to delete `keylogs.txt` which generates in `C:\Windows\keylogs.txt`.
 
 ### Commands:
 
