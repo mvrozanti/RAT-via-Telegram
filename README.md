@@ -21,7 +21,7 @@ Windows Remote Administration Tool via Telegram
 - Get target PC's IP address information and approximate location on map.
 - List any directories on the target.
 - Download any file locally from the target PC in the background.
-- [WIP] Upload local files on to the target PC. Just send any file to the Telegram bot that you wish to upload.
+- Upload local files on to the target PC. Send your image, pdf, exe or anything as `file` to the Telegram bot.
 - Screenshots of the target PC.
 - [WIP] Take snapshots from the webcam (if attached).
 - Execute any file on the target PC.
@@ -36,16 +36,16 @@ Windows Remote Administration Tool via Telegram
 
 - Clone this repository.
 - Set up a new Telegram bot talking to the `BotFather`.
-- Copy the token and add it in the bottom of the script in [Line #160](RATAttack.py#L160).
+- Copy this token and replace it in the beginning of the script.
 - Install the dependencies: `pip install -r requirements.txt`.
 - Install pyHook `64-bit` or `32-bit` depending on your system.
-    - For `64-bit`- `pip install pyHook-1.5.1-cp27-cp27m-win_amd64.whl`.
-    - For `32-bit`- `pip install pyHook-1.5.1-cp27-cp27m-win32.whl`.
+    - For 64-bit- `pip install pyHook-1.5.1-cp27-cp27m-win_amd64.whl`.
+    - For 32-bit- `pip install pyHook-1.5.1-cp27-cp27m-win32.whl`.
 - To run the script: `python RATAttack.py`.
 - Find your bot on telegram and send some command to the bot to test it.
-- To restrict the bot so that it responds only to you, note down your `chat_id` from the console and replace it in [Line #150](RATAttack.py#L150) and comment [Line #152](RATAttack.py#L152).
+- To restrict the bot so that it responds only to you, note down your `chat_id` from the console and replace it in the script and comment out the line `return True`. Don't worry, you'll know when you read the comments in the script.
 <img src="http://i.imgur.com/XKARtrp.png">
-   - You may want to delete `keylogs.txt` which generates in `C:\Windows\keylogs.txt`.
+- A folder named `RATAttack` will be created in your working directory containing `keylogs.txt` and any files you upload to the bot.
 
 ### Commands:
 
@@ -68,14 +68,20 @@ You can copy the above to update your command list via `BotFather` so you don't 
 
 ## Compiling:
 
-- Goto `C:\Python27\Scripts\` or wherever you installed python.
-- Run `pyinstaller --onefile --noconsole C:\path\to\RATAttack.py`.
+### How To Compile:
+
+- Go to `C:\Python27\Scripts\` or wherever you installed python.
+- Run `pyinstaller --onefile --noconsole C:\path\to\RATAttack.py`. You can also pass `--icon=<path\to\icon.ico>` to use any custom icon.
 - Once it is compiled successfully, find the `.exe` file in `C:\Python27\Scripts\dist\`. You can change the name of the `.exe` to anything you wish.
-- **BEWARE!** If you run the compiled exe, the script will hide itself and infect your PC to run at startup. You can return to normal by using the `/self_destruct` option or manually removing `C:\Windows\portal.exe`, `C:\Users\Username\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\portal.lnk`.
+- **BEWARE!** If you run the compiled `.exe`, the script will hide itself and infect your PC to run at startup. You can return to normal by using the `/self_destruct` option or manually removing `C:\Windows\Portal\` directory and `C:\Users\Username\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\portal.lnk`.
+
+### Modifying Settings:
+
+- You can also modify the name of hidden `.exe` file and location and name of the folder where the hidden `.exe` will hide itself. To do this; modify `hide_folder` and `compiled_name` respectively.
 
 ## Notes:
 
-- Currently on Python2 is supported. Python3 support will be added soon!
+- Currently only Python2 is supported. Python3 support will be added soon!
 - `/msg_box` is still in beta and may not work properly.
 - Keylogger may detect some keys improperly. Like pressing `shift+/` results in recording `/` instead of `?`.
 
