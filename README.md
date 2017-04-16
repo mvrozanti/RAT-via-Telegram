@@ -79,7 +79,7 @@ You can copy the above to update your command list via `BotFather` so you don't 
 
 ### Modifying Settings:
 
-- You can also modify the name of hidden `.exe` file and location and name of the folder where the hidden `.exe` will hide itself. To do this; modify `hide_folder` and `compiled_name` respectively.
+- You can also modify the name of hidden `.exe` file and location & name of the folder where the hidden `.exe` will hide itself. To do this; modify `compiled_name` and `hide_folder` respectively.
 
 ## Notes:
 
