@@ -24,7 +24,7 @@ Windows Remote Administration Tool via Telegram
 - Upload local files on to the target PC. Send your image, pdf, exe or anything as `file` to the Telegram bot.
 - Screenshots of the target PC.
 - Execute any file on the target PC.
-- Self-Destruct RAT on the target PC.
+- [WIP] Self-Destruct RAT on the target PC.
 - [WIP] Take snapshots from the webcam (if attached).
 - [WIP] Copy and Move files on the target PC.
 - [WIP] Delete files on the target PC.
@@ -75,7 +75,7 @@ You can copy the above to update your command list via `BotFather` so you don't 
 - Go to `C:\Python27\Scripts\` or wherever you installed python.
 - Run `pyinstaller --onefile --noconsole C:\path\to\RATAttack.py`. You can also pass `--icon=<path\to\icon.ico>` to use any custom icon.
 - Once it is compiled successfully, find the `.exe` file in `C:\Python27\Scripts\dist\`. You can change the name of the `.exe` to anything you wish.
-- **BEWARE!** If you run the compiled `.exe`, the script will hide itself and infect your PC to run at startup. You can return to normal by using the `/self_destruct` option or manually removing `C:\Users\Username\AppData\Roaming\Portal` directory and `C:\Users\Username\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\portal.lnk`.
+- **BEWARE!** If you run the compiled `.exe`, the script will hide itself and infect your PC to run at startup. You can return to normal by using the `/self_destruct` option or manually removing `C:\Users\Username\AppData\Roaming\Portal` directory and `C:\Users\Username\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\portal.lnk` (although I recommend removing them manually for the time being).
 
 ### Modifying Settings:
 
