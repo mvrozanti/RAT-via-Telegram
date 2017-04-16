@@ -23,9 +23,11 @@ Windows Remote Administration Tool via Telegram
 - Download any file locally from the target PC in the background.
 - Upload local files on to the target PC. Send your image, pdf, exe or anything as `file` to the Telegram bot.
 - Screenshots of the target PC.
-- [WIP] Take snapshots from the webcam (if attached).
 - Execute any file on the target PC.
 - Self-Destruct RAT on the target PC.
+- [WIP] Take snapshots from the webcam (if attached).
+- [WIP] Copy and Move files on the target PC.
+- [WIP] Delete files on the target PC.
 - More coming soon!
 
 ## Screenshots:
