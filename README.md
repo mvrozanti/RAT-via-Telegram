@@ -1,6 +1,6 @@
 # RAT-via-Telegram
 
-Windows Remote Administration Tool via Telegram
+Windows Remote Administration Tool via Telegram (Python 2.7) | Originally created by <a href="http://github.com/Ritiek">Ritiek</a>
 
 ### Why another one?
 
@@ -64,6 +64,7 @@ run_file - run a file on target
 capture_pc - screenshot PC
 keylogs - get keylogs
 self_destruct - destroy all traces from target PC
+to - select targets by it's name
 ```
 
 You can copy the above to update your command list via `BotFather` so you don't have to type them manually.
@@ -71,9 +72,11 @@ You can copy the above to update your command list via `BotFather` so you don't 
 ## Compiling:
 
 ### How To Compile:
-
-- Go to `C:\Python27\Scripts\` or wherever you installed python.
-- Run `pyinstaller --onefile --noconsole C:\path\to\RATAttack.py`. You can also pass `--icon=<path\to\icon.ico>` to use any custom icon.
+#### Either:
+	- Replace your path in compile.bat (**running this will actually run the executable**)
+	- Go to `C:\Python27\Scripts\` or wherever you installed python.
+#### Or:
+	- Run `pyinstaller --onefile --noconsole C:\path\to\RATAttack.py`. You can also pass `--icon=<path\to\icon.ico>` to use any custom icon.
 - Once it is compiled successfully, find the `.exe` file in `C:\Python27\Scripts\dist\`. You can change the name of the `.exe` to anything you wish.
 - **BEWARE!** If you run the compiled `.exe`, the script will hide itself and infect your PC to run at startup. You can return to normal by using the `/self_destruct` option or manually removing `C:\Users\Username\AppData\Roaming\Portal` directory and `C:\Users\Username\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\portal.lnk` (although I recommend removing them manually for the time being).
 
