@@ -69,7 +69,6 @@ play - plays a youtube video on target
 pwd - show current directory
 run_file - run a file on target
 self_destruct - destroy all traces from target
-snapshot - take picture with webcam
 to - select targets by it's name
 ```
 
