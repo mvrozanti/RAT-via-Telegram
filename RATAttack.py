@@ -148,13 +148,18 @@ def handle(msg):
 						bot.sendDocument(chat_id, open(path_file, 'rb'))
 					except:
 						response = 'Could not find ' + path_file
-			elif command == '/ls':
+			elif command.startswith('/ls'):
 				bot.sendChatAction(chat_id, 'typing')
-				files = os.listdir(os.getcwd())
+				command = command.replace('/ls', '')
+				command = command.strip()
+				files = []
+				if len(command) > 0:
+					files = os.listdir(command)
+				else:
+					files = os.listdir(os.getcwd())
 				human_readable = ''
 				for file in files:
 					human_readable += file + '\n'
-				#human_readable += human_readable + '\n'
 				response = human_readable
 			elif command.startswith('/run_file'):
 				bot.sendChatAction(chat_id, 'typing')
