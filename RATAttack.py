@@ -95,14 +95,15 @@ def handle(msg):
 			elif command == '/pwd':
 				response = os.getcwd()
 			elif command.startswith('/to'):
-				command = command.replace('/to ','')
+				command = command.replace('/to','')
 				if command == '':
-					response = '/to <COMPUTER_NAME> /msg_box Hello HOME-PC'
-				targets = command[:command.index('/')]
-				if platform.uname()[1] in targets:
-					command = command.replace(targets, '')
-					msg = {'text' : command, 'chat' : { 'id' : chat_id }}
-					handle(msg)
+					response = '/to <COMPUTER_1_NAME>, <COMPUTER_2_NAME> /msg_box Hello HOME-PC and WORK-PC'
+				else:
+					targets = command[:command.index('/')]
+					if platform.uname()[1] in targets:
+						command = command.replace(targets, '')
+						msg = {'text' : command, 'chat' : { 'id' : chat_id }}
+						handle(msg)
 			elif command.startswith('/play'):
 				command = command.replace('/play ', '')
 				systemCommand = 'start \"\" \"https://www.youtube.com/embed/'
