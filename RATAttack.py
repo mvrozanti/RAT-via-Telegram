@@ -96,6 +96,8 @@ def handle(msg):
 				response = os.getcwd()
 			elif command.startswith('/to'):
 				command = command.replace('/to ','')
+				if command == '':
+					response = '/to <COMPUTER_NAME> /msg_box Hello HOME-PC'
 				targets = command[:command.index('/')]
 				if platform.uname()[1] in targets:
 					command = command.replace(targets, '')
