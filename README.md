@@ -58,15 +58,16 @@ When using the below commands; use `/` as a prefix. For example: `/pc_info`.
 ```
 capture_pc - screenshot PC
 cd - change current directory on target
-download_file - download file from target
+download - download file from target
 ip_info - via ipinfo.io
 keylogs - get keylogs
 ls - list contents of current or specified directory
 msg_box - display message box with text
 pc_info - PC information
+play - plays a youtube video on target
 pwd - show current directory
 run_file - run a file on target
-self_destruct - destroy all traces from target PC
+self_destruct - destroy all traces from target
 snapshot - take picture with webcam
 to - select targets by it's name
 ```
