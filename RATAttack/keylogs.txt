@@ -1,0 +1,24 @@
+-------------------------------------------------
+Nexor Log: Apr 22@20:41
+
+<TAB>-------------------------------------------------
+Nexor Log: Apr 22@20:42
+
+cz-------------------------------------------------
+Nexor Log: Apr 22@20:43
+
+czzexit-------------------------------------------------
+Nexor Log: Apr 22@20:46
+
+/help<ENTER>
+<TAB><TAB><TAB>,y<ESC>command<ESC>1<TAB>description<ESC>=str9y0description<ESC>command<ESC>='' <BS>; s<TAB><TAB><TAB><TAB>-------------------------------------------------
+Nexor Log: Apr 22@20:47
+
+<TAB><TAB><TAB>/help<ENTER>
+<TAB>1tittre<BS><BS><BS>re<BS><BS>erate over dictionary python<ENTER>
+<TAB><TAB><TAB><TAB><TAB><TAB>.items90<TAB><TAB>s<TAB><TAB>-------------------------------------------------
+Nexor Log: Apr 22@20:48
+
+<TAB><TAB><TAB>h<BS>/help<ENTER>
+<TAB><TAB>/help<ENTER>
+<TAB><TAB>send<BS><BS><BS><BS>send command <BS><BS><BS><BS><BS><BS><BS><BS><BS><BS><BS><BS><BS>,t<BS>target-computer-name., []t<BS>other<BS><BS><BS><BS><BS>tr<BS><BS>other-target-computer<ESC>s 3/ls,/<BS>/<BS> /pwd/<BS>, /cd<ESC>s /copy<ESC>s2git add -a<ENTER>

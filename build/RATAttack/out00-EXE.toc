@@ -85,6 +85,9 @@
   ('win32wnet',
    'C:\\Python27\\lib\\site-packages\\win32\\win32wnet.pyd',
    'EXTENSION'),
+  ('_portaudio',
+   'C:\\Python27\\lib\\site-packages\\_portaudio.pyd',
+   'EXTENSION'),
   ('_multiprocessing',
    'C:\\Python27\\DLLs\\_multiprocessing.pyd',
    'EXTENSION'),
@@ -2526,7 +2529,7 @@
  [],
  False,
  False,
- 1492894003L,
+ 1492904619L,
  [('run.exe',
    'C:\\Python27\\lib\\site-packages\\PyInstaller\\bootloader\\Windows-64bit\\run.exe',
    'EXECUTABLE')])

