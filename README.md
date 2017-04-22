@@ -21,7 +21,7 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Get target PC's IP address information and approximate location on map.
 - Show current directory on target.
 - Change current directory on target.
-- List current directory on target.
+- List current or specified directory on target.
 - Download any file from the target PC.
 - Upload local files on to the target PC. Send your image, pdf, exe or anything as `file` to the Telegram bot.
 - Screenshots of the target PC.
