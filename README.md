@@ -34,7 +34,7 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 
 ## Screenshots:
 
-<img src="http://i.imgur.com/surSaEm.png" width="290"><img src="http://i.imgur.com/4pL4RJM.png" width="290"><img src="http://i.imgur.com/b77UVxL.png" width="290">
+<img src="http://i.imgur.com/I5nzrbz.jpg">
 
 ## Installation & Usage:
 
