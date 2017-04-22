@@ -154,7 +154,7 @@ def handle(msg):
 				human_readable = ''
 				for file in files:
 					human_readable += file + '\n'
-				human_readable += human_readable + '\n'
+				#human_readable += human_readable + '\n'
 				response = human_readable
 			elif command.startswith('/run_file'):
 				bot.sendChatAction(chat_id, 'typing')
