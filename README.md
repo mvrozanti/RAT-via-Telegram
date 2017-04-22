@@ -56,18 +56,18 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 When using the below commands; use `/` as a prefix. For example: `/pc_info`.
 
 ```
-pc_info - PC information
-msg_box - display message box with text
-snapshot - take picture with webcam
-ip_info - via ipinfo.io
-download_file - download file from target
-cd - change current directory on target
-pwd - show current directory
-ls - list contents of working directory
-run_file - run a file on target
 capture_pc - screenshot PC
+cd - change current directory on target
+download_file - download file from target
+ip_info - via ipinfo.io
 keylogs - get keylogs
+ls - list contents of working directory
+msg_box - display message box with text
+pc_info - PC information
+pwd - show current directory
+run_file - run a file on target
 self_destruct - destroy all traces from target PC
+snapshot - take picture with webcam
 to - select targets by it's name
 ```
 
@@ -77,8 +77,7 @@ You can copy the above to update your command list via `BotFather` so you don't 
 
 ### How To Compile:
 #### Either:
-	- Replace your path in compileAndRun.bat **(running this will actually run the executable)**
-	- Go to `C:\Python27\Scripts\` or wherever you installed python.
+	- Replace your path in compileAndRun.bat (running this will actually run the executable)
 #### Or:
 	- Run `pyinstaller --onefile --noconsole C:\path\to\RATAttack.py`. You can also pass `--icon=<path\to\icon.ico>` to use any custom icon.
 - Once it is compiled successfully, find the `.exe` file in `C:\Python27\Scripts\dist\`. You can change the name of the `.exe` to anything you wish.
