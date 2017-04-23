@@ -16,24 +16,26 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 
 ## Features:
 
-- Run keylogger on the target PC.
-- Get target PC's Windows version, processor and more.
-- Get target PC's IP address information and approximate location on map.
-- Delete files or folder on target.
-- Show current directory on target.
-- Change current directory on target.
-- List current or specified directory on target.
-- Download any file from the target PC.
-- Upload local files on to the target PC. Send your image, pdf, exe or anything as `file` to the Telegram bot.
-- Autostart playing a video in fullscreen and no controls for a youtube video on target.
-- Screenshots of the target PC.
-- Execute any file on the target PC.
-- Access to microphone on target PC
-- [WIP] Self-Destruct RAT on the target PC.
-- [WIP] Take snapshots from the webcam (if attached).
-- [WIP] Copy and Move files on the target PC.
+- Run keylogger on the target
+- Get target PC's Windows version, processor and more
+- Get target PC's IP address information and approximate location on map
+- Delete files or folder on target
+- Show current directory on target
+- Change current directory on target
+- List current or specified directory on target
+- Download any file from the target
+- Upload local files to the target. Send your image, pdf, exe or anything as `file` to the Telegram bot
+- Autostart playing a video in fullscreen and no controls for a youtube video on target
+- Screenshots of the target
+- Execute any file on the target
+- Access to microphone on target
+- Start HTTP Proxy Server
+- [WIP] Update .exe on target
+- [WIP] Shutdown computer
+- [WIP] Self-Destruct RAT on the target
+- [WIP] Take snapshots from the webcam (if attached)
+- [WIP] Copy and Move files on the target
 - [WIP] Audio compression
-- [WIP] Proxy Server
 - More coming soon!
 
 ## Screenshots:
@@ -94,15 +96,15 @@ You can copy the above to update your command list via `BotFather` so you don't 
 
 - You can also modify the name of hidden `.exe` file and location & name of the folder where the hidden `.exe` will hide itself. To do this; modify `compiled_name` and `hide_folder` respectively.
 - Assign your known chat ids to beginning of RATAttack.py
+
 ## Notes:
 
 - Currently only Python2 is supported. Python3 support will be added soon!
-- Keylogger may detect some keys improperly. Like pressing `shift+/` results in recording `/` instead of `?`.
 
 ## Contributing:
 
 - This project is still in very early stages, so you can expect some bugs. Please feel free to report them! Even better, send a pull request :)
-- Any new features and ideas are most welcome!
+- Any new features and ideas are most welcome! Please do submit feature requests by creating Issues
 
 ## Disclaimer:
 
