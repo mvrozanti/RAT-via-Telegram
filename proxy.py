@@ -551,8 +551,8 @@ def main():
         epilog='Having difficulty using proxy.py? Report at: %s/issues/new' % __homepage__
     )
     
-    parser.add_argument('--hostname', default='127.0.0.1', help='Default: 127.0.0.1')
-    parser.add_argument('--port', default='22', help='Default: ')
+    parser.add_argument('--hostname', default='0.0.0.0', help='Default: 127.0.0.1')
+    parser.add_argument('--port', default='8081', help='Default: 8081')
     parser.add_argument('--log-level', default='INFO', help='DEBUG, INFO, WARNING, ERROR, CRITICAL')
     args = parser.parse_args()
     

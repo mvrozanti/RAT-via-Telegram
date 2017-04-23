@@ -73,7 +73,7 @@ pc_info - PC information
 play - plays a youtube video on target
 proxy - opens a proxy server on target
 pwd - show current directory
-run_file - run a file on target
+run - run a file on target
 self_destruct - destroy all traces from target
 to - select targets by it's name
 ```

