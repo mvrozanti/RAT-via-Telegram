@@ -33,6 +33,7 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - [WIP] Take snapshots from the webcam (if attached).
 - [WIP] Copy and Move files on the target PC.
 - [WIP] Audio compression
+- [WIP] Proxy Server
 - More coming soon!
 
 ## Screenshots:
@@ -70,6 +71,7 @@ ls - list contents of current or specified directory
 msg_box - display message box with text
 pc_info - PC information
 play - plays a youtube video on target
+proxy - opens a proxy server on target
 pwd - show current directory
 run_file - run a file on target
 self_destruct - destroy all traces from target
@@ -82,9 +84,9 @@ You can copy the above to update your command list via `BotFather` so you don't 
 
 ### How To Compile:
 #### Either:
-	- Replace your path in compileAndRun.bat (running this will actually run the executable)
+	Replace your path in compileAndRun.bat (running this will actually run the executable)
 #### Or:
-	- Run `pyinstaller --onefile --noconsole C:\path\to\RATAttack.py`. You can also pass `--icon=<path\to\icon.ico>` to use any custom icon.
+	Run `pyinstaller --onefile --noconsole C:\path\to\RATAttack.py`. You can also pass `--icon=<path\to\icon.ico>` to use any custom icon.
 - Once it is compiled successfully, find the `.exe` file in `C:\Python27\Scripts\dist\`. You can change the name of the `.exe` to anything you wish.
 - **BEWARE!** If you run the compiled `.exe`, the script will hide itself and infect your PC to run at startup. You can return to normal by using the `/self_destruct` option or manually removing `C:\Users\Username\AppData\Roaming\Portal` directory and `C:\Users\Username\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\portal.lnk` (although I recommend removing them manually for the time being).
 
