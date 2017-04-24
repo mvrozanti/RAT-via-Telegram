@@ -30,7 +30,10 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Execute any file on the target
 - Access to microphone on target
 - Start HTTP Proxy Server
-- [WIP] Get active processes
+- Freeze target's keyboard
+- [WIP] Schedule tasks to run at specified time
+- [WIP] Freeze target's mouse
+- [WIP] Get active processes and services
 - [WIP] Capture clipboard (Text, Image)
 - [WIP] Disable/Enable mouse/keyboard
 - [WIP] Hide desktop icons
@@ -70,6 +73,8 @@ capture_pc - screenshot PC
 cd - change current directory on target
 delete - delete a file/folder on target
 download - download file from target
+freeze_keyboard - enable keyboard freeze
+unfreeze_keyboard - disable keyboard freeze
 hear - record microphone on target
 ip_info - via ipinfo.io
 keylogs - get keylogs

