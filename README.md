@@ -30,6 +30,10 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Execute any file on the target
 - Access to microphone on target
 - Start HTTP Proxy Server
+- [WIP] Get active processes
+- [WIP] Capture clipboard (Text, Image)
+- [WIP] Disable/Enable mouse/keyboard
+- [WIP] Hide desktop icons
 - [WIP] Update .exe on target
 - [WIP] Shutdown computer
 - [WIP] Self-Destruct RAT on the target
