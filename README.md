@@ -16,32 +16,32 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 
 ## Features:
 
-- Run keylogger on the target
-- Get target PC's Windows version, processor and more
+- Display ARP table (Thanks <a href="http://github.com/Dviros">Dviros</a>!)
+- Run keylogger
+- Get target PC's Windows version, processor and more ()
 - Get target PC's IP address information and approximate location on map
-- Delete files or folder on target
-- Show current directory on target
-- Change current directory on target
-- List current or specified directory on target
+- Delete files or folder 
+- Show current directory 
+- Change current directory 
+- List current or specified directory 
 - Download any file from the target
 - Upload local files to the target. Send your image, pdf, exe or anything as `file` to the Telegram bot
 - Autostart playing a video in fullscreen and no controls for a youtube video on target
-- Screenshots of the target
-- Execute any file on the target
-- Access to microphone on target
+- Take Screenshots
+- Execute any file
+- Access to microphone 
 - Start HTTP Proxy Server
 - Freeze target's keyboard
 - [WIP] Schedule tasks to run at specified time
 - [WIP] Freeze target's mouse
 - [WIP] Get active processes and services
 - [WIP] Capture clipboard (Text, Image)
-- [WIP] Disable/Enable mouse/keyboard
 - [WIP] Hide desktop icons
-- [WIP] Update .exe on target
+- [WIP] Update .exe
 - [WIP] Shutdown computer
-- [WIP] Self-Destruct RAT on the target
+- [WIP] Self-Destruct RAT 
 - [WIP] Take snapshots from the webcam (if attached)
-- [WIP] Copy and Move files on the target
+- [WIP] Copy and Move files 
 - [WIP] Audio compression
 - More coming soon!
 
@@ -69,23 +69,24 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 When using the below commands; use `/` as a prefix. For example: `/pc_info`.
 
 ```
+arp - display arp table
 capture_pc - screenshot PC
-cd - change current directory on target
-delete - delete a file/folder on target
+cd - change current directory
+delete - delete a file/folder
 download - download file from target
 freeze_keyboard - enable keyboard freeze
 unfreeze_keyboard - disable keyboard freeze
-hear - record microphone on target
+hear - record microphone
 ip_info - via ipinfo.io
 keylogs - get keylogs
 ls - list contents of current or specified directory
 msg_box - display message box with text
 pc_info - PC information
-play - plays a youtube video on target
-proxy - opens a proxy server on target
+play - plays a youtube video
+proxy - opens a proxy server
 pwd - show current directory
-run - run a file on target
-self_destruct - destroy all traces from target
+run - run a file
+self_destruct - destroy all traces
 to - select targets by it's name
 ```
 
