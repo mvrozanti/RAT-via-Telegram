@@ -16,7 +16,6 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 
 ## Features:
 
-- Display ARP table (Thanks <a href="http://github.com/Dviros">Dviros</a>!)
 - Run keylogger
 - Get target PC's Windows version, processor and more ()
 - Get target PC's IP address information and approximate location on map
@@ -33,8 +32,8 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Start HTTP Proxy Server
 - Freeze target's keyboard
 - [WIP] Schedule tasks to run at specified time
+- [WIP] Fine-tuning scripting
 - [WIP] Freeze target's mouse
-- [WIP] Get active processes and services
 - [WIP] Capture clipboard (Text, Image)
 - [WIP] Hide desktop icons
 - [WIP] Update .exe
@@ -43,6 +42,11 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - [WIP] Take snapshots from the webcam (if attached)
 - [WIP] Copy and Move files 
 - [WIP] Audio compression
+
+ (Thanks <a href="http://github.com/Dviros">Dviros</a>:)
+- Display ARP table 
+- Get active processes and services
+
 - More coming soon!
 
 ## Screenshots:
@@ -87,6 +91,7 @@ proxy - opens a proxy server
 pwd - show current directory
 run - run a file
 self_destruct - destroy all traces
+tasklist - display services and processes running
 to - select targets by it's name
 ```
 

