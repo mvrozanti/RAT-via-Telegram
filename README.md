@@ -31,7 +31,7 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Access to microphone 
 - Start HTTP Proxy Server
 - Freeze target's keyboard
-- [WIP] Schedule tasks to run at specified time
+- Schedule tasks to run at specified datetime
 - [WIP] Fine-tuning scripting
 - [WIP] Freeze target's mouse
 - [WIP] Capture clipboard (Text, Image)
@@ -43,7 +43,7 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - [WIP] Copy and Move files 
 - [WIP] Audio compression
 
- (Thanks <a href="http://github.com/Dviros">Dviros</a>:)
+ Thanks <a href="http://github.com/Dviros">Dviros</a>:
 - Display ARP table 
 - Get active processes and services
 
