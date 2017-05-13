@@ -32,7 +32,9 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Start HTTP Proxy Server
 - Freeze target's keyboard
 - Schedule tasks to run at specified datetime
-- [WIP] Fine-tuning scripting
+- [WIP] Monitor web traffic
+- [WIP] Encrypt local files
+- [WIP] Fine-tuning scripting (i.e.: if app x is opened y is executed)
 - [WIP] Freeze target's mouse
 - [WIP] Capture clipboard (Text, Image)
 - [WIP] Hide desktop icons
@@ -90,6 +92,7 @@ play - plays a youtube video
 proxy - opens a proxy server
 pwd - show current directory
 run - run a file
+schedule - schedule a command to run at specific time
 self_destruct - destroy all traces
 tasklist - display services and processes running
 to - select targets by it's name
