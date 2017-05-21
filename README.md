@@ -16,8 +16,8 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 
 ## Features:
 
-- Run keylogger
-- Get target PC's Windows version, processor and more ()
+- Keylogger
+- Get target PC's Windows version, processor and more
 - Get target PC's IP address information and approximate location on map
 - Delete files or folder 
 - Show current directory 

