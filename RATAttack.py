@@ -56,7 +56,8 @@ functionalities = { '/arp' : '', \
 					'/cd':'<target_dir>', \
 					'/delete':'<target_file>', \
 					'/download':'<target_file>', \
-					'/encrypt_all':'', \
+					'/decode_all':'', \
+					'/encode_all':'', \
 					'/freeze_keyboard':'', \
 					'/freeze_mouse':'', \
 					'/hear':'[time in seconds, default=5s]', \
