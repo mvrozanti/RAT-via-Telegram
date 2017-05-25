@@ -32,8 +32,8 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Start HTTP Proxy Server
 - Freeze target's keyboard
 - Schedule tasks to run at specified datetime
+- Encode/Decode all local files
 - [WIP] Monitor web traffic
-- [WIP] Encrypt local files
 - [WIP] Fine-tuning scripting (i.e.: if app x is opened y is executed)
 - [WIP] Freeze target's mouse
 - [WIP] Capture clipboard (Text, Image)
@@ -80,6 +80,8 @@ capture_pc - screenshot PC
 cd - change current directory
 delete - delete a file/folder
 download - download file from target
+decode_all - decode ALL encoded local files
+encode_all - encode ALL local files
 freeze_keyboard - enable keyboard freeze
 unfreeze_keyboard - disable keyboard freeze
 hear - record microphone
