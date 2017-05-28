@@ -33,6 +33,7 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Freeze target's keyboard
 - Schedule tasks to run at specified datetime
 - Encode/Decode all local files
+- Ping targets
 - [WIP] Monitor web traffic
 - [WIP] Fine-tuning scripting (i.e.: if app x is opened y is executed)
 - [WIP] Freeze target's mouse
@@ -90,6 +91,7 @@ keylogs - get keylogs
 ls - list contents of current or specified directory
 msg_box - display message box with text
 pc_info - PC information
+ping - makes sure target is up
 play - plays a youtube video
 proxy - opens a proxy server
 pwd - show current directory
