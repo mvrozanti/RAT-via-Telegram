@@ -289,6 +289,8 @@ def handle(msg):
 					info += '\n' + pc_info
 				info += '\n' + 'Username: ' + getpass.getuser()
 				response = info
+			elif command == '/ping':
+				response == 'I\'m up'
 			elif command.startswith('/play'):
 				command = command.replace('/play ', '')
 				command = command.strip()
