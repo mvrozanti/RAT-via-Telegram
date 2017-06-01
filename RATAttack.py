@@ -290,9 +290,9 @@ def handle(msg):
 				info += '\n' + 'Username: ' + getpass.getuser()
 				response = info
 			elif command == '/ping':
-				response = 'I\'m up'
+				response = platform.uname()[1] + ': I\'m up'
 			elif command.startswith('/play'):
-				command = command.replace('/play ', '')
+				command = command.replace('/play', '')
 				command = command.strip()
 				if len(command) > 0:
 					systemCommand = 'start \"\" \"https://www.youtube.com/embed/'
