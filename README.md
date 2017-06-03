@@ -79,6 +79,7 @@ When using the below commands; use `/` as a prefix. For example: `/pc_info`.
 ```
 arp - display arp table
 capture_pc - screenshot PC
+cp - copy files
 cd - change current directory
 delete - delete a file/folder
 download - download file from target
@@ -91,6 +92,7 @@ ip_info - via ipinfo.io
 keylogs - get keylogs
 ls - list contents of current or specified directory
 msg_box - display message box with text
+mv - move files
 pc_info - PC information
 ping - makes sure target is up
 play - plays a youtube video
