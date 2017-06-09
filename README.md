@@ -44,7 +44,6 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - [WIP] Shutdown computer
 - [WIP] Self-Destruct RAT 
 - [WIP] Take snapshots from the webcam (if attached)
-- [WIP] Copy and Move files 
 - [WIP] Audio compression
 
  Thanks <a href="http://github.com/Dviros">Dviros</a>:
