@@ -16,7 +16,7 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 
 ## Features:
 
-- Keylogger
+- Keylogger with window title log included
 - Get target PC's Windows version, processor and more
 - Get target PC's IP address information and approximate location on map
 - Delete files
@@ -35,16 +35,18 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Schedule tasks to run at specified datetime
 - Encode/Decode all local files
 - Ping targets
-- [WIP] Monitor web traffic
-- [WIP] Fine-tuning scripting (i.e.: if app x is opened y is executed)
-- [WIP] Freeze target's mouse
-- [WIP] Capture clipboard (Text, Image)
-- [WIP] Hide desktop icons
-- [WIP] Update .exe
-- [WIP] Shutdown computer
-- [WIP] Self-Destruct RAT 
-- [WIP] Take snapshots from the webcam (if attached)
-- [WIP] Audio compression
+- [TODO] Retrieve browser (IE, Firefox, Chrome) Cookies
+- [TODO] Password Retrieval
+- [TODO] Monitor web traffic
+- [TODO] Fine-tuning scripting (i.e.: if app x is opened y is executed)
+- [TODO] Freeze target's mouse
+- [TODO] Capture clipboard (Text, Image)
+- [TODO] Hide desktop icons
+- [TODO] Update .exe
+- [TODO] Shutdown computer
+- [TODO] Self-Destruct RAT 
+- [TODO] Take snapshots from the webcam (if attached)
+- [TODO] Audio compression
 
  Thanks <a href="http://github.com/Dviros">Dviros</a>:
 - Display ARP table 
