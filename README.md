@@ -35,14 +35,14 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Schedule tasks to run at specified datetime
 - Encode/Decode all local files
 - Ping targets
-- [TODO] Retrieve browser (IE, Firefox, Chrome) Cookies
-- [TODO] Password Retrieval
+- Update .exe -- thanks <a href="http://github.com/LearnerZone">LearnerZone</a>
+- [TODO] Browser (IE, Firefox, Chrome) cookies retrieval
+- [TODO] Password retrieval
 - [TODO] Monitor web traffic
 - [TODO] Fine-tuning scripting (i.e.: if app x is opened y is executed)
 - [TODO] Freeze target's mouse
 - [TODO] Capture clipboard (Text, Image)
 - [TODO] Hide desktop icons
-- [TODO] Update .exe
 - [TODO] Shutdown computer
 - [TODO] Self-Destruct RAT 
 - [TODO] Take snapshots from the webcam (if attached)
@@ -104,6 +104,7 @@ schedule - schedule a command to run at specific time
 self_destruct - destroy all traces
 tasklist - display services and processes running
 to - select targets by it's name
+update - update executable
 ```
 
 You can copy the above to update your command list via `BotFather` so you don't have to type them manually.

