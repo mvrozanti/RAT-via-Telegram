@@ -36,23 +36,25 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Encode/Decode all local files
 - Ping targets
 - Update .exe -- thanks <a href="http://github.com/LearnerZone">LearnerZone</a>
+- Self-Destruct RAT
 - [TODO] Browser (IE, Firefox, Chrome) cookies retrieval
 - [TODO] Password retrieval
-- [TODO] Monitor web traffic
+- [TODO] Monitor web traffic (graphically?)
 - [TODO] Fine-tuning scripting (i.e.: if app x is opened y is executed)
 - [TODO] Freeze target's mouse
 - [TODO] Capture clipboard (Text, Image)
 - [TODO] Hide desktop icons
-- [TODO] Shutdown computer
-- [TODO] Self-Destruct RAT 
 - [TODO] Take snapshots from the webcam (if attached)
 - [TODO] Audio compression
 
  Thanks <a href="http://github.com/Dviros">Dviros</a>:
 - Display ARP table 
 - Get active processes and services
+- Shutdown/Reboot computer
+- Display DNS Cache
 
-- More coming soon!
+
+- & More coming soon!
 
 ## Screenshots:
 
@@ -85,6 +87,7 @@ cd - change current directory
 delete - delete a file/folder
 download - download file from target
 decode_all - decode ALL encoded local files
+dns - display DNS Cache
 encode_all - encode ALL local files
 freeze_keyboard - enable keyboard freeze
 unfreeze_keyboard - disable keyboard freeze
@@ -99,9 +102,11 @@ ping - makes sure target is up
 play - plays a youtube video
 proxy - opens a proxy server
 pwd - show current directory
+reboot - reboot computer
 run - run a file
 schedule - schedule a command to run at specific time
 self_destruct - destroy all traces
+shutdown - shutdown computer
 tasklist - display services and processes running
 to - select targets by it's name
 update - update executable
