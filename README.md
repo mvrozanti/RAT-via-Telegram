@@ -19,8 +19,7 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Keylogger with window title log included
 - Get target PC's Windows version, processor and more
 - Get target PC's IP address information and approximate location on map
-- Delete files
-- Move files
+- Delete, Move files
 - Show current directory 
 - Change current directory 
 - List current or specified directory 
@@ -37,6 +36,7 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Ping targets
 - Update .exe -- thanks <a href="http://github.com/LearnerZone">LearnerZone</a>
 - Self-Destruct RAT
+- Change wallpaper
 - [TODO] Browser (IE, Firefox, Chrome) cookies retrieval
 - [TODO] Password retrieval
 - [TODO] Monitor web traffic (graphically?)
@@ -54,7 +54,7 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Display DNS Cache
 
 
-- & More coming soon!
+& More coming soon!
 
 ## Screenshots:
 
@@ -110,6 +110,7 @@ shutdown - shutdown computer
 tasklist - display services and processes running
 to - select targets by it's name
 update - update executable
+wallpaper - change wallpaper
 ```
 
 You can copy the above to update your command list via `BotFather` so you don't have to type them manually.

