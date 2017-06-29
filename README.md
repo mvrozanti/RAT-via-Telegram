@@ -36,7 +36,7 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Ping targets
 - Update .exe -- thanks <a href="http://github.com/LearnerZone">LearnerZone</a>
 - Self-Destruct RAT
-- Change wallpaper
+- Change wallpaper from file or url
 - [TODO] Browser (IE, Firefox, Chrome) cookies retrieval
 - [TODO] Password retrieval
 - [TODO] Monitor web traffic (graphically?)

