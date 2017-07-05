@@ -37,6 +37,7 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Update .exe -- thanks <a href="http://github.com/LearnerZone">LearnerZone</a>
 - Self-Destruct RAT
 - Change wallpaper from file or url
+- Execute arbitrary python 2.7 on the go
 - [TODO] Browser (IE, Firefox, Chrome) cookies retrieval
 - [TODO] Password retrieval
 - [TODO] Monitor web traffic (graphically?)
@@ -102,6 +103,7 @@ ping - makes sure target is up
 play - plays a youtube video
 proxy - opens a proxy server
 pwd - show current directory
+python_exec - interpret python
 reboot - reboot computer
 run - run a file
 schedule - schedule a command to run at specific time
