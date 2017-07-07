@@ -557,6 +557,7 @@ def handle(msg):
 						'/encode_all':'', \
 						'/freeze_keyboard':'', \
 						'/freeze_mouse':'', \
+						'/get_chrome':'', \
 						'/hear':'[time in seconds, default=5s]', \
 						'/ip_info':'', \
 						'/keylogs':'', \

