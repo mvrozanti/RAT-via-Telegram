@@ -38,7 +38,7 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Self-Destruct RAT
 - Change wallpaper from file or url
 - Execute arbitrary python 2.7 on the go
-- [TODO] Browser (IE, Firefox, Chrome) cookies retrieval
+- [TODO] Browser (IE, Firefox~~, Chrome~~) cookies retrieval
 - [TODO] Password retrieval
 - [TODO] Monitor web traffic (graphically?)
 - [TODO] Fine-tuning scripting (i.e.: if app x is opened y is executed)
@@ -49,6 +49,7 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - [TODO] Audio compression
 
  Thanks <a href="http://github.com/Dviros">Dviros</a>:
+- Chrome login/password retrieval 
 - Display ARP table 
 - Get active processes and services
 - Shutdown/Reboot computer
