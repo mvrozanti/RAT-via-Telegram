@@ -1,5 +1,6 @@
 telepot
 requests
+image
 winshell
 tendo
 pypiwin32
