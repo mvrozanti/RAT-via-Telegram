@@ -37,8 +37,8 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - Update .exe -- thanks <a href="http://github.com/LearnerZone">LearnerZone</a>
 - Self-Destruct RAT
 - Change wallpaper from file or url
-- Execute arbitrary python 2.7 on the go
 - Execute cmd shell
+- Take snapshots from the webcam (if attached)
 - [TODO] Browser (IE, Firefox, ~~Chrome~~) cookies retrieval
 - [TODO] Password retrieval
 - [TODO] Monitor web traffic (graphically?)
@@ -46,8 +46,9 @@ Windows Remote Administration Tool via Telegram (Python 2.7) | Originally create
 - [TODO] Freeze target's mouse
 - [TODO] Capture clipboard (Text, Image)
 - [TODO] Hide desktop icons
-- [TODO] Take snapshots from the webcam (if attached)
 - [TODO] Audio compression
+
+- [Nope, it's py 3.7 now] Execute arbitrary python 2.7 on the go
 
  Thanks <a href="http://github.com/Dviros">Dviros</a>:
 - Chrome login/password retrieval 
