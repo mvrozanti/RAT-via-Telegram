@@ -4,3 +4,6 @@ temp
 temp/*
 build
 build/*
+dist
+dist/*
+pyHook-*-cp27*
