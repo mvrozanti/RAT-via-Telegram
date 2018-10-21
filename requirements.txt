@@ -4,8 +4,8 @@ image
 winshell
 tendo
 pypiwin32
-pillow
 pyinstaller
 pyaudio
 psutil
-cv2
+pillow
+opencv-python

