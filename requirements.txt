@@ -8,3 +8,4 @@ pillow
 pyinstaller
 pyaudio
 psutil
+cv2
