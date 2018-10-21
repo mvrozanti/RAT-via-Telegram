@@ -3,8 +3,8 @@
 block_cipher = None
 
 
-a = Analysis(['Z:\\\\RATAttack.py'],
-             pathex=['Z:\\'],
+a = Analysis(['E:\\/RATAttack.py'],
+             pathex=['E:\\'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -29,4 +29,4 @@ exe = EXE(pyz,
           strip=False,
           upx=True,
           runtime_tmpdir=None,
-          console=False )
+          console=True )
