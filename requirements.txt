@@ -5,7 +5,7 @@ winshell
 tendo
 pypiwin32
 pyinstaller
-pyaudio
 psutil
 pillow
 opencv-python
+console-tools

