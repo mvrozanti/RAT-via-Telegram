@@ -6,10 +6,11 @@ ______________
 - <a href="https://github.com/dudeisbrendan03">Brendan (@dudeisbrendan03)</a>
 
 ## Supporters (Contributors with PRs)
-- <a href="https://github.com/Dviros">Dviros</a>
-- <a href="https://github.com/LearnerZone">LearnerZone</a>
+- <a href="https://github.com/Dviros">Dviros (@dviros)</a>
+- <a href="https://github.com/LearnerZone">LearnerZone (@learnerzone)</a>
 
 ## Contributors
+- <a href="https://github.com/Dagdelo">Dagdelo</a>
 - <a href="https://github.com/moneak">moneak</a>
 - <a href="https://github.com/Ubop0202">Ubop0202</a>
 - <a href="https://github.com/Dagdelo">Dagdelo</a>

