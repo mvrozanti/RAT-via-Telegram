@@ -28,7 +28,7 @@ Windows Remote Administration Tool via Telegram (now in Python 3.7!) | Originall
 - Autostart playing a video in fullscreen and no controls for a youtube video on target
 - Take Screenshots
 - Execute any file
-- Access to microphone 
+- Access to microphone
 - Start HTTP Proxy Server
 - Freeze target's keyboard
 - Schedule tasks to run at specified datetime
@@ -44,7 +44,7 @@ Windows Remote Administration Tool via Telegram (now in Python 3.7!) | Originall
 - [TODO] Password retrieval
 - [TODO] Monitor web traffic (graphically?)
 - [TODO] Fine-tuning scripting (i.e.: if app x is opened y is executed)
-- [TODO] Freeze target's mouse
+- [TODO] Freeze target's mouse - Started work 26/10/2018
 - [TODO] Capture clipboard (Text, Image)
 - [TODO] Hide desktop icons
 - [TODO] Audio compression
@@ -144,6 +144,8 @@ You can copy the above to update your command list via `BotFather` so you don't 
 
 - This project is still in very early stages, so you can expect some bugs. Please feel free to report them! Even better, send a pull request :)
 - Any new features and ideas are most welcome! Please do submit feature requests by creating Issues
+
+ <a href="https://gituhb.com/dudeisbrendan03">Brendan | PY3.7 and webcam access</a>
 
 ## Disclaimer:
 
