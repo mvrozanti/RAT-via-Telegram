@@ -40,11 +40,12 @@ Windows Remote Administration Tool via Telegram (now in Python 3.7!) | Originall
 - Execute cmd shell
 - Take snapshots from the webcam (if attached)
 - Execute arbitrary python 3.7 on the go
+- Freeze target's mouse
 - [TODO] Browser (IE, Firefox, ~~Chrome~~) cookies retrieval
 - [TODO] Password retrieval
 - [TODO] Monitor web traffic (graphically?)
+- [TODO] Bandwidth monitoring (stepping stone to web traffic monitoring)
 - [TODO] Fine-tuning scripting (i.e.: if app x is opened y is executed)
-- [TODO] Freeze target's mouse - Started work 26/10/2018
 - [TODO] Capture clipboard (Text, Image)
 - [TODO] Hide desktop icons
 - [TODO] Audio compression

