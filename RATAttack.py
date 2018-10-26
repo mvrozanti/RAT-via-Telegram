@@ -128,7 +128,7 @@ def get_curr_window():
 
 def false_event(event):
         return False
-        
+
 def true_event(event):
         return True
 
@@ -300,7 +300,7 @@ def handle(msg):
                                         response += 'enabled'
                         elif command.endswith('freeze_mouse'):
                                 global mouseFrozen
-                                import pythoncom, pyHook 
+                                                        
                                 mse = pyHook.HookManager()
                                 mse.MouseAll = false_event
                                 mse.KeyAll = false_event
