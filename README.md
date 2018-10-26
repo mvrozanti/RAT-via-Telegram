@@ -137,10 +137,6 @@ You can copy the above to update your command list via `BotFather` so you don't 
 - You can also modify the name of hidden `.exe` file and location & name of the folder where the hidden `.exe` will hide itself. To do this; modify `compiled_name` and `hide_folder` respectively.
 - Assign your known chat ids to beginning of RATAttack.py
 
-## Notes:
-
-- Thanks to <a href="http://github.com/dudeisbrendan03">dudeisbrendan03</a> we are on Python 3.7!
- 
 ## Contributing:
 
 - This project is still in very early stages, so you can expect some bugs. Please feel free to report them! Even better, send a pull request :)
@@ -148,7 +144,7 @@ You can copy the above to update your command list via `BotFather` so you don't 
 
 ## Credit
 A markdown file with credits:
- <a href="https://github.com/mvrozanti/RAT-via-Telegram/CREDIT.md">Credit file</a>
+ <a href="https://github.com/mvrozanti/RAT-via-Telegram/blob/master/CREDIT.md">Credit file</a>
 
 People with PRs:
  <a href="https://gituhb.com/dudeisbrendan03">Brendan | PY3.7 and webcam access</a>
