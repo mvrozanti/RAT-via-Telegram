@@ -44,7 +44,7 @@ Windows Remote Administration Tool via Telegram (now in Python 3.7!) | Originall
 - [TODO] Browser (IE, Firefox, ~~Chrome~~) cookies retrieval
 - [TODO] Password retrieval
 - [TODO] Monitor web traffic (graphically?)
-- [TODO] Bandwidth monitoring (stepping stone to web traffic monitoring)
+- [TODO] Bandwidth monitoring (stepping stone to web traffic monitoring) - starting 28/10/2018
 - [TODO] Fine-tuning scripting (i.e.: if app x is opened y is executed)
 - [TODO] Capture clipboard (Text, Image)
 - [TODO] Hide desktop icons
