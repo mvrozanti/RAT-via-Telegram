@@ -40,11 +40,12 @@ Windows Remote Administration Tool via Telegram (now in Python 3.7!) | Originall
 - Execute cmd shell
 - Take snapshots from the webcam (if attached)
 - Execute arbitrary python 3.7 on the go
+- Freeze target's mouse
 - [TODO] Browser (IE, Firefox, ~~Chrome~~) cookies retrieval
 - [TODO] Password retrieval
 - [TODO] Monitor web traffic (graphically?)
+- [TODO] Bandwidth monitoring (stepping stone to web traffic monitoring) - starting 28/10/2018
 - [TODO] Fine-tuning scripting (i.e.: if app x is opened y is executed)
-- [TODO] Freeze target's mouse - Started work 26/10/2018
 - [TODO] Capture clipboard (Text, Image)
 - [TODO] Hide desktop icons
 - [TODO] Audio compression
@@ -138,14 +139,24 @@ You can copy the above to update your command list via `BotFather` so you don't 
 
 ## Notes:
 
-- ~~Currently only Python2 is supported. Python3 support will be added soon!~~ Thanks to <a href="http://github.com/dudeisbrendan03">dudeisbrendan03</a> we are on Python 3.7!
+- Thanks to <a href="http://github.com/dudeisbrendan03">dudeisbrendan03</a> we are on Python 3.7!
  
 ## Contributing:
 
 - This project is still in very early stages, so you can expect some bugs. Please feel free to report them! Even better, send a pull request :)
 - Any new features and ideas are most welcome! Please do submit feature requests by creating Issues
 
+## Credit
+A markdown file with credits:
+ <a href="https://github.com/mvrozanti/RAT-via-Telegram/CREDIT.md">Credit file</a>
+
+People with PRs:
  <a href="https://gituhb.com/dudeisbrendan03">Brendan | PY3.7 and webcam access</a>
+ <a href="http://github.com/Dviros">Dviros | Chrome login/password retrieval | ARP Table | Process/services | shutdown/reboot | dns cache</a>
+ <a href="http://github.com/Ritiek">Ritiek | Original RAT dev</a>
+
+Original creator:
+ <a href="http://github.com/LearnerZone">LearnerZone | Support on updating the executable</a>
 
 ## Disclaimer:
 

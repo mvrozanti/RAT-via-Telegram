@@ -7,3 +7,4 @@ build/*
 dist
 dist/*
 pyHook-*-cp27*
+.vscode/
