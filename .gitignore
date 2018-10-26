@@ -8,3 +8,4 @@ dist
 dist/*
 pyHook-*-cp27*
 .vscode/
+RATAttack.spec
