@@ -43,7 +43,8 @@ def genHash(item):
 def validate(hash,source):
     urllib.request.urlretrieve(source, 'temp.whl')
     newHash = genHash('temp.whl')
-    if hash != newHash: raise Exception('CHECKSUM DID NOT "CHECK" OUT, IT IS INVALID. MAKE SURE THAT YOUR VERSION HAS NOT BEEN ALTERED, OR THE SOURCE HAS NOT BEEN ALTERED')
+    if hash == newHash: print("OK")
+    elif hash != newHash: raise Exception('CHECKSUM DID NOT "CHECK" OUT, IT IS INVALID. MAKE SURE THAT YOUR VERSION HAS NOT BEEN ALTERED, OR THE SOURCE HAS NOT BEEN ALTERED')
     os.remove('temp.whl')
 
 
