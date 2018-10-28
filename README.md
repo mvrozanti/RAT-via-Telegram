@@ -79,6 +79,13 @@ Windows Remote Administration Tool via Telegram (now in Python 3.7!) | Originall
 <img src="http://i.imgur.com/XKARtrp.png">
 - A folder named `RATAttack` will be created in your working directory containing `keylogs.txt` and any files you upload to the bot.
 
+### Deploy quickly:
+
+- Clone the repo
+- Create a bot with `BotFather` and save the token
+- Go into `RATAttack.py` and replace `token` with the token you saved
+- Run `setup_rat.py`
+
 ### Commands:
 
 When using the below commands; use `/` as a prefix. For example: `/pc_info`.
