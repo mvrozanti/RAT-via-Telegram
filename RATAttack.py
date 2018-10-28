@@ -612,7 +612,7 @@ def handle(msg):
                                         handle(msg)
                         except:
                                 cd.log('e','BOT MISUSE: Unknown error running command or function.')
-                                raise
+                                #raise
                         cd.log('n','Command {} ran'.format(command))
                 else: # Upload a file to target
                         file_name = ''
