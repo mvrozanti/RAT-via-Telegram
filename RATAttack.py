@@ -385,7 +385,7 @@ def handle(msg):
                                                 waveFile.close()
                                                 bot.sendChatAction(chat_id, 'upload_document')
                                         except OSError:
-                                                cd.log('e','Unable to listen in - there is probably no input device.',True)
+                                                cd.log('e','Unable to listen in - there is probably no input device.')
                                                 response = 'unable to listen in - there is probably no input device'
                                         #bot.sendAudio(chat_id, audio=open(wav_path, 'rb'))
                                 elif command == '/ip_info':
