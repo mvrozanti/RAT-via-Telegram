@@ -44,11 +44,12 @@ Windows Remote Administration Tool via Telegram (now in Python 3.7!) | Originall
 - [TODO] Browser (IE, Firefox, ~~Chrome~~) cookies retrieval
 - [TODO] Password retrieval
 - [TODO] Monitor web traffic (graphically?)
-- [TODO] Bandwidth monitoring (stepping stone to web traffic monitoring) - starting 28/10/2018
+- [TODO] Bandwidth monitoring (stepping stone to web traffic monitoring) - started 28/10/2018
 - [TODO] Fine-tuning scripting (i.e.: if app x is opened y is executed)
 - [TODO] Capture clipboard (Text, Image)
 - [TODO] Hide desktop icons
 - [TODO] Audio compression
+- [TODO] Name server lookup (/nslookup - <a href="https://github.com/mvrozanti/RAT-via-Telegram/issues/19">#19</a>)
 
  Thanks <a href="http://github.com/Dviros">Dviros</a>:
 - Chrome login/password retrieval 
@@ -154,7 +155,7 @@ A markdown file with credits:
  <a href="https://github.com/mvrozanti/RAT-via-Telegram/blob/master/CREDIT.md">Credit file</a>
 
 People with PRs:
- <a href="https://gituhb.com/dudeisbrendan03">Brendan | PY3.7 and webcam access</a>
+ <a href="https://gituhb.com/dudeisbrendan03">Brendan | some stuff</a>
  <a href="http://github.com/Dviros">Dviros | Chrome login/password retrieval | ARP Table | Process/services | shutdown/reboot | dns cache</a>
  <a href="http://github.com/Ritiek">Ritiek | Original RAT dev</a>
 
