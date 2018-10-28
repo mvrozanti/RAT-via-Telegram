@@ -35,7 +35,7 @@ import cv2#webcam
 from datetime import datetime
 from ctypes import * #fixing pyinstaller - we need to import all the ctypes to get api-ms-win-crt-*, you will also need https://www.microsoft.com/en-US/download/details.aspx?id=48145
 
-cd.log('i','Starting',True)
+cd.log('i','Starting')
 me = singleton.SingleInstance()
 # REPLACE THE LINE BELOW WITH THE TOKEN OF THE BOT YOU GENERATED!
 token = 'xx:xx'
