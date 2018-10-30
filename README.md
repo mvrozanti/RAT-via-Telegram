@@ -72,8 +72,8 @@ Windows Remote Administration Tool via Telegram (now in Python 3.7!) | Originall
 - Copy this token and replace it in the beginning of the script.
 - Install the dependencies: `pip install -r requirements.txt`.
 - Install pyHook `64-bit` or `32-bit` depending on your system.
-    - For 64-bit- `pip install pyHook-1.5.1-cp37-cp37m-win_amd64.whl`.
-    - For 32-bit- `pip install pyHook-1.5.1-cp37-cp37m-win32.whl`.
+    - For 64-bit- `pip install https://download.lfd.uci.edu/pythonlibs/h2ufg7oq/PyAudio-0.2.11-cp37-cp37m-win_amd64.whl` and `pip install https://download.lfd.uci.edu/pythonlibs/h2ufg7oq/pyHook-1.5.1-cp37-cp37m-win_amd64.whl`.
+    - For 32-bit- `pip install https://download.lfd.uci.edu/pythonlibs/h2ufg7oq/PyAudio-0.2.11-cp37-cp37m-win32.whl` and `pip install https://download.lfd.uci.edu/pythonlibs/h2ufg7oq/pyHook-1.5.1-cp37-cp37m-win_amd64.whl`.
 - To run the script: `python RATAttack.py`.
 - Find your bot on telegram and send some command to the bot to test it.
 - To restrict the bot so that it responds only to you, note down your `chat_id` from the console and replace it in the script and comment out the line `return True`. Don't worry, you'll know when you read the comments in the script.
