@@ -159,6 +159,8 @@ People with PRs:
  <a href="http://github.com/Dviros">Dviros | Chrome login/password retrieval | ARP Table | Process/services | shutdown/reboot | dns cache</a>
  <a href="http://github.com/Ritiek">Ritiek | Original RAT dev</a>
 
+Dependency owners:
+ <a href="https://github.com/mvrozanti/RAT-via-Telegram/network/dependencies">A load of people who turn coffee to code</a>
 Original creator:
  <a href="http://github.com/LearnerZone">LearnerZone | Support on updating the executable</a>
 
