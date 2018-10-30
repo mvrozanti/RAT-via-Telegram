@@ -44,11 +44,12 @@ Windows Remote Administration Tool via Telegram (now in Python 3.7!) | Originall
 - [TODO] Browser (IE, Firefox, ~~Chrome~~) cookies retrieval
 - [TODO] Password retrieval
 - [TODO] Monitor web traffic (graphically?)
-- [TODO] Bandwidth monitoring (stepping stone to web traffic monitoring) - starting 28/10/2018
+- [TODO] Bandwidth monitoring (stepping stone to web traffic monitoring) - started 28/10/2018
 - [TODO] Fine-tuning scripting (i.e.: if app x is opened y is executed)
 - [TODO] Capture clipboard (Text, Image)
 - [TODO] Hide desktop icons
 - [TODO] Audio compression
+- [TODO] Name server lookup (/nslookup - <a href="https://github.com/mvrozanti/RAT-via-Telegram/issues/19">#19</a>)
 
  Thanks <a href="http://github.com/Dviros">Dviros</a>:
 - Chrome login/password retrieval 
@@ -71,13 +72,20 @@ Windows Remote Administration Tool via Telegram (now in Python 3.7!) | Originall
 - Copy this token and replace it in the beginning of the script.
 - Install the dependencies: `pip install -r requirements.txt`.
 - Install pyHook `64-bit` or `32-bit` depending on your system.
-    - For 64-bit- `pip install pyHook-1.5.1-cp37-cp37m-win_amd64.whl`.
-    - For 32-bit- `pip install pyHook-1.5.1-cp37-cp37m-win32.whl`.
+    - For 64-bit- `pip install https://download.lfd.uci.edu/pythonlibs/h2ufg7oq/PyAudio-0.2.11-cp37-cp37m-win_amd64.whl` and `pip install https://download.lfd.uci.edu/pythonlibs/h2ufg7oq/pyHook-1.5.1-cp37-cp37m-win_amd64.whl`.
+    - For 32-bit- `pip install https://download.lfd.uci.edu/pythonlibs/h2ufg7oq/PyAudio-0.2.11-cp37-cp37m-win32.whl` and `pip install https://download.lfd.uci.edu/pythonlibs/h2ufg7oq/pyHook-1.5.1-cp37-cp37m-win_amd64.whl`.
 - To run the script: `python RATAttack.py`.
 - Find your bot on telegram and send some command to the bot to test it.
 - To restrict the bot so that it responds only to you, note down your `chat_id` from the console and replace it in the script and comment out the line `return True`. Don't worry, you'll know when you read the comments in the script.
 <img src="http://i.imgur.com/XKARtrp.png">
 - A folder named `RATAttack` will be created in your working directory containing `keylogs.txt` and any files you upload to the bot.
+
+### Deploy quickly:
+
+- Clone the repo
+- Create a bot with `BotFather` and save the token
+- Go into `RATAttack.py` and replace `token` with the token you saved
+- Run `setup_rat.py`
 
 ### Commands:
 
@@ -147,7 +155,7 @@ A markdown file with credits:
  <a href="https://github.com/mvrozanti/RAT-via-Telegram/blob/master/CREDIT.md">Credit file</a>
 
 People with PRs:
- <a href="https://gituhb.com/dudeisbrendan03">Brendan | PY3.7 and webcam access</a>
+ <a href="https://gituhb.com/dudeisbrendan03">Brendan | some stuff</a>
  <a href="http://github.com/Dviros">Dviros | Chrome login/password retrieval | ARP Table | Process/services | shutdown/reboot | dns cache</a>
  <a href="http://github.com/Ritiek">Ritiek | Original RAT dev</a>
 
