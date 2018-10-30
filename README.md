@@ -161,6 +161,7 @@ People with PRs:
 
 Dependency owners:
  <a href="https://github.com/mvrozanti/RAT-via-Telegram/network/dependencies">A load of people who turn coffee to code</a>
+ 
 Original creator:
  <a href="http://github.com/LearnerZone">LearnerZone | Support on updating the executable</a>
 
