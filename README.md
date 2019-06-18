@@ -1,5 +1,6 @@
 # RAT-via-Telegram
 [![Build Status](https://travis-ci.org/mvrozanti/RAT-via-Telegram.svg?branch=master)](https://travis-ci.org/mvrozanti/RAT-via-Telegram)
+[![Made with Python](https://img.shields.io/badge/Made%20with-Python-3572A5.svg)](https://travis-ci.org/mvrozanti/RAT-via-Telegram)
 
 Windows Remote Administration Tool via Telegram (now in Python 3.7!) | Originally created by <a href="http://github.com/Ritiek">Ritiek</a>
 
