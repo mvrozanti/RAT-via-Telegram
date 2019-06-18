@@ -1,3 +1,46 @@
+# ref : Anaconda Inc., Using conda with Travis CI, Conda documentation, https://conda.io/docs/user-guide/tasks/use-conda-with-travis-ci.html
+#       CodeChat, .travis.yml - Travis CI configuration, https://pythonhosted.org/CodeChat/.travis.yml.html
+#       Travis CI, Python example (unsupported languages), https://docs.travis-ci.com/user/multi-os/#python-example-unsupported-languages
+#       Kalderimis & Nagy, Windows is Available (Early Release), Oct 10 2018, https://blog.travis-ci.com/2018-10-11-windows-early-release
+#       Miniconda (Python 3) 4.5.11, Chocolatey Gallery, https://chocolatey.org/packages/miniconda3
+#       The Windows Build Environment, https://docs.travis-ci.com/user/reference/windows/
+#       Minimal .travis.yml file to run the current Python 3.7 on Linux, macOS, and Windows, https://github.com/cclauss/Travis-CI-Python-on-three-OSes
+
+language : shell
+
+env:
+  - CONDA_PYTHON=3.6
+  - CONDA_PYTHON=3.7
+  - CONDA_PYTHON=3.7.1
+  - CONDA_PYTHON=nightly
+
 os: windows
-script:
-  pip install -r requirements
+
+before_install:
+  # set conda path info
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
+      MINICONDA_PATH=/c/tools/miniconda3/;
+      MINICONDA_PATH_WIN=`cygpath --windows $MINICONDA_PATH`;
+      MINICONDA_SUB_PATH=$MINICONDA_PATH/Scripts;
+    fi;
+
+install:
+  # install miniconda
+  # pip and conda will also need OpenSSL for Windows
+  - if  [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
+      choco install openssl.light;
+      choco install miniconda3 --params="'/AddToPath:1 /D:$MINICONDA_PATH_WIN'";
+    fi;
+  - export PATH="$MINICONDA_PATH:$MINICONDA_SUB_PATH:$PATH";
+  # for conda version 4.4 or later
+  - source $MINICONDA_PATH/etc/profile.d/conda.sh;
+  - hash -r;
+  - conda config --set always_yes yes --set changeps1 no;
+  - conda update -q conda;
+  - echo "Python $CONDA_PYTHON running on $TRAVIS_OS_NAME";
+  - conda env create --name test-environment python=$CONDA_PYTHON --file=./tests/environment.${CONDA_PYTHON}.yml;
+  - conda activate test-environment;
+  - conda --version ; python --version ; pip --version;
+
+script: 
+  - conda --version && python --version && pip --version;
