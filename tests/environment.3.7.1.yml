@@ -1,6 +1,6 @@
 # ref : Francesco Mosconi, Travis + Anaconda + Jupyter, https://github.com/ghego/travis_anaconda_jupyter
 
-name: travis_anaconda_jupyter
+name:rat_via_telegram_travis_python_bypass 
 channels:
 - defaults
 
@@ -8,11 +8,14 @@ dependencies:
 - python=3.7.1
 # Anaconda 2018.12 python 3.7.1
 # $ conda env export --file FILE
-- jupyter=1.0.0
-- matplotlib=3.0.2
-- numpy=1.15.4
-- pandas=0.23.4
-- pytest=4.0.2
-- scipy=1.1.0
-- statsmodels=0.9.0
-- sympy=1.3
+- telepot
+- requests
+- image
+- winshell
+- tendo
+- pypiwin32
+- pyinstaller
+- psutil
+- pillow
+- opencv-python
+- console-tools
