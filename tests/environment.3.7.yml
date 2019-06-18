@@ -8,14 +8,15 @@ dependencies:
 - python=3.7
 # Anaconda 5.3 python 3.7
 # https://docs.anaconda.com/anaconda/packages/py3.7_win-64/
-- telepot
-- requests
-- image
-- winshell
-- tendo
-- pypiwin32
-- pyinstaller
-- psutil
-- pillow
-- opencv-python
-- console-tools
+- pip:
+  - telepot
+  - requests
+  - image
+  - winshell
+  - tendo
+  - pypiwin32
+  - pyinstaller
+  - psutil
+  - pillow
+  - opencv-python
+  - console-tools

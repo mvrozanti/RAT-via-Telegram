@@ -5,15 +5,16 @@ channels:
 - defaults
 
 dependencies:
-- python>=3.7
-- telepot
-- requests
-- image
-- winshell
-- tendo
-- pypiwin32
-- pyinstaller
-- psutil
-- pillow
-- opencv-python
-- console-tools
+  - pip:
+    - python>=3.7
+    - telepot
+    - requests
+    - image
+    - winshell
+    - tendo
+    - pypiwin32
+    - pyinstaller
+    - psutil
+    - pillow
+    - opencv-python
+    - console-tools
