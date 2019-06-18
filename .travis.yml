@@ -1,0 +1,4 @@
+language: python
+os: windows
+script:
+  pip install -r requirements
