@@ -6,7 +6,7 @@
 #       The Windows Build Environment, https://docs.travis-ci.com/user/reference/windows/
 #       Minimal .travis.yml file to run the current Python 3.7 on Linux, macOS, and Windows, https://github.com/cclauss/Travis-CI-Python-on-three-OSes
 
-language : shell
+language: shell
 
 env:
   - CONDA_PYTHON=3.6
@@ -22,12 +22,13 @@ before_install:
       MINICONDA_PATH=/c/tools/miniconda3/;
       MINICONDA_PATH_WIN=`cygpath --windows $MINICONDA_PATH`;
       MINICONDA_SUB_PATH=$MINICONDA_PATH/Scripts;
+      PATH=$PATH:%USERPROFILE%\AppData\Local\Continuum\anaconda3\bin
     fi;
 
 install:
   # install miniconda
   # pip and conda will also need OpenSSL for Windows
-  - if  [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
+  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
       choco install openssl.light;
       choco install miniconda3 --params="'/AddToPath:1 /D:$MINICONDA_PATH_WIN'";
     fi;
