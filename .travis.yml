@@ -46,7 +46,7 @@ install:
   - pip install flake8  # pytest  # add other testing frameworks later
 script:
   - PYVER="import sys ; print('py{}{}'.format(*sys.version_info))"
-  - yes "`echo`" | python setup_rat.py
+  - python setup_rat.py --yes
   # - TOXENV=${TOXENV:-$(python -c "$PYVER")}  # Longwinded...
   # - TOXENV=${TOXENV:-"py$(echo $TRAVIS_JOB_NAME | tr -d -c 0-9)"}  # Sensitive to 'name:'
   # - TOXENV=${TOXENV:-"py$(echo $TRAVIS_PYTHON_VERSION | tr -d -c 0-9)"}  # Linux only
