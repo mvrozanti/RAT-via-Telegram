@@ -22,8 +22,8 @@ before_install:
       MINICONDA_PATH=/c/tools/miniconda3/;
       MINICONDA_PATH_WIN=`cygpath --windows $MINICONDA_PATH`;
       MINICONDA_SUB_PATH=$MINICONDA_PATH/Scripts;
-      PATH="$PATH:%USERPROFILE%/AppData/Local/Continuum/anaconda3/bin";
     fi;
+    # PATH="$PATH:%USERPROFILE%/AppData/Local/Continuum/anaconda3/bin";
 
 install:
   # install miniconda
