@@ -28,6 +28,7 @@ py37-steps: &py37-steps
     - choco install python
     - python -m pip install --upgrade pip
 
+
 matrix:
   allow_failures:
     - name: "Python 2.7"  # It is legacy Python after all...
@@ -45,6 +46,7 @@ install:
   - pip install flake8  # pytest  # add other testing frameworks later
 script:
   - PYVER="import sys ; print('py{}{}'.format(*sys.version_info))"
+  - pip install --upgrade setuptools
   - python setup_rat.py --yes
   # - TOXENV=${TOXENV:-$(python -c "$PYVER")}  # Longwinded...
   # - TOXENV=${TOXENV:-"py$(echo $TRAVIS_JOB_NAME | tr -d -c 0-9)"}  # Sensitive to 'name:'
