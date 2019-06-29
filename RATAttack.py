@@ -474,19 +474,19 @@ def handle(msg):
                                                 response = 'Usage: /python_exec print(\'printing\')'
                                         else:
                                                 cd.log('w','Executing python command')
-                                                from StringIO import StringIO
-                                                import sys
-                                                old_stderr = sys.stderr
-                                                old_stdout = sys.stdout
-                                                sys.stderr = mystderr = StringIO()
-                                                sys.stdout = mystdout = StringIO()
-                                                exec(command in globals())
-                                                if mystderr.getvalue() != None:
-                                                        response += mystderr.getvalue()
-                                                if mystdout.getvalue() != None:
-                                                        response += mystdout.getvalue()	
-                                                sys.stderr = old_stderr
-                                                sys.stdout = old_stdout
+                                                # from StringIO import StringIO
+                                                # import sys
+                                                # old_stderr = sys.stderr
+                                                # old_stdout = sys.stdout
+                                                # sys.stderr = mystderr = StringIO()
+                                                # sys.stdout = mystdout = StringIO()
+                                                # exec(command in globals())
+                                                # if mystderr.getvalue() != None:
+                                                #         response += mystderr.getvalue()
+                                                # if mystdout.getvalue() != None:
+                                                #         response += mystdout.getvalue()	
+                                                # sys.stderr = old_stderr
+                                                # sys.stdout = old_stdout
                                                 if response == '':
                                                         response = 'Expression executed. No return or malformed expression.'
                                 elif command == '/reboot':

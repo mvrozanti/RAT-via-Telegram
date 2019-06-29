@@ -30,7 +30,7 @@ py37-steps: &py37-steps
 
 matrix:
   allow_failures:
-    - python: "Python 2.7"  # It is legacy Python after all...
+    - name: "Python 2.7"  # It is legacy Python after all...
   include:
     - name: "Python 2.7"
       <<: *py27-steps
