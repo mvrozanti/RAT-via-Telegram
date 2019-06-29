@@ -30,8 +30,7 @@ py37-steps: &py37-steps
 
 matrix:
   allow_failures:
-    - python: 2.7  # It is legacy Python after all...
-    # - python: 3.5  # f-strings are available on Python >= 3.6
+    - python: p27-steps  # It is legacy Python after all...
   include:
     - name: "Python 2.7: Run tests"
       <<: *py27-steps
