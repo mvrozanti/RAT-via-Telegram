@@ -7,15 +7,14 @@ channels:
 dependencies:
 - python=3.6
 # Anaconda 5.0.1 python 3.6
-- pip:
-  - telepot
-  - requests
-  - image
-  - winshell
-  - tendo
-  - pypiwin32
-  - pyinstaller
-  - psutil
-  - pillow
-  - opencv-python
-  - console-tools
+- telepot
+- requests
+- image
+- winshell
+- tendo
+- pypiwin32
+- pyinstaller
+- psutil
+- pillow
+- opencv-python
+- console-tools
