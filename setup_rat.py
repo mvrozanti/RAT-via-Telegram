@@ -19,7 +19,7 @@ elif machine == 'amd64':
     fileA = 'https://download.lfd.uci.edu/pythonlibs/h2ufg7oq/PyAudio-0.2.11-cp37-cp37m-win_amd64.whl'
     fileB = 'https://download.lfd.uci.edu/pythonlibs/h2ufg7oq/pyHook-1.5.1-cp37-cp37m-win_amd64.whl'
 else:
-    print('\n\nYou are probably running a processor like ARM: "' + machine + '". This isn't supported due to the lack of dependencies supporting ARM.')
+    print('\n\nYou are probably running a processor like ARM: "' + machine + '". This isn\'t supported due to the lack of dependencies supporting ARM.')
 
 s('pip install '+fileA)
 s('pip install '+fileB)
