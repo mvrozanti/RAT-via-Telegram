@@ -1,47 +1,61 @@
-# ref : Anaconda Inc., Using conda with Travis CI, Conda documentation, https://conda.io/docs/user-guide/tasks/use-conda-with-travis-ci.html
-#       CodeChat, .travis.yml - Travis CI configuration, https://pythonhosted.org/CodeChat/.travis.yml.html
-#       Travis CI, Python example (unsupported languages), https://docs.travis-ci.com/user/multi-os/#python-example-unsupported-languages
-#       Kalderimis & Nagy, Windows is Available (Early Release), Oct 10 2018, https://blog.travis-ci.com/2018-10-11-windows-early-release
-#       Miniconda (Python 3) 4.5.11, Chocolatey Gallery, https://chocolatey.org/packages/miniconda3
-#       The Windows Build Environment, https://docs.travis-ci.com/user/reference/windows/
-#       Minimal .travis.yml file to run the current Python 3.7 on Linux, macOS, and Windows, https://github.com/cclauss/Travis-CI-Python-on-three-OSes
+# https://blog.travis-ci.com/2018-10-11-windows-early-release
+# https://docs.travis-ci.com/user/reference/windows
+# https://chocolatey.org/packages/python
+os: windows   # Windows Server, version 1803
+language: sh  # 'language: python' is not yet supported
 
-language: shell
+py27-steps: &py27-steps
+  env: PATH=/c/Python27:/c/Python27/Scripts:$PATH
+  before_install:
+    - choco install python2
+    - python -m pip install --upgrade pip
 
-env:
-  - CONDA_PYTHON=3.6
-  - CONDA_PYTHON=3.7
-  - CONDA_PYTHON=3.7.1
-  - CONDA_PYTHON=nightly
+py35-steps: &py35-steps
+  env: PATH=/c/Python35:/c/Python35/Scripts:$PATH
+  before_install:
+    - choco install python --version 3.5.4
+    - python -m pip install --upgrade pip
 
-os: windows
+py36-steps: &py36-steps
+  env: PATH=/c/Python36:/c/Python36/Scripts:$PATH
+  before_install:
+    - choco install python --version 3.6.8
+    - python -m pip install --upgrade pip
 
-before_install:
-  # set conda path info
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
-      MINICONDA_PATH=/c/tools/miniconda3/;
-      MINICONDA_PATH_WIN=`cygpath --windows $MINICONDA_PATH`;
-      MINICONDA_SUB_PATH=$MINICONDA_PATH/Scripts;
-    fi;
-    # PATH="$PATH:%USERPROFILE%/AppData/Local/Continuum/anaconda3/bin";
+py37-steps: &py37-steps
+  env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
+  before_install:
+    - choco install python
+    - python -m pip install --upgrade pip
 
+matrix:
+  allow_failures:
+    - python: 2.7  # It is legacy Python after all...
+    # - python: 3.5  # f-strings are available on Python >= 3.6
+  include:
+    - name: "Python 2.7: Run tests"
+      <<: *py27-steps
+    - name: "Python 3.5: Run tests"
+      <<: *py35-steps
+    - name: "Python 3.6: Run tests"
+      <<: *py36-steps
+    - name: "Python 3.7: Run tests"
+      <<: *py37-steps
 install:
-  # install miniconda
-  # pip and conda will also need OpenSSL for Windows
-  - if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
-      choco install openssl.light;
-      choco install miniconda3 --params="'/AddToPath:1 /D:$MINICONDA_PATH_WIN'";
-    fi;
-  - export PATH="$MINICONDA_PATH:$MINICONDA_SUB_PATH:$PATH";
-  # for conda version 4.4 or later
-  - source $MINICONDA_PATH/etc/profile.d/conda.sh;
-  - hash -r;
-  - conda config --set always_yes yes --set changeps1 no;
-  - conda update -q conda;
-  - echo "Python $CONDA_PYTHON running on $TRAVIS_OS_NAME";
-  - conda env create --name test-environment python=$CONDA_PYTHON --file=./tests/environment.${CONDA_PYTHON}.yml;
-  - conda activate test-environment;
-  - conda --version ; python --version ; pip --version;
-
-script: 
-  - conda --version && python --version && pip --version;
+  #- pip install -r requirements.txt
+  - pip install flake8  # pytest  # add other testing frameworks later
+script:
+  - PYVER="import sys ; print('py{}{}'.format(*sys.version_info))"
+  - TOXENV=${TOXENV:-$(python -c "$PYVER")}  # Longwinded...
+  - TOXENV=${TOXENV:-"py$(echo $TRAVIS_JOB_NAME | tr -d -c 0-9)"}  # Sensitive to 'name:'
+  - TOXENV=${TOXENV:-"py$(echo $TRAVIS_PYTHON_VERSION | tr -d -c 0-9)"}  # Linux only
+  - echo "TOXENV is $TOXENV"
+  - flake8 --version
+  - echo stop the build if there are Python syntax errors or undefined names
+  - echo ; echo -n "flake8 testing on " ; python --version
+  - flake8 . --count --select=E9,F401,F63,F72,F82 --show-source --statistics
+  - echo exit-zero treats all errors as warnings.  The GitHub editor is 127 chars wide
+  - flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+  #- true  # pytest --capture=sys
+notifications:
+  email: false
