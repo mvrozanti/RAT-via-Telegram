@@ -30,15 +30,15 @@ py37-steps: &py37-steps
 
 matrix:
   allow_failures:
-    - python: p27-steps  # It is legacy Python after all...
+    - python: "Python 2.7"  # It is legacy Python after all...
   include:
-    - name: "Python 2.7: Run tests"
+    - name: "Python 2.7"
       <<: *py27-steps
-    - name: "Python 3.5: Run tests"
+    - name: "Python 3.5"
       <<: *py35-steps
-    - name: "Python 3.6: Run tests"
+    - name: "Python 3.6"
       <<: *py36-steps
-    - name: "Python 3.7: Run tests"
+    - name: "Python 3.7"
       <<: *py37-steps
 install:
   #- pip install -r requirements.txt
