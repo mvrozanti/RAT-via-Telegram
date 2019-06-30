@@ -52,5 +52,5 @@ script:
   - pip install --upgrade setuptools
   - python compile.py --yes
   - echo $PATH
-  - python -c 'import cv2'
+  - python -c 'import cv4'
   # - ./dist/RATAttack.exe
