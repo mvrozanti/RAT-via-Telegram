@@ -75,7 +75,7 @@ download_dependencies()
 if not auto:
     input('\n\nDid the install run correctly?\n\n\nPress ENTER to build')
 
-system('pyinstaller --clean --upxdir upx-* --onefile "RATAttack.py"')
+system('pyinstaller --clean --upx-dir upx-* --onefile "RATAttack.py"')
 
 if exists('dist/RATAttack.exe'):
     print('\n\nScript has finished')
