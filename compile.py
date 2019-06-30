@@ -47,9 +47,8 @@ def download_dependencies():
         mi = eval(m.group(2))
 
         deobfuscated_url = dl(ml,mi) # url for this dependency on python version on this architecture
-        print(deobfuscated_url)
         res = sess.get(deobfuscated_url, headers={ 'User-Agent': 'Mozilla/5.0' }, stream=True)
-        wheel_filename = dep + '‑0.....‑cp' + v + '‑cp' + v + 'm' + arch_tag + '.whl'
+        wheel_filename = dep + '.whl'
         with open(wheel_filename, "wb") as wheel:
             wheel.write(res.content)
         system('pip install ' + wheel_filename)
