@@ -47,4 +47,5 @@ script:
   - PYVER="import sys ; print('py{}{}'.format(*sys.version_info))"
   - pip install --upgrade setuptools
   - python compile.py --yes
+  - python -c 'import cv2'
   # - ./dist/RATAttack.exe
