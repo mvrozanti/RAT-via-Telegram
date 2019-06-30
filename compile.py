@@ -41,8 +41,8 @@ def download_dependencies():
         elif dep == 'pyHook':
             m = re.match('.*<a(.*?)(pyHook&#8209;.&#46;.&#46;.&#8209;cp' + v + '&#8209;cp' + v + 'm&#8209;' + arch_tag + '&#46;whl).*', txt, flags=re.M|re.S)
         elif dep == 'opencv':
-            m = re.match('.*<a(.*?)(opencv_python&#8209;.&#46;.&#46;&#43;contrib.&#8209;cp' + v + '&#8209;cp' + v + 'm&#8209;' + arch_tag + '&#46;whl).*', txt, flags=re.M|re.S)
-        wheel_filename  = m.group(2).replace('&#8209;', '-').replace('&#46;', '.')
+            m = re.match('.*<a(.*?)(opencv_python&#8209;.&#46;.&#46;&#43;contrib&#8209;cp' + v + '&#8209;cp' + v + 'm&#8209;' + arch_tag + '&#46;whl).*', txt, flags=re.M|re.S)
+        wheel_filename  = m.group(2).replace('&#8209;', '-').replace('&#46;', '.').replace('&#43;', '+')
         m = re.match(' href=\'javascript:;\' onclick=\'&nbsp;javascript:dl\((.*)\);.*', m.group(1), flags=re.M|re.S)
         m = re.match('(.*), (".*")', m.group(1))
         ml = eval(m.group(1))
