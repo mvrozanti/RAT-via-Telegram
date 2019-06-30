@@ -31,7 +31,7 @@ if not auto:
 # s('compile.bat')
 s('pip install pyinstaller')
 
-s('pyinstaller --clean --upx-dir "upx395w" --onefile "RATAttack.py"')
+s('pyinstaller --clean --onefile "RATAttack.py"')
 
 if exists('dist/RATAttack.exe'):
     print('\n\nScript has finished')
