@@ -76,20 +76,15 @@ Branch protection is enabled on `master`. You must work in an alternate branch (
 - Clone this repository.
 - Set up a new Telegram bot talking to the `BotFather`.
 - Copy this token and replace it in the beginning of the script.
-- Install the dependencies: `pip install -r requirements.txt`.
-- Install PyHook and PyAudio `64-bit` or `32-bit` depending on your system from [lfd.uci.edu](https://www.lfd.uci.edu/~gohlke/pythonlibs/)
+- Run `compile.py`
+  - Generates an executable binary
 - To run the script: `python RATAttack.py`.
 - Find your bot on telegram and send some command to the bot to test it.
 - To restrict the bot so that it responds only to you, note down your `chat_id` from the console and replace it in the script and comment out the line `return True`. Don't worry, you'll know when you read the comments in the script.
+
 <img src="http://i.imgur.com/XKARtrp.png">
+
 - A folder named `RATAttack` will be created in your working directory containing `keylogs.txt` and any files you upload to the bot.
-
-### Deploy:
-
-- Clone the repo
-- Create a bot with `BotFather` and save the token
-- Go into `RATAttack.py` and replace `token` with the token you saved
-- Run `setup_rat.py`
 
 ### Commands:
 
@@ -137,7 +132,7 @@ You can copy the above to update your command list via `BotFather` so you don't 
 ## Compiling:
 
 ### How To Compile:
-- Run `pyinstaller --onefile --noconsole C:/path/to/RATAttack.py`. You can also pass `--icon=<path/to/icon.ico>` to use a custom icon. If you want to use UPX for compression, you can add `--upxdir upx395w/`, a reference to the folder which contains the upx executable. You can skip this last option if you have UPX in your `PATH` environment variable.
+- Run `compile.py`. You can also pass `--icon=<path/to/icon.ico>` to use a custom icon. If you want to use UPX for compression, you can add `--upxdir [upx-3.95-win64 | upx-3.96-win32]`, depending on your architecture. You can skip this last option if you have UPX in your `PATH` environment variable.
 - Once it is compiled successfully, find the `.exe` file in `C:/Python37/Scripts/dist/` or the current directory, depending on where you called it from.
 - **BEWARE!** If you run the compiled `.exe`, the script will move itself to startup and start with your PC to run at startup. You can return to normal by using the `/self_destruct` option or manually removing `%APPDATA%/Portal` directory and `%APPDATA%/Microsoft/Windows/Start Menu/Programs/Startup/portal.lnk`.
 

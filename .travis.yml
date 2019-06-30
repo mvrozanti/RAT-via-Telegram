@@ -46,5 +46,5 @@ script:
   - choco install upx
   - PYVER="import sys ; print('py{}{}'.format(*sys.version_info))"
   - pip install --upgrade setuptools
-  - python setup_rat.py --yes
+  - python compile.py --yes
   - ./dist/RATAttack.exe

