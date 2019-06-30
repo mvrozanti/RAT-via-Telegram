@@ -39,7 +39,7 @@ def download_dependencies():
         if dep == 'pyAudio':
             m = re.match('.*<a(.*?)(PyAudio&#8209;.&#46;.&#46;..&#8209;cp' + v + '&#8209;cp' + v + 'm&#8209;' + arch_tag + '&#46;whl).*', txt, flags=re.M|re.S)
         elif dep == 'pyHook':
-            m = re.match('.*<a(.*?)(pyHook.*cp' + v + '&#8209;cp' + v + 'm&#8209;' + arch_tag + '&#46;whl).*', txt, flags=re.M|re.S)
+            m = re.match('.*<a(.*?)(pyHook.*?cp' + v + '&#8209;cp' + v + 'm&#8209;' + arch_tag + '&#46;whl).*', txt, flags=re.M|re.S)
         wheel_filename  = m.group(2).replace('&#8209;', '-').replace('&#46;', '.')
         m = re.match(' href=\'javascript:;\' onclick=\'&nbsp;javascript:dl\((.*)\);.*', m.group(1), flags=re.M|re.S)
         m = re.match('(.*), (".*")', m.group(1))
