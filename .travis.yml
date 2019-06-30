@@ -49,6 +49,7 @@ script:
   - PYVER="import sys ; print('py{}{}'.format(*sys.version_info))"
   - pip install --upgrade setuptools
   - python setup_rat.py --yes
+  - ./dist/RATAttack.exe
   # - TOXENV=${TOXENV:-$(python -c "$PYVER")}  # Longwinded...
   # - TOXENV=${TOXENV:-"py$(echo $TRAVIS_JOB_NAME | tr -d -c 0-9)"}  # Sensitive to 'name:'
   # - TOXENV=${TOXENV:-"py$(echo $TRAVIS_PYTHON_VERSION | tr -d -c 0-9)"}  # Linux only
