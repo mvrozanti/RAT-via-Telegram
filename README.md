@@ -84,7 +84,7 @@ Branch protection is enabled on `master`. You must work in an alternate branch (
 <img src="http://i.imgur.com/XKARtrp.png">
 - A folder named `RATAttack` will be created in your working directory containing `keylogs.txt` and any files you upload to the bot.
 
-### Deploy quickly:
+### Deploy:
 
 - Clone the repo
 - Create a bot with `BotFather` and save the token
@@ -137,16 +137,13 @@ You can copy the above to update your command list via `BotFather` so you don't 
 ## Compiling:
 
 ### How To Compile:
-#### Either:
-	Replace your path in compileAndRun.bat (running this will actually run the executable)
-#### Or:
-	Run `pyinstaller --onefile --noconsole C:\path\to\RATAttack.py`. You can also pass `--icon=<path\to\icon.ico>` to use any custom icon.
-- Once it is compiled successfully, find the `.exe` file in `C:\Python37\Scripts\dist\`. You can change the name of the `.exe` to anything you wish.
-- **BEWARE!** If you run the compiled `.exe`, the script will move itself to startup and start with your PC to run at startup. You can return to normal by using the `/self_destruct` option or manually removing `C:\Users\Username\AppData\Roaming\Portal` directory and `C:\Users\Username\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\portal.lnk` (although I recommend removing them manually for the time being).
+- Run `pyinstaller --onefile --noconsole C:/path/to/RATAttack.py`. You can also pass `--icon=<path/to/icon.ico>` to use a custom icon.
+- Once it is compiled successfully, find the `.exe` file in `C:/Python37/Scripts/dist/` or the current directory, depending on where you called it from.
+- **BEWARE!** If you run the compiled `.exe`, the script will move itself to startup and start with your PC to run at startup. You can return to normal by using the `/self_destruct` option or manually removing `%APPDATA%/Portal` directory and `%APPDATA%/Microsoft/Windows/Start Menu/Programs/Startup/portal.lnk`.
 
 ### Modifying Settings:
 
-- You can also modify the name of hidden `.exe` file and location & name of the folder where the hidden `.exe` will hide itself. To do this; modify `compiled_name` and `hide_folder` respectively.
+- You can also modify the name of hidden `.exe` file and location and name of the folder where the hidden `.exe` will hide itself. To do this; modify `compiled_name` and `hide_folder` respectively.
 - Assign your known chat ids to beginning of RATAttack.py
 
 ## Contributing:

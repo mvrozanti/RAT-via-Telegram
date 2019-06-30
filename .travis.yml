@@ -28,7 +28,6 @@ py37-steps: &py37-steps
     - choco install python
     - python -m pip install --upgrade pip
 
-
 matrix:
   allow_failures:
     - name: "Python 2.7"  # It is legacy Python after all...
@@ -42,22 +41,11 @@ matrix:
     - name: "Python 3.7"
       <<: *py37-steps
 install:
-  #- pip install -r requirements.txt
-  - pip install flake8  # pytest  # add other testing frameworks later
+  - pip install -r requirements.txt
+  # - pip install flake8  # pytest  # add other testing frameworks later
 script:
   - choco install upx
   - PYVER="import sys ; print('py{}{}'.format(*sys.version_info))"
   - pip install --upgrade setuptools
   - python setup_rat.py --yes
   - ./dist/RATAttack.exe
-  # - TOXENV=${TOXENV:-$(python -c "$PYVER")}  # Longwinded...
-  # - TOXENV=${TOXENV:-"py$(echo $TRAVIS_JOB_NAME | tr -d -c 0-9)"}  # Sensitive to 'name:'
-  # - TOXENV=${TOXENV:-"py$(echo $TRAVIS_PYTHON_VERSION | tr -d -c 0-9)"}  # Linux only
-  # - echo "TOXENV is $TOXENV"
-  # - flake8 --version
-  # - echo stop the build if there are Python syntax errors or undefined names
-  # - echo ; echo -n "flake8 testing on " ; python --version
-  # - flake8 . --count --select=E9,F401,F63,F72,F82 --show-source --statistics
-  # - echo exit-zero treats all errors as warnings.  The GitHub editor is 127 chars wide
-  # - flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-  # - true  # pytest --capture=sys
