@@ -137,7 +137,7 @@ You can copy the above to update your command list via `BotFather` so you don't 
 ## Compiling:
 
 ### How To Compile:
-- Run `pyinstaller --onefile --noconsole C:/path/to/RATAttack.py`. You can also pass `--icon=<path/to/icon.ico>` to use a custom icon.
+- Run `pyinstaller --onefile --noconsole C:/path/to/RATAttack.py`. You can also pass `--icon=<path/to/icon.ico>` to use a custom icon. If you want to use UPX for compression, you can add `--upxdir upx395w/`, a reference to the folder which contains the upx executable. You can skip this last option if you have UPX in your `PATH` environment variable.
 - Once it is compiled successfully, find the `.exe` file in `C:/Python37/Scripts/dist/` or the current directory, depending on where you called it from.
 - **BEWARE!** If you run the compiled `.exe`, the script will move itself to startup and start with your PC to run at startup. You can return to normal by using the `/self_destruct` option or manually removing `%APPDATA%/Portal` directory and `%APPDATA%/Microsoft/Windows/Start Menu/Programs/Startup/portal.lnk`.
 

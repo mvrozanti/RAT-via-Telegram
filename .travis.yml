@@ -42,7 +42,6 @@ matrix:
       <<: *py37-steps
 install:
   - pip install -r requirements.txt
-  # - pip install flake8  # pytest  # add other testing frameworks later
 script:
   - choco install upx
   - PYVER="import sys ; print('py{}{}'.format(*sys.version_info))"
