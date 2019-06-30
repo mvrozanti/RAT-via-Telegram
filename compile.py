@@ -35,7 +35,7 @@ def download_dependencies():
         return ot
 
 
-    def download_and_extract_file(dep):
+    def download_and_install_wheel(dep):
         arch_tag = 'win_amd64' if arch == 'amd64' else 'win32' 
         if dep == 'pyAudio':
             m = re.match('.*<a(.*)PyAudio&#8209;.&#46;.&#46;..&#8209;cp' + v + '&#8209;cp' + v + 'm&#8209;' + arch_tag + '&#46;whl.*', txt, flags=re.M|re.S)
@@ -49,11 +49,13 @@ def download_dependencies():
         deobfuscated_url = dl(ml,mi) # url for this dependency on python version on this architecture
         print(deobfuscated_url)
         res = sess.get(deobfuscated_url, headers={ 'User-Agent': 'Mozilla/5.0' }, stream=True)
-        with open(dep + '‑0.....‑cp' + v + '‑cp' + v + 'm' + arch_tag + '.whl', "wb") as wheel:
+        wheel_filename = dep + '‑0.....‑cp' + v + '‑cp' + v + 'm' + arch_tag + '.whl'
+        with open(wheel_filename, "wb") as wheel:
             wheel.write(res.content)
+        system('pip install ' + wheel_filename)
     
-    download_and_extract_file('pyAudio')
-    download_and_extract_file('pyHook')
+    download_and_install_wheel('pyAudio')
+    download_and_install_wheel('pyHook')
 
     # download UPX
     if system('upx -h') and not exists('upx395w/upx.exe'):
@@ -69,8 +71,6 @@ def download_dependencies():
 
 download_dependencies()
 
-system('pip install ' + fileA)
-system('pip install ' + fileB)
 
 if not auto:
     input('\n\nDid the install run correctly?\n\n\nPress ENTER to build')
