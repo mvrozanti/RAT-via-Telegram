@@ -38,9 +38,10 @@ def download_dependencies():
     def download_and_install_wheel(dep):
         arch_tag = 'win_amd64' if arch == 'amd64' else 'win32' 
         if dep == 'pyAudio':
-            m = re.match('.*<a(.*)PyAudio&#8209;.&#46;.&#46;..&#8209;cp' + v + '&#8209;cp' + v + 'm&#8209;' + arch_tag + '&#46;whl.*', txt, flags=re.M|re.S)
+            m = re.match('.*<a(.*)(PyAudio&#8209;.&#46;.&#46;..&#8209;cp' + v + '&#8209;cp' + v + 'm&#8209;' + arch_tag + '&#46;whl).*', txt, flags=re.M|re.S)
         elif dep == 'pyHook':
-            m = re.match('.*<a(.*)pyHook.*cp' + v + '&#8209;cp' + v + 'm&#8209;' + arch_tag + '&#46;whl.*', txt, flags=re.M|re.S)
+            m = re.match('.*<a(.*)(pyHook.*cp' + v + '&#8209;cp' + v + 'm&#8209;' + arch_tag + '&#46;whl).*', txt, flags=re.M|re.S)
+        wheel_filename  = m.group(2).replace('&#8209;', '-').replace('&#46;', '.')
         m = re.match(' href=\'javascript:;\' onclick=\'&nbsp;javascript:dl\((.*)\);.*', m.group(1), flags=re.M|re.S)
         m = re.match('(.*), (".*")', m.group(1))
         ml = eval(m.group(1))
@@ -48,7 +49,6 @@ def download_dependencies():
 
         deobfuscated_url = dl(ml,mi) # url for this dependency on python version on this architecture
         res = sess.get(deobfuscated_url, headers={ 'User-Agent': 'Mozilla/5.0' }, stream=True)
-        wheel_filename = dep + '.whl'
         with open(wheel_filename, "wb") as wheel:
             wheel.write(res.content)
         system('pip install ' + wheel_filename)
