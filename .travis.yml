@@ -14,6 +14,7 @@ py35-steps: &py35-steps
   env: PATH=/c/Python35:/c/Python35/Scripts:$PATH
   before_install:
     - choco install python --version 3.5.4
+    - PATH="$PATH:C:\Python35\DLLs"
     - python -m pip install --upgrade pip
 
 py36-steps: &py36-steps
@@ -43,7 +44,7 @@ matrix:
 install:
   - pip install -r requirements.txt
 script:
-  - choco install upx
+  - choco install upx windows-sdk-10.0 
   - OPENCV_DIR=./OpenCV
   - PATH="$PATH:./OpenCV/bin"
   - ls
