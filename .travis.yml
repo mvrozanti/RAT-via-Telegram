@@ -47,10 +47,10 @@ script:
   - choco install upx windows-sdk-10.0 
   - OPENCV_DIR=./OpenCV
   - PATH="$PATH:./OpenCV/bin"
-  - ls
-  - choco install opencv '/InstallationPath:.'
+  - choco install opencv '/InstallationPath:./OpenCV'
   - PYVER="import sys ; print('py{}{}'.format(*sys.version_info))"
   - pip install --upgrade setuptools
   - python compile.py --yes
+  - echo $PATH
   - python -c 'import cv2'
   # - ./dist/RATAttack.exe
