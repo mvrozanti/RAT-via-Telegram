@@ -44,13 +44,10 @@ matrix:
 install:
   - pip install -r requirements.txt
 script:
-  - choco install upx windows-sdk-10.0 
-  # - OPENCV_DIR=./OpenCV
-  # - PATH="$PATH:./OpenCV/bin"
-  # - choco install opencv '/InstallationPath:./OpenCV'
+  - choco install upx
   - PYVER="import sys ; print('py{}{}'.format(*sys.version_info))"
   - pip install --upgrade setuptools
   - python compile.py --yes
   - echo $PATH
-  - python -c 'import cv3'
+  - python -c 'import cv2'
   # - ./dist/RATAttack.exe
