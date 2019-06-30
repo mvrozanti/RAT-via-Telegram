@@ -56,7 +56,7 @@ def download_dependencies():
     
     download_and_install_lfd_uci_wheel('pyAudio')
     download_and_install_lfd_uci_wheel('pyHook')
-    download_and_install_lfd_uci_wheel('opencv')
+    # download_and_install_lfd_uci_wheel('opencv')
 
     # check for upx in PATH otherwise download and install
     if system('upx -h') and not exists('upx395w/upx.exe'): 

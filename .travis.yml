@@ -43,7 +43,7 @@ matrix:
 install:
   - pip install -r requirements.txt
 script:
-  - choco install upx
+  - choco install opencv upx
   - PYVER="import sys ; print('py{}{}'.format(*sys.version_info))"
   - pip install --upgrade setuptools
   - python compile.py --yes
