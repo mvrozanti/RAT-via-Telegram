@@ -46,7 +46,8 @@ script:
   - choco install upx
   - OPENCV_DIR=./OpenCV
   - PATH="$PATH:./OpenCV/bin"
-  - choco install opencv '/InstallationPath:.'
+  - ls
+  - choco install opencv '/InstallationPath:%OPENCV_DIR%'
   - PYVER="import sys ; print('py{}{}'.format(*sys.version_info))"
   - pip install --upgrade setuptools
   - python compile.py --yes
