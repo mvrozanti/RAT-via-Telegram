@@ -4,10 +4,6 @@
 
 Windows Remote Administration Tool via Telegram (now in Python 3.7!) | Originally created by <a href="http://github.com/Ritiek">Ritiek</a>
 
-## Temporary note to contributors
-
-Branch protection is enabled on `master`. You must work in an alternate branch (e.g. `dev`) and make a PR. This is to ensure that master has a working and approved version of RvT.
-
 ### Why another one?
 
 - The current Remote Administration Tools in the market face 2 major problems:
@@ -145,6 +141,7 @@ You can copy the above to update your command list via `BotFather` so you don't 
 
 - This project is still in very early stages, so you can expect some bugs. Please feel free to report them! Even better, send a pull request :)
 - Any new features and ideas are most welcome! Please do submit feature requests by creating Issues
+- Branch protection is enabled on `master`. You must work in an alternate branch (e.g. `dev`) and make a PR. This is to ensure that master has a working and approved version of RvT.
 
 ## Credit
 A markdown file with credits:
